@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    搜索引擎黑客之通过shodan入侵弱口令网络摄像头 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="西行妖">
+
+
+
+  <meta name="keywords" content=",网络安全,硬件安全">
+<meta name="description" content="0x00 什么是搜索引擎黑客搜索引擎（Search Engine）是指根据一定的策略、运用特定的计算机程序从互联网上搜集信息，在对信息进行组织和处理后，为用户提供检索服务，将用户检索相关的信息展示给用户的系统。搜索引擎包括全文索引、目录索引、元搜索引擎、垂直搜索引擎、集合式搜索引擎、门户搜索引擎与免费链接列表等。它是通过爬虫机器人不停的在爬世界所有网站，私人的一些重要数据即使没有对外公布，但是极有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搜索引擎黑客之通过shodan入侵弱口令网络摄像头 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2017/10/29/搜索引擎黑客之通过shodan入侵弱口令网络摄像头/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 什么是搜索引擎黑客搜索引擎（Search Engine）是指根据一定的策略、运用特定的计算机程序从互联网上搜集信息，在对信息进行组织和处理后，为用户提供检索服务，将用户检索相关的信息展示给用户的系统。搜索引擎包括全文索引、目录索引、元搜索引擎、垂直搜索引擎、集合式搜索引擎、门户搜索引擎与免费链接列表等。它是通过爬虫机器人不停的在爬世界所有网站，私人的一些重要数据即使没有对外公布，但是极有">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/hk/1.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/hk/2.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/hk/3.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/hk/4.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/hk/5.png">
+<meta property="og:updated_time" content="2017-10-29T12:00:15.229Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搜索引擎黑客之通过shodan入侵弱口令网络摄像头 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 什么是搜索引擎黑客搜索引擎（Search Engine）是指根据一定的策略、运用特定的计算机程序从互联网上搜集信息，在对信息进行组织和处理后，为用户提供检索服务，将用户检索相关的信息展示给用户的系统。搜索引擎包括全文索引、目录索引、元搜索引擎、垂直搜索引擎、集合式搜索引擎、门户搜索引擎与免费链接列表等。它是通过爬虫机器人不停的在爬世界所有网站，私人的一些重要数据即使没有对外公布，但是极有">
+<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/hk/1.png">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">西行妖</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/网络安全/" class="tagc1">网络安全 : 4</a><a href="/tags/python/" class="tagc2">python : 4</a><a href="/tags/ctf/" class="tagc3">ctf : 3</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 3</a><a href="/tags/硬件安全/" class="tagc5">硬件安全 : 2</a><a href="/tags/arpspoof/" class="tagc1">arpspoof : 1</a><a href="/tags/nmap/" class="tagc2">nmap : 1</a><a href="/tags/arp入侵/" class="tagc3">arp入侵 : 1</a><a href="/tags/搭建博客/" class="tagc4">搭建博客 : 1</a><a href="/tags/hexo/" class="tagc5">hexo : 1</a><a href="/tags/github/" class="tagc1">github : 1</a><a href="/tags/acm/" class="tagc2">acm : 1</a><a href="/tags/无线网络/" class="tagc3">无线网络 : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="西行妖's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">搜索引擎黑客之通过shodan入侵弱口令网络摄像头</h1>
+    
+    <div class="post-meta">
+      <time datetime="2017-10-29 19:57:30" class="post-meta__date date">2017-10-29 19:57:30</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/网络安全/">网络安全</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/硬件安全/">硬件安全</a>, <a class="tags-link" href="/tags/网络安全/">网络安全</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-什么是搜索引擎黑客"><a href="#0x00-什么是搜索引擎黑客" class="headerlink" title="0x00 什么是搜索引擎黑客"></a>0x00 什么是搜索引擎黑客</h2><p>搜索引擎（Search Engine）是指根据一定的策略、运用特定的计算机程序从互联网上搜集信息，在对信息进行组织和处理后，为用户提供检索服务，将用户检索相关的信息展示给用户的系统。搜索引擎包括全文索引、目录索引、元搜索引擎、垂直搜索引擎、集合式搜索引擎、门户搜索引擎与免费链接列表等。<br>它是通过爬虫机器人不停的在爬世界所有网站，私人的一些重要数据即使没有对外公布，但是极有可能已经被搜索引擎爬到了。这个时候通过搜索引擎的妙用，就可以很轻松的获取你的重要个人信息。  </p>
+<h2 id="0x01-百度谷歌等工具的使用"><a href="#0x01-百度谷歌等工具的使用" class="headerlink" title="0x01 百度谷歌等工具的使用"></a>0x01 百度谷歌等工具的使用</h2><p>首先来讲一下平时经常用到的搜索引擎：</p>
+<ul>
+<li>百度：www.baidu.com</li>
+<li>google: www.google.com</li>
+<li>俄罗斯的yandex：www.yandex.com</li>
+</ul>
+<p>平时关键字搜索大家都会就不再赘述，这里主要讲一下百度的一些小技巧：  </p>
+<p>1.加减字符的运用<br>用法： 用“+”包含特定查询词，用“-”排除特定查询词<br>例如：ted +pixiv -演讲<br>我们要搜一个画师的id，不加参数的时候很难找到:  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/hk/1.png" alt=""><br>加了之后就很容易找到相关内容了:  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/hk/2.png" alt=""><br>2.intitle搜索范围限定在网页标题<br>用法： intitle:xxx<br>3.site搜索范围限定在特定站点中<br>用法： site:xxx<br>4.inurl搜索范围限定在url链接中<br>用法： inurl:xxx<br>5.Filetype搜索范围限定在指定文档格式中<br>用法： Filetype:xxx  </p>
+<p>当然，如果一般windows用户不习惯使用这些语法的话，可以选择去<br><a href="https://www.baidu.com/gaoji/advanced.html" target="_blank" rel="external">https://www.baidu.com/gaoji/advanced.html</a><br>进行高级搜索  </p>
+<p>google的操作基本一致，这里给一个利用谷歌语法的黑客数据库<br><a href="https://www.exploit-db.com/google-hacking-database/" target="_blank" rel="external">https://www.exploit-db.com/google-hacking-database/</a></p>
+<h2 id="0x02-shodan的基本操作"><a href="#0x02-shodan的基本操作" class="headerlink" title="0x02 shodan的基本操作"></a>0x02 shodan的基本操作</h2><p>这里是shodan的地址<br><a href="https://www.shodan.io/" target="_blank" rel="external">https://www.shodan.io/</a><br>接下来我们看看什么是shodan<br>在百度百科里面给出了这么一句话：Shodan是互联网上最可怕的搜索引擎。<br>虽然目前人们都认为谷歌是最强劲的搜索引擎，但Shodan才是互联网上最可怕的搜索引擎。与谷歌不同的是，Shodan不是在网上搜索网址，而是直接进入互联网的背后通道。Shodan可以说是一款“黑暗”谷歌，一刻不停的在寻找着所有和互联网关联的服务器、摄像头、打印机、路由器等等。每个月Shodan都会在大约5亿个服务器上日夜不停地搜集信息。<br>我们平时的搜索引擎谷歌百度爬的是网页信息，而shodan爬的是互联网设备和端口。这就造成了什么情况呢？现在智能家电越来越多，有很多会连接到互联网，而shodan就能查找到这些设备，然后不法分子可能就会对这些生活中重要的设备进行入侵，这是十分危险的。</p>
+<h2 id="0x03-入侵网络摄像头"><a href="#0x03-入侵网络摄像头" class="headerlink" title="0x03 入侵网络摄像头"></a>0x03 入侵网络摄像头</h2><p>做了这么多铺垫，我们来体验一下shodan，入侵一下网络上弱口令的摄像头。<br>首先打开shodan，注册个账号，这样才能使用过滤，然后我们在搜索框输入：Hikvision-Webs country:”CN” city:”Nanjing”<br><img src="http://oo3iot5oz.bkt.clouddn.com/hk/3.png" alt=""><br>这句话是搜索所有地点为中国南京的海康威视摄像头设备，我们搜索到很多结果，下来我们点击某些设备的index打开它的后台界面，海康威视的默认账号是admin，密码是12345，我们可以写个python脚本批量测试，也可以写个弱口令字典，用python脚本对这些设备进行暴力破解（前面的博客写过一些这类脚本，只需稍作更改）。<br><img src="http://oo3iot5oz.bkt.clouddn.com/hk/4.png" alt=""><br>如图是一个已被破解的摄像头管理界面，而且是管理员权限，在这里我们可以查看摄像头拍摄的界面和更改各种设置。<br><img src="http://oo3iot5oz.bkt.clouddn.com/hk/5.png" alt=""><br>点击预览、回放等就可以查看摄像头内容了，但是谨记这会侵犯别人的隐私权，是违法的行为，我们是遵纪守法的好公民所以知道它的原理和危害就足够。运用技术保护好个人隐私，如非必要不将摄像头接入互联网，一定要接入的话，不能使用容易被破解的弱口令。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2017/10/29/搜索引擎黑客之通过shodan入侵弱口令网络摄像头/" target="_blank">搜索引擎黑客之通过shodan入侵弱口令网络摄像头</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">西行妖</a><br />
+    <span>发布时间:</span>2017-10-29 19:57:30<br />
+    <span>最后更新:</span>2017-10-29 20:00:15<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
