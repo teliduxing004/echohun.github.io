@@ -27,9 +27,9 @@
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/1.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/2.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/3.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/4.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/0004.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/5.png">
-<meta property="og:updated_time" content="2017-05-11T03:41:36.593Z">
+<meta property="og:updated_time" content="2017-12-27T09:21:52.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="细数用github-pages和hexo搭建博客遇到的那些坑 | Leticia‘s Blog">
 <meta name="twitter:description" content="细数用github-pages和hexo搭建博客遇到的那些坑上次搭建博客时，踩了很多坑，为了接下来搭建个人博客的朋友们在遇到同样的问题时能够少走弯路，我就在这里谈谈之前踩到的一些比较重要的坑和对应的解决办法  
@@ -79,7 +79,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/python/" class="tagc1">python : 5</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/ctf/" class="tagc3">ctf : 3</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 3</a><a href="/tags/硬件安全/" class="tagc5">硬件安全 : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 1</a><a href="/tags/https/" class="tagc2">https : 1</a><a href="/tags/ssl/" class="tagc3">ssl : 1</a><a href="/tags/nmap/" class="tagc4">nmap : 1</a><a href="/tags/arp入侵/" class="tagc5">arp入侵 : 1</a><a href="/tags/arpspoof/" class="tagc1">arpspoof : 1</a><a href="/tags/网络协议/" class="tagc2">网络协议 : 1</a><a href="/tags/天文学/" class="tagc3">天文学 : 1</a><a href="/tags/搭建博客/" class="tagc4">搭建博客 : 1</a><a href="/tags/hexo/" class="tagc5">hexo : 1</a><a href="/tags/github/" class="tagc1">github : 1</a><a href="/tags/acm/" class="tagc2">acm : 1</a><a href="/tags/无线网络/" class="tagc3">无线网络 : 1</a>
+<a href="/tags/python/" class="tagc1">python : 5</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/ctf/" class="tagc3">ctf : 3</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 3</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/网络协议/" class="tagc2">网络协议 : 1</a><a href="/tags/arp入侵/" class="tagc3">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc4">nmap : 1</a><a href="/tags/https/" class="tagc5">https : 1</a><a href="/tags/ssl/" class="tagc1">ssl : 1</a><a href="/tags/acm/" class="tagc2">acm : 1</a><a href="/tags/搭建博客/" class="tagc3">搭建博客 : 1</a><a href="/tags/hexo/" class="tagc4">hexo : 1</a><a href="/tags/github/" class="tagc5">github : 1</a><a href="/tags/无线网络/" class="tagc1">无线网络 : 1</a><a href="/tags/天文学/" class="tagc2">天文学 : 1</a><a href="/tags/arpspoof/" class="tagc3">arpspoof : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -160,7 +160,7 @@
 <p>这个错误是因为hexo3.0后需要在_config.yml中设置 deploy中的type为git，这里需要在本地仓库输入以下代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-deployer-git --save</div></pre></td></tr></table></figure>
 <p>最后一个问题是在域名解析的时候，ping自己的github页面，返回地址可以当作A类解析指向的ipv4地址，但是这个地址有时会改变，会使域名解析失效：<br><img src="http://oo3iot5oz.bkt.clouddn.com/3.png" alt=""></p>
-<p><img src="http://oo3iot5oz.bkt.clouddn.com/4.png" alt=""><br>所以这里使用CNAME的解析方式更好，在你的github仓库创建一个CNAME文件，里面写着你的域名，然后再在你的域名提供商那里设置解析如下就可以解决问题</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/0004.png" alt=""><br>所以这里使用CNAME的解析方式更好，在你的github仓库创建一个CNAME文件，里面写着你的域名，然后再在你的域名提供商那里设置解析如下就可以解决问题</p>
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/5.png" alt=""></p>
 <p>第一次尝试的朋友应该还会犯很多错误，比如ssh-key的创建和使用过程的问题，还有因为readme.md文件没有同步到本地引发的一些git上传时候的错误，这些问题的解决方案百度有很多，都很容易解决。</p>
 <p>冰心曾说:“成功的花,人们只惊慕她现时的明艳,然而当初它的芽儿,浸透了奋斗的泪泉,洒遍了牺牲的血雨”。尝试的道路上充满着荆棘，错误在所难免，希望这篇博客能帮到同样在尝试的你们。</p>
@@ -170,7 +170,7 @@
     <span>文本标题:</span><a href="/2017/04/08/细数用github-pages和hexo搭建博客遇到的那些坑/" target="_blank">细数用github-pages和hexo搭建博客遇到的那些坑</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">西行妖</a><br />
     <span>发布时间:</span>2017-04-08 22:28:57<br />
-    <span>最后更新:</span>2017-05-11 11:41:36<br />
+    <span>最后更新:</span>2017-12-27 17:21:52<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
