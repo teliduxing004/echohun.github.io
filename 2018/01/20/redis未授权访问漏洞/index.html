@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    redis未授权访问漏洞 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="西行妖">
+
+
+
+  <meta name="keywords" content=",redis,漏洞利用">
+<meta name="description" content="0x00 redisRedis 是一个高性能的key-value数据库。它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis未授权访问漏洞 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/01/20/redis未授权访问漏洞/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 redisRedis 是一个高性能的key-value数据库。它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis1.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis2.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis3.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis4.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis5.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis6.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis7.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis8.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis9.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis10.png">
+<meta property="og:updated_time" content="2018-01-20T10:58:29.207Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis未授权访问漏洞 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 redisRedis 是一个高性能的key-value数据库。它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。">
+<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis1.png">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">西行妖</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/python/" class="tagc1">python : 5</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/ctf/" class="tagc3">ctf : 3</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 3</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/arp入侵/" class="tagc2">arp入侵 : 1</a><a href="/tags/网络协议/" class="tagc3">网络协议 : 1</a><a href="/tags/https/" class="tagc4">https : 1</a><a href="/tags/ssl/" class="tagc5">ssl : 1</a><a href="/tags/nmap/" class="tagc1">nmap : 1</a><a href="/tags/漏洞利用/" class="tagc2">漏洞利用 : 1</a><a href="/tags/arpspoof/" class="tagc3">arpspoof : 1</a><a href="/tags/acm/" class="tagc4">acm : 1</a><a href="/tags/搭建博客/" class="tagc5">搭建博客 : 1</a><a href="/tags/hexo/" class="tagc1">hexo : 1</a><a href="/tags/github/" class="tagc2">github : 1</a><a href="/tags/天文学/" class="tagc3">天文学 : 1</a><a href="/tags/无线网络/" class="tagc4">无线网络 : 1</a><a href="/tags/redis/" class="tagc5">redis : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="西行妖's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">redis未授权访问漏洞</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-01-20 18:57:01" class="post-meta__date date">2018-01-20 18:57:01</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/redis/">redis</a>, <a class="tags-link" href="/tags/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-redis"><a href="#0x00-redis" class="headerlink" title="0x00 redis"></a>0x00 redis</h2><p>Redis 是一个高性能的key-value数据库。它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。<br>在此基础上，redis支持各种不同方式的排序。为了保证效率，数据都是缓存在内存中。redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，并且在此基础上实现了master-slave同步。  </p>
+<h2 id="0x01-redis未授权访问"><a href="#0x01-redis未授权访问" class="headerlink" title="0x01 redis未授权访问"></a>0x01 redis未授权访问</h2><p>Redis因配置不当可以导致未授权访问，被攻击者恶意利用。当前流行的针对Redis未授权访问的一种新型攻击方式，在特定条件下，如果Redis以root身份运行，黑客可以给root账户写入SSH公钥文件，直接通过SSH登录受害服务器，可导致服务器权限被获取和数据删除、泄露或加密勒索事件发生，严重危害业务正常服务。  </p>
+<h2 id="0x02-redis未授权访问漏洞产生的原因"><a href="#0x02-redis未授权访问漏洞产生的原因" class="headerlink" title="0x02 redis未授权访问漏洞产生的原因"></a>0x02 redis未授权访问漏洞产生的原因</h2><p>Redis 默认情况下，会绑定在 0.0.0.0:6379，这样将会将 Redis 服务暴露到公网上，如果在没有开启认证的情况下，可以导致任意用户在可以访问目标服务器的情况下未授权访问 Redis 以及读取 Redis 的数据。攻击者在未授权访问 Redis 的情况下可以利用 Redis 的相关方法，可以成功在 Redis 服务器上写入公钥，进而可以使用对应私钥直接登录目标服务器。  </p>
+<h2 id="0x03-漏洞重现和利用"><a href="#0x03-漏洞重现和利用" class="headerlink" title="0x03 漏洞重现和利用"></a>0x03 漏洞重现和利用</h2><p>首先在靶机安装redis并且不设置密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install redis* -y</div></pre></td></tr></table></figure></p>
+<p>在靶机安装ssh服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install openssh</div></pre></td></tr></table></figure></p>
+<p>在靶机配置redis配置文件，注释掉ip限制，并且设置安全设置为no，使其可以在公网被访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/redis.conf</div></pre></td></tr></table></figure></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis1.png" alt="">  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis2.png" alt="">  </p>
+<p>重启redis服务<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis3.png" alt=""><br>测试是否在公网开启<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis4.png" alt=""><br>在靶机打开ssh服务<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis5.png" alt=""><br>在主机本地生成ssh公钥<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis6.png" alt=""><br>连接靶机redis服务，并利用redis未授权访问漏洞在目标服务器/root/.ssh文件夹的authotrized_keys写入刚才创建的ssh公钥<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis7.png" alt=""><br>利用本机的ssh私钥登陆靶机服务器<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis8.png" alt="">  </p>
+<h2 id="0x04-使用openvas对该存在漏洞的系统进行扫描"><a href="#0x04-使用openvas对该存在漏洞的系统进行扫描" class="headerlink" title="0x04 使用openvas对该存在漏洞的系统进行扫描"></a>0x04 使用openvas对该存在漏洞的系统进行扫描</h2><p>通过openvas扫描靶机系统，可以得到以下结果：  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis9.png" alt=""><br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis10.png" alt=""></p>
+<h2 id="0x05-危害"><a href="#0x05-危害" class="headerlink" title="0x05 危害"></a>0x05 危害</h2><ul>
+<li>数据库数据泄露<br>Redis 作为数据库，保存着各种各样的数据，如果存在未授权访问的情况，将会导致数据的泄露，其中包含保存的用户信息等。</li>
+<li>代码执行<br>Redis可以嵌套Lua脚本的特性将会导致代码执行, 危害同其他服务器端的代码执行<br>一旦攻击者能够在服务器端执行任意代码, 攻击方式将会变得多且复杂, 这是非常危险的。<br>通过Lua代码攻击者可以调用 redis.sha1hex() 函数，恶意利用 Redis 服务器进行 SHA-1 的破解。</li>
+<li>敏感信息泄露<br>通过 Redis 的 INFO 命令, 可以查看服务器相关的参数和敏感信息, 为攻击者的后续渗透做铺垫。<br>0x06 应对方案</li>
+</ul>
+<hr>
+<p>Redis未授权访问漏洞是一个出现广泛并且危害巨大的漏洞，会直接导致整个服务器沦陷，要预防则需要做到：</p>
+<ul>
+<li>（1）禁止使用 root 权限启动 redis 服务；</li>
+<li>（2）对 redis 访问启用密码认证，尤其不能使用空密码；</li>
+<li>（3）添加 IP 访问限制；</li>
+<li>（4）尽可能不对公网直接开放 SSH 服务。</li>
+</ul>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/01/20/redis未授权访问漏洞/" target="_blank">redis未授权访问漏洞</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">西行妖</a><br />
+    <span>发布时间:</span>2018-01-20 18:57:01<br />
+    <span>最后更新:</span>2018-01-20 18:58:29<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
