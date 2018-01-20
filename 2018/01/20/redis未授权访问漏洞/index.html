@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis8.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis9.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis10.png">
-<meta property="og:updated_time" content="2018-01-20T10:58:29.207Z">
+<meta property="og:updated_time" content="2018-01-20T11:00:16.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis未授权访问漏洞 | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 redisRedis 是一个高性能的key-value数据库。它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。">
@@ -78,7 +78,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/python/" class="tagc1">python : 5</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/ctf/" class="tagc3">ctf : 3</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 3</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/arp入侵/" class="tagc2">arp入侵 : 1</a><a href="/tags/网络协议/" class="tagc3">网络协议 : 1</a><a href="/tags/https/" class="tagc4">https : 1</a><a href="/tags/ssl/" class="tagc5">ssl : 1</a><a href="/tags/nmap/" class="tagc1">nmap : 1</a><a href="/tags/漏洞利用/" class="tagc2">漏洞利用 : 1</a><a href="/tags/arpspoof/" class="tagc3">arpspoof : 1</a><a href="/tags/acm/" class="tagc4">acm : 1</a><a href="/tags/搭建博客/" class="tagc5">搭建博客 : 1</a><a href="/tags/hexo/" class="tagc1">hexo : 1</a><a href="/tags/github/" class="tagc2">github : 1</a><a href="/tags/天文学/" class="tagc3">天文学 : 1</a><a href="/tags/无线网络/" class="tagc4">无线网络 : 1</a><a href="/tags/redis/" class="tagc5">redis : 1</a>
+<a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/python/" class="tagc2">python : 5</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 3</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/https/" class="tagc2">https : 1</a><a href="/tags/ssl/" class="tagc3">ssl : 1</a><a href="/tags/github/" class="tagc4">github : 1</a><a href="/tags/arp入侵/" class="tagc5">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc1">nmap : 1</a><a href="/tags/漏洞利用/" class="tagc2">漏洞利用 : 1</a><a href="/tags/天文学/" class="tagc3">天文学 : 1</a><a href="/tags/arpspoof/" class="tagc4">arpspoof : 1</a><a href="/tags/网络协议/" class="tagc5">网络协议 : 1</a><a href="/tags/无线网络/" class="tagc1">无线网络 : 1</a><a href="/tags/acm/" class="tagc2">acm : 1</a><a href="/tags/搭建博客/" class="tagc3">搭建博客 : 1</a><a href="/tags/hexo/" class="tagc4">hexo : 1</a><a href="/tags/redis/" class="tagc5">redis : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -161,10 +161,9 @@
 <h2 id="0x05-危害"><a href="#0x05-危害" class="headerlink" title="0x05 危害"></a>0x05 危害</h2><ul>
 <li>数据库数据泄露<br>Redis 作为数据库，保存着各种各样的数据，如果存在未授权访问的情况，将会导致数据的泄露，其中包含保存的用户信息等。</li>
 <li>代码执行<br>Redis可以嵌套Lua脚本的特性将会导致代码执行, 危害同其他服务器端的代码执行<br>一旦攻击者能够在服务器端执行任意代码, 攻击方式将会变得多且复杂, 这是非常危险的。<br>通过Lua代码攻击者可以调用 redis.sha1hex() 函数，恶意利用 Redis 服务器进行 SHA-1 的破解。</li>
-<li>敏感信息泄露<br>通过 Redis 的 INFO 命令, 可以查看服务器相关的参数和敏感信息, 为攻击者的后续渗透做铺垫。<br>0x06 应对方案</li>
+<li>敏感信息泄露<br>通过 Redis 的 INFO 命令, 可以查看服务器相关的参数和敏感信息, 为攻击者的后续渗透做铺垫。  </li>
 </ul>
-<hr>
-<p>Redis未授权访问漏洞是一个出现广泛并且危害巨大的漏洞，会直接导致整个服务器沦陷，要预防则需要做到：</p>
+<h2 id="0x06-应对方案"><a href="#0x06-应对方案" class="headerlink" title="0x06 应对方案"></a>0x06 应对方案</h2><p>Redis未授权访问漏洞是一个出现广泛并且危害巨大的漏洞，会直接导致整个服务器沦陷，要预防则需要做到：</p>
 <ul>
 <li>（1）禁止使用 root 权限启动 redis 服务；</li>
 <li>（2）对 redis 访问启用密码认证，尤其不能使用空密码；</li>
@@ -177,7 +176,7 @@
     <span>文本标题:</span><a href="/2018/01/20/redis未授权访问漏洞/" target="_blank">redis未授权访问漏洞</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">西行妖</a><br />
     <span>发布时间:</span>2018-01-20 18:57:01<br />
-    <span>最后更新:</span>2018-01-20 18:58:29<br />
+    <span>最后更新:</span>2018-01-20 19:00:16<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
