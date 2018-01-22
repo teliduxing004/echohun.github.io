@@ -30,11 +30,11 @@
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql8.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql9.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql10.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql11.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql12.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql15.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql16.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql13.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql14.png">
-<meta property="og:updated_time" content="2018-01-21T02:21:55.556Z">
+<meta property="og:updated_time" content="2018-01-22T01:44:20.047Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过mysql弱密码获取webshell | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 mysqlMySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，目前属于 Oracle 旗下产品。MySQL 是最流行的关系型数据库管理系统之一，在 WEB 应用方面，MySQL是最好的关系数据库管理系统应用软件。MySQL是一种关系数据库管理系统，关系数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。MySQL所使用的 S">
@@ -82,7 +82,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/python/" class="tagc2">python : 5</a><a href="/tags/ctf/" class="tagc3">ctf : 3</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 3</a><a href="/tags/漏洞利用/" class="tagc5">漏洞利用 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/搭建博客/" class="tagc3">搭建博客 : 1</a><a href="/tags/arp入侵/" class="tagc4">arp入侵 : 1</a><a href="/tags/arpspoof/" class="tagc5">arpspoof : 1</a><a href="/tags/redis/" class="tagc1">redis : 1</a><a href="/tags/网络协议/" class="tagc2">网络协议 : 1</a><a href="/tags/天文学/" class="tagc3">天文学 : 1</a><a href="/tags/ssl/" class="tagc4">ssl : 1</a><a href="/tags/nmap/" class="tagc5">nmap : 1</a><a href="/tags/hexo/" class="tagc1">hexo : 1</a><a href="/tags/github/" class="tagc2">github : 1</a><a href="/tags/https/" class="tagc3">https : 1</a><a href="/tags/无线网络/" class="tagc4">无线网络 : 1</a><a href="/tags/acm/" class="tagc5">acm : 1</a>
+<a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/python/" class="tagc2">python : 5</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 3</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/漏洞利用/" class="tagc5">漏洞利用 : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc2">硬件安全 : 2</a><a href="/tags/redis/" class="tagc3">redis : 1</a><a href="/tags/https/" class="tagc4">https : 1</a><a href="/tags/ssl/" class="tagc5">ssl : 1</a><a href="/tags/arp入侵/" class="tagc1">arp入侵 : 1</a><a href="/tags/acm/" class="tagc2">acm : 1</a><a href="/tags/arpspoof/" class="tagc3">arpspoof : 1</a><a href="/tags/搭建博客/" class="tagc4">搭建博客 : 1</a><a href="/tags/hexo/" class="tagc5">hexo : 1</a><a href="/tags/github/" class="tagc1">github : 1</a><a href="/tags/网络协议/" class="tagc2">网络协议 : 1</a><a href="/tags/天文学/" class="tagc3">天文学 : 1</a><a href="/tags/mysql/" class="tagc4">mysql : 1</a><a href="/tags/php/" class="tagc5">php : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -167,7 +167,7 @@
 <p>安装mysql<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install -y mysql</div></pre></td></tr></table></figure></p>
 <h2 id="0x05-测试"><a href="#0x05-测试" class="headerlink" title="0x05 测试"></a>0x05 测试</h2><p>过程:使用hydra进行mysql的弱密码攻击并尝试利用mysql写入webshell，从而利用<br>webshell进行进一步攻击。  </p>
 <p>通过主机对靶机进行爆破，发现root的密码是123456<br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql7.png" alt=""><br>通过mysql连接靶机：<br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql8.png" alt=""><br>构造并写入webshell：<br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql9.png" alt=""><br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql10.png" alt="">   </p>
-<p>编辑菜刀连接一句话木马:<br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql11.png" alt=""><br>连接成功，获得网站目录内读写权限:<br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql12.png" alt="">  </p>
+<p>编辑菜刀连接一句话木马:<br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql15.png" alt=""><br>连接成功，获得网站目录内读写权限:<br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql16.png" alt="">  </p>
 <h2 id="0x06-进行使用openvas对该存在漏洞的系统扫描"><a href="#0x06-进行使用openvas对该存在漏洞的系统扫描" class="headerlink" title="0x06 进行使用openvas对该存在漏洞的系统扫描"></a>0x06 进行使用openvas对该存在漏洞的系统扫描</h2><p>扫描结果:  </p>
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql13.png" alt=""><br><img src="http://oo3iot5oz.bkt.clouddn.com/mysql/mysql14.png" alt="">  </p>
 <h2 id="0x07-应对方案"><a href="#0x07-应对方案" class="headerlink" title="0x07 应对方案"></a>0x07 应对方案</h2><ul>
@@ -181,7 +181,7 @@
     <span>文本标题:</span><a href="/2018/01/21/通过mysql弱密码获取webshell/" target="_blank">通过mysql弱密码获取webshell</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">西行妖</a><br />
     <span>发布时间:</span>2018-01-21 10:08:44<br />
-    <span>最后更新:</span>2018-01-21 10:21:55<br />
+    <span>最后更新:</span>2018-01-22 09:44:20<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
