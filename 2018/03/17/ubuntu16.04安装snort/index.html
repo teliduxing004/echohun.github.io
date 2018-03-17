@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
   <title>
-    天体距离测量 | Leticia‘s Blog 
+    ubuntu16.04安装snort | Leticia‘s Blog 
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -13,26 +13,29 @@
 
 
 
-  <meta name="keywords" content=",天文学">
-<meta name="description" content="我们经常在新闻里听说：距离地球XX光年发生超新星爆炸，距离地球XX光年发现类地行星。且不管新闻真假，真空中电磁波速度是c，要真的用雷达测量几十光年几百光年的距离是不可能实现的，那我们看到这些报道的时候有没有曾怀疑过这些距离是怎么测算的呢？  
-0x01 天文学距离单位介绍谈到距离，肯定离不开距离单位，我们平时用到的距离单位放在天体的层面运算的话实在是令人头疼的事情，所以我们经常使用天文单位、光年、">
+  <meta name="keywords" content=",snort">
+<meta name="description" content="0x00 snort是什么？snort是一款开源的入侵检测系统，由Marty Roesch先生用C语言开发，直至今天，Snort已发展成为一个多平台(Multi-Platform),实时(Real-Time)流量分析，网络IP数据包(Pocket)记录等特性的强大的网络入侵检测/防御系统。  
+0x01 snort安装这里主要讲ubuntu下通过编译源码的安装方法  
+首先，我们在snort官方">
 <meta property="og:type" content="article">
-<meta property="og:title" content="天体距离测量 | Leticia‘s Blog">
-<meta property="og:url" content="http://yoursite.com/2017/11/09/天体距离测量/index.html">
+<meta property="og:title" content="ubuntu16.04安装snort | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/03/17/ubuntu16.04安装snort/index.html">
 <meta property="og:site_name" content="Leticia‘s Blog">
-<meta property="og:description" content="我们经常在新闻里听说：距离地球XX光年发生超新星爆炸，距离地球XX光年发现类地行星。且不管新闻真假，真空中电磁波速度是c，要真的用雷达测量几十光年几百光年的距离是不可能实现的，那我们看到这些报道的时候有没有曾怀疑过这些距离是怎么测算的呢？  
-0x01 天文学距离单位介绍谈到距离，肯定离不开距离单位，我们平时用到的距离单位放在天体的层面运算的话实在是令人头疼的事情，所以我们经常使用天文单位、光年、">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/tianwen/01.jpg">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/tianwen/02.jpg">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/03.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/tianwen/04.jpg">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/tianwen/05.png">
-<meta property="og:updated_time" content="2017-11-09T14:49:40.756Z">
+<meta property="og:description" content="0x00 snort是什么？snort是一款开源的入侵检测系统，由Marty Roesch先生用C语言开发，直至今天，Snort已发展成为一个多平台(Multi-Platform),实时(Real-Time)流量分析，网络IP数据包(Pocket)记录等特性的强大的网络入侵检测/防御系统。  
+0x01 snort安装这里主要讲ubuntu下通过编译源码的安装方法  
+首先，我们在snort官方">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/snort/snort01.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/snort/snort02.jpg">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/snort/snort03.jpg">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/snort/snort04.jpg">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/snort/snort05.jpg">
+<meta property="og:updated_time" content="2018-03-17T14:07:39.408Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="天体距离测量 | Leticia‘s Blog">
-<meta name="twitter:description" content="我们经常在新闻里听说：距离地球XX光年发生超新星爆炸，距离地球XX光年发现类地行星。且不管新闻真假，真空中电磁波速度是c，要真的用雷达测量几十光年几百光年的距离是不可能实现的，那我们看到这些报道的时候有没有曾怀疑过这些距离是怎么测算的呢？  
-0x01 天文学距离单位介绍谈到距离，肯定离不开距离单位，我们平时用到的距离单位放在天体的层面运算的话实在是令人头疼的事情，所以我们经常使用天文单位、光年、">
-<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/tianwen/01.jpg">
+<meta name="twitter:title" content="ubuntu16.04安装snort | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 snort是什么？snort是一款开源的入侵检测系统，由Marty Roesch先生用C语言开发，直至今天，Snort已发展成为一个多平台(Multi-Platform),实时(Real-Time)流量分析，网络IP数据包(Pocket)记录等特性的强大的网络入侵检测/防御系统。  
+0x01 snort安装这里主要讲ubuntu下通过编译源码的安装方法  
+首先，我们在snort官方">
+<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/snort/snort01.png">
 
   <!-- favicon icon files -->
 
@@ -124,20 +127,20 @@
       
 <article class="post-container post-container--single">
   <header class="post-header">
-    <h1 class="post-title">天体距离测量</h1>
+    <h1 class="post-title">ubuntu16.04安装snort</h1>
     
     <div class="post-meta">
-      <time datetime="2017-11-09 22:47:05" class="post-meta__date date">2017-11-09 22:47:05</time> 
+      <time datetime="2018-03-17 22:04:45" class="post-meta__date date">2018-03-17 22:04:45</time> 
       <span class="post-meta__tags tags">
       
         <font class="categories">&#8226; 分类:
-        <a class="categories-link" href="/categories/天文学/">天文学</a>
+        <a class="categories-link" href="/categories/网络安全/">网络安全</a>
         </font>
       
       
         &#8226; 标签:
         <font class="tags">
-        <a class="tags-link" href="/tags/天文学/">天文学</a>
+        <a class="tags-link" href="/tags/snort/">snort</a>
         </font>
       
       </span>
@@ -145,27 +148,32 @@
     
   </header>
   <section id="post-content" class="article-content post">
-  <p>我们经常在新闻里听说：距离地球XX光年发生超新星爆炸，距离地球XX光年发现类地行星。且不管新闻真假，真空中电磁波速度是c，要真的用雷达测量几十光年几百光年的距离是不可能实现的，那我们看到这些报道的时候有没有曾怀疑过这些距离是怎么测算的呢？  </p>
-<h2 id="0x01-天文学距离单位介绍"><a href="#0x01-天文学距离单位介绍" class="headerlink" title="0x01 天文学距离单位介绍"></a>0x01 天文学距离单位介绍</h2><p>谈到距离，肯定离不开距离单位，我们平时用到的距离单位放在天体的层面运算的话实在是令人头疼的事情，所以我们经常使用天文单位、光年、秒差距这些单位。  </p>
-<ul>
-<li>天文单位（AU）：即太阳和地球之间的平均距离，约1.5亿公里。</li>
-<li>光年（ly）：光在宇宙真空中沿直线传播了一儒略年（365.25天）时间的距离，约94607亿千米.</li>
-<li>秒差距（pc）：以地球公转轨道的平均半径（一个天文单位）为底边所对应的三角形内角称为周年视差。当这个角的大小为1角秒时，这个三角形的一条边的长度（地球到这个恒星的距离）就称为1秒差距。约为3.26光年。</li>
-</ul>
-<p>前两个单位我们经常见到，第三个很多不了解的人看了上面的定义也很迷糊，简单的说，1秒差距是周年视差为1”时天体的距离。</p>
-<h2 id="0x02-周年视差"><a href="#0x02-周年视差" class="headerlink" title="0x02 周年视差"></a>0x02 周年视差</h2><p>而秒差距中所说的周年视差又是什么？在说周年视差的概念之前我们先来看看视差是什么。<br>视差就是从有一定距离的两个点上观察同一个目标所产生的方向差异。从目标看两个点之间的夹角，叫做这两个点的视差角，两点之间的距离称作基线。只要知道视差角度和基线长度，就可以计算出目标和观测者之间的距离。<br><img src="http://oo3iot5oz.bkt.clouddn.com/tianwen/01.jpg" alt="">  </p>
-<p>就像当你伸出一个手指放在眼前，先闭上右眼，用左眼看它；再闭上左眼，用右眼看它，会发现手指相对远方的物体的位置有了变化，这就是从不同角度去看同一点的视差。<br>而周年视差则是地球绕太阳周年运动的直径作为这个“左右眼”的距离，看天体所产生的视差。<br>即当恒星与太阳的连线垂直地球轨道半径时，恒星对日地平均距离d所张的角ρ叫恒星的周年视差。<br><img src="http://oo3iot5oz.bkt.clouddn.com/tianwen/02.jpg" alt="">  </p>
-<h2 id="0x03-天体距离的计算"><a href="#0x03-天体距离的计算" class="headerlink" title="0x03 天体距离的计算"></a>0x03 天体距离的计算</h2><p>介绍了上面的这些定义，我们来看看天体距离的计算<br>当ρ为被测天体相对地球轨道半长径的夹角，a为地球公转轨道半长轴，d为天体距离时，距离的计算是：<br><img src="http://oo3iot5oz.bkt.clouddn.com/03.png" alt=""></p>
-<p>在这里角度极小情况下sin（ρ）近似为ρ，a为一个天文单位，所以最终距离为周年视差（以秒为单位时）的倒数倍的秒差距。<br>比如我们的比邻星周年视差为0.76”，则计算距离时：<br>0.76的倒数为1.32，所以1.32倍的秒差距（3.26光年）为4.3光年。<br>而建立空间卫星能提升观测距离的真正原因就是因为地面上的望远镜受到大气层影响太大，角分辨率一般不到0.01”，而2013年发射的盖亚空间卫星的角分辨率可以达到0.00001”，大大的增加了观测距离。<br><img src="http://oo3iot5oz.bkt.clouddn.com/tianwen/04.jpg" alt="盖亚卫星">  </p>
-<h2 id="0x04-宇宙距离阶梯"><a href="#0x04-宇宙距离阶梯" class="headerlink" title="0x04 宇宙距离阶梯"></a>0x04 宇宙距离阶梯</h2><p>虽然通过之前的办法可以观测到很远的地方，但是宇宙的广袤远远超出我们的想像，再远的地方怎么办呢？对于更远的地方，人类就有了其他的观测方案。<br><img src="http://oo3iot5oz.bkt.clouddn.com/tianwen/05.png" alt="宇宙距离阶梯">  </p>
-<p>在一系列的方法之下，哈勃望远镜眼中的宇宙深处，我们能够观察的宇宙空间直径大约是930亿光年，这个数字是这样得出的：那些从138亿光年外发出的光线，产生这些光线的古老天体，由于宇宙的膨胀，今天它们和我们之间的距离已经达到了大约465亿光年左右。这是我们能观测到的极限半径，乘以二则是我们能够观察的宇宙空间直径，约930亿光年。</p>
+  <h2 id="0x00-snort是什么？"><a href="#0x00-snort是什么？" class="headerlink" title="0x00 snort是什么？"></a>0x00 snort是什么？</h2><p>snort是一款开源的入侵检测系统，由Marty Roesch先生用C语言开发，直至今天，Snort已发展成为一个多平台(Multi-Platform),实时(Real-Time)流量分析，网络IP数据包(Pocket)记录等特性的强大的网络入侵检测/防御系统。  </p>
+<h2 id="0x01-snort安装"><a href="#0x01-snort安装" class="headerlink" title="0x01 snort安装"></a>0x01 snort安装</h2><p>这里主要讲ubuntu下通过编译源码的安装方法  </p>
+<p>首先，我们在snort官方 www.snort.org 下查看最新版本的源码。  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/snort/snort01.png" alt=""></p>
+<p>然后在terminal中输入如下指令获取daq源码包和snort源码包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">wget https://www.snort.org/downloads/snort/daq-2.0.6.tar.gz</div><div class="line">wget https://www.snort.org/downloads/snort/snort-2.9.11.1.tar.gz</div></pre></td></tr></table></figure></p>
+<p>接着解压源码包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar xvzf daq-2.0.6.tar.gz</div><div class="line">tar xvzf snort-2.9.11.1.tar.gz</div></pre></td></tr></table></figure></p>
+<p>然后我们安装一下daq所依赖的一些开发包，否则直接编译安装会出现flex、bison和libpcap错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install flex</div><div class="line">sudo apt-get install bison</div><div class="line">sudo apt-get install libpcap-dev</div></pre></td></tr></table></figure></p>
+<p>然后先进入解压后daq的路径，进行编译安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd daq-2.0.6</div><div class="line">./configure &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/snort/snort02.jpg" alt=""></p>
+<p>结果如下没有报错说明我们安装完成。  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/snort/snort03.jpg" alt=""></p>
+<p>接着我们要安装一下snort所依赖的一些开发包，否则配置脚本会由于缺少libpcre-dev、libdumbnet-dev 和zlib开发库而报错。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libpcre3-dev</div><div class="line">sudo apt-get install libdumbnet-dev</div><div class="line">sudo apt-get install zlib1g-dev</div></pre></td></tr></table></figure></p>
+<p>然后我们在local创建一个目录,再进入刚才解压的snort目录中，编译安装snort<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir /usr/local/snort</div><div class="line">./configure --prefix=/usr/local/snort/ --enable-sourcefire &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure></p>
+<p>结果如下没有报错说明我们安装完成。  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/snort/snort04.jpg" alt=""></p>
+<p>然后我们进入刚才创建的目录，并进入它的子目录bin来运行snort<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/snort/bin</div><div class="line">./snort</div></pre></td></tr></table></figure></p>
+<p>我们可以看到它处在promisc模式（包转储模式）。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/snort/snort05.jpg" alt=""></p>
+<p>至此，我们snort安装完成。</p>
 
   </section>
   <div class="copyright">
-    <span>文本标题:</span><a href="/2017/11/09/天体距离测量/" target="_blank">天体距离测量</a><br />
+    <span>文本标题:</span><a href="/2018/03/17/ubuntu16.04安装snort/" target="_blank">ubuntu16.04安装snort</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">西行妖</a><br />
-    <span>发布时间:</span>2017-11-09 22:47:05<br />
-    <span>最后更新:</span>2017-11-09 22:49:40<br />
+    <span>发布时间:</span>2018-03-17 22:04:45<br />
+    <span>最后更新:</span>2018-03-17 22:07:39<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
