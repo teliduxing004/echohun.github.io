@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    BurpSuite使用笔记 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="西行妖">
+
+
+
+  <meta name="keywords" content=",BurpSuite,笔记">
+<meta name="description" content="0x00 What is BurpSuiteBurp Suite 是用于攻击web 应用程序的集成平台。它包含了许多工具，并为这些工具设计了许多接口，以促进加快攻击应用程序的过程。  
+0x01 主要功能
+1.Target(目标)——显示目标目录结构的的一个功能
+2.Proxy（代理）——是一个拦截HTTP/S的代理服务器（抓包），作为一个在浏览器和目标应用程序之间的中间人，允许你拦截，查看，修改">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BurpSuite使用笔记 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/03/24/BurpSuite使用笔记/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 What is BurpSuiteBurp Suite 是用于攻击web 应用程序的集成平台。它包含了许多工具，并为这些工具设计了许多接口，以促进加快攻击应用程序的过程。  
+0x01 主要功能
+1.Target(目标)——显示目标目录结构的的一个功能
+2.Proxy（代理）——是一个拦截HTTP/S的代理服务器（抓包），作为一个在浏览器和目标应用程序之间的中间人，允许你拦截，查看，修改">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp01.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp02.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp03.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp04.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp05.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp06.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp07.jpg">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp08.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp09.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp10.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp11.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp12.jpg">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp13.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp14.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp15.png">
+<meta property="og:updated_time" content="2018-03-24T07:56:58.437Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BurpSuite使用笔记 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 What is BurpSuiteBurp Suite 是用于攻击web 应用程序的集成平台。它包含了许多工具，并为这些工具设计了许多接口，以促进加快攻击应用程序的过程。  
+0x01 主要功能
+1.Target(目标)——显示目标目录结构的的一个功能
+2.Proxy（代理）——是一个拦截HTTP/S的代理服务器（抓包），作为一个在浏览器和目标应用程序之间的中间人，允许你拦截，查看，修改">
+<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp01.png">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">西行妖</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/漏洞利用/" class="tagc2">漏洞利用 : 5</a><a href="/tags/python/" class="tagc3">python : 5</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/暴力破解/" class="tagc5">暴力破解 : 3</a><a href="/tags/mysql/" class="tagc1">mysql : 2</a><a href="/tags/硬件安全/" class="tagc2">硬件安全 : 2</a><a href="/tags/密码学/" class="tagc3">密码学 : 2</a><a href="/tags/sql注入/" class="tagc4">sql注入 : 1</a><a href="/tags/网络协议/" class="tagc5">网络协议 : 1</a><a href="/tags/https/" class="tagc1">https : 1</a><a href="/tags/ssl/" class="tagc2">ssl : 1</a><a href="/tags/nmap/" class="tagc3">nmap : 1</a><a href="/tags/arpspoof/" class="tagc4">arpspoof : 1</a><a href="/tags/redis/" class="tagc5">redis : 1</a><a href="/tags/笔记/" class="tagc1">笔记 : 1</a><a href="/tags/heartbleed/" class="tagc2">heartbleed : 1</a><a href="/tags/snort/" class="tagc3">snort : 1</a><a href="/tags/struts2-052/" class="tagc4">struts2-052 : 1</a><a href="/tags/天文学/" class="tagc5">天文学 : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="西行妖's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">BurpSuite使用笔记</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-03-24 15:55:28" class="post-meta__date date">2018-03-24 15:55:28</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/笔记/">笔记</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/BurpSuite/">BurpSuite</a>, <a class="tags-link" href="/tags/笔记/">笔记</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-What-is-BurpSuite"><a href="#0x00-What-is-BurpSuite" class="headerlink" title="0x00 What is BurpSuite"></a>0x00 What is BurpSuite</h2><p>Burp Suite 是用于攻击web 应用程序的集成平台。它包含了许多工具，并为这些工具设计了许多接口，以促进加快攻击应用程序的过程。  </p>
+<h2 id="0x01-主要功能"><a href="#0x01-主要功能" class="headerlink" title="0x01 主要功能"></a>0x01 主要功能</h2><ul>
+<li>1.Target(目标)——显示目标目录结构的的一个功能</li>
+<li>2.Proxy（代理）——是一个拦截HTTP/S的代理服务器（抓包），作为一个在浏览器和目标应用程序之间的中间人，允许你拦截，查看，修改在两个方向上的原始数据流。</li>
+<li>3.Spider（爬虫）——是一个应用智能感应的网络爬虫，它能完整的枚举应用程序的内容和功能。</li>
+<li>4.Scanner（扫描器）[仅限专业版]——是一个高级的工具，执行后，它能自动地发现web 应用程序的安全漏洞。</li>
+<li>5.Intruder（入侵）——是一个定制的高度可配置的工具，对web应用程序进行自动化攻击，如：枚举标识符，收集有用的数据，以及使用fuzzing 技术探测常规漏洞。</li>
+<li>6.Repeater（中继器）——是一个靠手动操作来补发单独的HTTP 请求，并分析应用程序响应的工具。</li>
+<li>7.Sequencer（会话）——是一个用来分析那些不可预知的应用程序会话令牌和重要数据项的随机性的工具。</li>
+<li>8.Decoder（解码器）——是一个进行手动执行或对应用程序数据者智能解码编码的工具。</li>
+<li>9.Comparer（对比）——是一个实用的工具，通常是通过一些相关的请求和响应得到两项数据的一个可视化的“差异”。</li>
+<li>10.Extender(扩展)——可以让你加载Burp Suite的扩展，使用你自己的或第三方代码来扩展Burp Suit的功能。</li>
+<li>11.Options(设置)——对Burp Suite的一些设置  </li>
+</ul>
+<p>我们这里主要来讲解一下其中的主要几个功能。</p>
+<h2 id="0x02-代理功能"><a href="#0x02-代理功能" class="headerlink" title="0x02 代理功能"></a>0x02 代理功能</h2><p>首先是代理功能（Proxy），我们打开BurpSuite，点击进入到Proxy选项，<br>然后进入Options选项，我们可以看到默认的代理地址是127.0.0.1:8080，我们可以启用它，也可以自己add一个新的代理，比如我们输入127.0.0.1:8082。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp01.png" alt=""></p>
+<p>然后在要使用的代理前面打勾。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp02.png" alt=""></p>
+<p>然后在自己的浏览器中，将代理设置的与上面我们勾选的代理相同。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp03.png" alt=""></p>
+<p>接下来打开Proxy功能中的Intercept选项卡，拦截功能为“Interception is on”状态则表示打开拦截，需要关闭时点击使它变成“Interception is off”状态即可。<br>在raw选项中可以看到web请求的请求地址、http协议版本、主机头、浏览器信息、Accept可接受的内容类型、字符集、编码方式、cookie等。可以通过手工修改这些信息，对服务器端进行渗透测试。  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp04.png" alt=""></p>
+<p>Forward可以让请求进行到下一步，history选项框可以看到之前的请求。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp05.png" alt=""></p>
+<h2 id="0x03-重放功能"><a href="#0x03-重放功能" class="headerlink" title="0x03 重放功能"></a>0x03 重放功能</h2><p>接下来我们介绍一下中继器（Repeater），我们在刚才捕捉到的请求中，点击右键-Send to Repeater，就可以看到Repeater按钮变色，然后我们点到这个选项中，就会发现Request中已经写入刚才我们send的请求。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp06.png" alt=""></p>
+<p>我们可以在这里进行编辑重发，点击go，就可以在右边窗口可以看到响应。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp07.jpg" alt=""></p>
+<p>在这里进行一些手工注入的测试是十分方便的。</p>
+<h2 id="0x04-爆破功能"><a href="#0x04-爆破功能" class="headerlink" title="0x04 爆破功能"></a>0x04 爆破功能</h2><p>接下来介绍一下爆破功能（Intruder），这里以一个网站的后台为例。<br>这个后台的设计有个缺陷，就是如果登陆的时候，我们随意输入密码，然后用户名存在，就会提示权限不足，用户名不存在，就会显示输入的用户名或密码错误。  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp08.png" alt=""></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp09.png" alt=""></p>
+<p>这里我们先用之前的代理功能，截断一次手动发送的请求。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp10.png" alt=""></p>
+<p>然后右键Send to Intruder，这时可以在Intruder的Positions选项中看到刚才的web请求。  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp11.png" alt=""></p>
+<p>这里我们可以看到，所有能别提交的值都被加深了颜色，但是我们根据刚才的思路，应该是要爆破用户名，根据响应来判断用户名存在与否。所以我们先点击右侧的clear将所有加深的参数取消掉，然后手动圈选用户名部分我们提交的参数，点击右侧的add，仅将它选中。  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp12.jpg" alt=""></p>
+<p>在options选项中我们可以设置线程数和延时等一些设定，这次我们先保持默认。  </p>
+<p>我们进入Payloads选项，在Payload Options中load一个账号字典文件进去，如果没有现有的字典文件，可以在 <a href="https://github.com/rootphantomer/Blasting_dictionary" target="_blank" rel="external">https://github.com/rootphantomer/Blasting_dictionary</a> 下载。  </p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp13.png" alt=""></p>
+<p>然后我们点击start attack按钮，可以看到测试速度要比自己手写脚本爆破快一些（但是如果你是社区版的burpsuite就会十分慢，会仅让你体验这个功能）</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp14.png" alt=""></p>
+<p>等待字典文件跑完，我们可以点击lentgh，使它以响应的长度排序，就可以区分“权限不足”和“用户名和密码错误”的账号了，可以看到，这个小字典一共爆出了3个账号，这个时候我们可以用同样的办法，让密码变化，用密码字典来爆破这几个账号的密码。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/burpsuite/bp15.png" alt=""></p>
+<h2 id="0x05-未完待续"><a href="#0x05-未完待续" class="headerlink" title="0x05 未完待续"></a>0x05 未完待续</h2><p>Burpsuite是一个非常非常好用的工具，由于篇幅问题这里暂时只介绍这几种常用的功能。下次有时间可以写一下爬虫部分和验证码处理插件。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/03/24/BurpSuite使用笔记/" target="_blank">BurpSuite使用笔记</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">西行妖</a><br />
+    <span>发布时间:</span>2018-03-24 15:55:28<br />
+    <span>最后更新:</span>2018-03-24 15:56:58<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
