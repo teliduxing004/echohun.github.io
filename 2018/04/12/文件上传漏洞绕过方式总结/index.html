@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
   <title>
-    arp入侵 | Leticia‘s Blog 
+    文件上传漏洞绕过方式总结 | Leticia‘s Blog 
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -13,27 +13,29 @@
 
 
 
-  <meta name="keywords" content=",网络安全,arp入侵,nmap,arpspoof">
-<meta name="description" content="什么是arp入侵ARP毒化也被称为ARP缓存中毒和ARP欺骗攻击,这是在内网的中间人攻击。ARP欺骗采取的优势是通过ARP协议欺骗,达到对整个网络进行欺骗。
-环境搭建首先，实验中所有主机在同一个局域网下，比如我的电脑，手机同时连接到寝室的wifi，他们就处于同一个局域网。这次我使用的攻击者是电脑中安装有kali linux系统的虚拟机，受害者是我的手机。（这里用虚拟机做攻击者，就需要将虚拟机与主机">
+  <meta name="keywords" content=",漏洞利用,文件上传,php">
+<meta name="description" content="0x00 文件上传漏洞在网站一些可以上传文件的地方，利用上传漏洞上传木马可以直接得到WEBSHELL，危害等级极高。上一篇文件上传漏洞的博客介绍了文件上传漏洞的原理和实战，这里来记录一些常见的绕过方法。
+0x01 绕过前端验证我们都知道，任何基于前端的验证都是不安全的，因为用户能直接修改它进行绕过。
+如果在前端对上传文件的格式进行了限制，我们可以通过以下的办法进行绕过:
+
+禁用js我们通过fire">
 <meta property="og:type" content="article">
-<meta property="og:title" content="arp入侵 | Leticia‘s Blog">
-<meta property="og:url" content="http://yoursite.com/2017/05/06/arp入侵/index.html">
+<meta property="og:title" content="文件上传漏洞绕过方式总结 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/04/12/文件上传漏洞绕过方式总结/index.html">
 <meta property="og:site_name" content="Leticia‘s Blog">
-<meta property="og:description" content="什么是arp入侵ARP毒化也被称为ARP缓存中毒和ARP欺骗攻击,这是在内网的中间人攻击。ARP欺骗采取的优势是通过ARP协议欺骗,达到对整个网络进行欺骗。
-环境搭建首先，实验中所有主机在同一个局域网下，比如我的电脑，手机同时连接到寝室的wifi，他们就处于同一个局域网。这次我使用的攻击者是电脑中安装有kali linux系统的虚拟机，受害者是我的手机。（这里用虚拟机做攻击者，就需要将虚拟机与主机">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115018207">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115054199">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115122512">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115148270">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115220020">
-<meta property="og:image" content="http://img.blog.csdn.net/20161106115244082">
-<meta property="og:updated_time" content="2017-05-11T03:41:36.593Z">
+<meta property="og:description" content="0x00 文件上传漏洞在网站一些可以上传文件的地方，利用上传漏洞上传木马可以直接得到WEBSHELL，危害等级极高。上一篇文件上传漏洞的博客介绍了文件上传漏洞的原理和实战，这里来记录一些常见的绕过方法。
+0x01 绕过前端验证我们都知道，任何基于前端的验证都是不安全的，因为用户能直接修改它进行绕过。
+如果在前端对上传文件的格式进行了限制，我们可以通过以下的办法进行绕过:
+
+禁用js我们通过fire">
+<meta property="og:updated_time" content="2018-04-12T05:37:52.144Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="arp入侵 | Leticia‘s Blog">
-<meta name="twitter:description" content="什么是arp入侵ARP毒化也被称为ARP缓存中毒和ARP欺骗攻击,这是在内网的中间人攻击。ARP欺骗采取的优势是通过ARP协议欺骗,达到对整个网络进行欺骗。
-环境搭建首先，实验中所有主机在同一个局域网下，比如我的电脑，手机同时连接到寝室的wifi，他们就处于同一个局域网。这次我使用的攻击者是电脑中安装有kali linux系统的虚拟机，受害者是我的手机。（这里用虚拟机做攻击者，就需要将虚拟机与主机">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20161106115018207">
+<meta name="twitter:title" content="文件上传漏洞绕过方式总结 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 文件上传漏洞在网站一些可以上传文件的地方，利用上传漏洞上传木马可以直接得到WEBSHELL，危害等级极高。上一篇文件上传漏洞的博客介绍了文件上传漏洞的原理和实战，这里来记录一些常见的绕过方法。
+0x01 绕过前端验证我们都知道，任何基于前端的验证都是不安全的，因为用户能直接修改它进行绕过。
+如果在前端对上传文件的格式进行了限制，我们可以通过以下的办法进行绕过:
+
+禁用js我们通过fire">
 
   <!-- favicon icon files -->
 
@@ -125,20 +127,20 @@
       
 <article class="post-container post-container--single">
   <header class="post-header">
-    <h1 class="post-title">arp入侵</h1>
+    <h1 class="post-title">文件上传漏洞绕过方式总结</h1>
     
     <div class="post-meta">
-      <time datetime="2017-05-06 22:05:03" class="post-meta__date date">2017-05-06 22:05:03</time> 
+      <time datetime="2018-04-12 13:37:31" class="post-meta__date date">2018-04-12 13:37:31</time> 
       <span class="post-meta__tags tags">
       
         <font class="categories">&#8226; 分类:
-        <a class="categories-link" href="/categories/网络安全/">网络安全</a>
+        <a class="categories-link" href="/categories/漏洞利用/">漏洞利用</a>
         </font>
       
       
         &#8226; 标签:
         <font class="tags">
-        <a class="tags-link" href="/tags/arpspoof/">arpspoof</a>, <a class="tags-link" href="/tags/arp入侵/">arp入侵</a>, <a class="tags-link" href="/tags/nmap/">nmap</a>, <a class="tags-link" href="/tags/网络安全/">网络安全</a>
+        <a class="tags-link" href="/tags/php/">php</a>, <a class="tags-link" href="/tags/文件上传/">文件上传</a>, <a class="tags-link" href="/tags/漏洞利用/">漏洞利用</a>
         </font>
       
       </span>
@@ -146,18 +148,41 @@
     
   </header>
   <section id="post-content" class="article-content post">
-  <h1 id="什么是arp入侵"><a href="#什么是arp入侵" class="headerlink" title="什么是arp入侵"></a>什么是arp入侵</h1><p>ARP毒化也被称为ARP缓存中毒和ARP欺骗攻击,这是在内网的中间人攻击。ARP欺骗采取的优势是通过ARP协议欺骗,达到对整个网络进行欺骗。</p>
-<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>首先，实验中所有主机在同一个局域网下，比如我的电脑，手机同时连接到寝室的wifi，他们就处于同一个局域网。<br>这次我使用的攻击者是电脑中安装有kali linux系统的虚拟机，受害者是我的手机。（这里用虚拟机做攻击者，就需要将虚拟机与主机连接模式改为桥接模式，具体方法百度上很多，就不在这里描述）</p>
-<h2 id="扫描局域网内存活主机"><a href="#扫描局域网内存活主机" class="headerlink" title="扫描局域网内存活主机"></a>扫描局域网内存活主机</h2><p>我要攻击一个受害者，肯定要知道他的ip地址，而怎么能获取他的ip地址呢？这里就需要kali中的一个强大的工具——nmap。<br>这里我先查看自己虚拟机的ip地址和子网掩码，就能知道同一wifi下的主机的ip区间了。<br><img src="http://img.blog.csdn.net/20161106115018207" alt="查看自己的ip"><br>然后我发现自己的ip是192.168.0.108，子网掩码是255.255.255.0，所以我就知道了同一wifi下的主机肯定在192.168.0.1到192.168.0.255之间了。接下来就可以用nmap中的一个扫描方式扫描给定ip区间所有存活主机了。（nmap还有很多用途，可以去百度了解）<br><img src="http://img.blog.csdn.net/20161106115054199" alt="扫描存活主机"><br>这里扫出来六台主机，其中192.168.0.1是路由器地址，然后可以看到我的手机meizu对应的ip地址是192.168.0.103。</p>
-<h2 id="进行arp毒化"><a href="#进行arp毒化" class="headerlink" title="进行arp毒化"></a>进行arp毒化</h2><p>接下来就是攻击过程了，首先开启linux的ip转发功能。<br><img src="http://img.blog.csdn.net/20161106115122512" alt="开启ip转发并检查一次"><br>下来这两句arpspoof指令是让手机发往路由器和路由器发往手机的数据先通过我的虚拟机（攻击者）再发送出去。这样他的所有数据都要通过我。<br><img src="http://img.blog.csdn.net/20161106115148270" alt="劫持"><br>接下来我们可以用个图片捕获工具driftnet来试试效果。<br>我的手机搜索蕾蒂西亚有关的图片<br><img src="http://img.blog.csdn.net/20161106115220020" alt="手机搜索"><br>然后用driftnet来查看<br><img src="http://img.blog.csdn.net/20161106115244082" alt="deiftnet窗口"><br>可以看到我们捕获到了手机正在搜索的图片，已经劫持成功了，我们可以做到的不止这些，kali中还有很多强大的工具可以去尝试。</p>
-<p>  这篇博客是从自己的CSDN博客搬运过来的<a href="http://blog.csdn.net/echo_hun/article/details/53053665" target="_blank" rel="external">手机连接着公共wifi到底安全吗——一次简单arp毒化 </a>不是抄袭哦。现在主要就用这个博客了，所以我自己在各个网站的博客都会搬运来这里。</p>
+  <h2 id="0x00-文件上传漏洞"><a href="#0x00-文件上传漏洞" class="headerlink" title="0x00 文件上传漏洞"></a>0x00 文件上传漏洞</h2><p>在网站一些可以上传文件的地方，利用上传漏洞上传木马可以直接得到WEBSHELL，危害等级极高。上一篇文件上传漏洞的博客介绍了文件上传漏洞的原理和实战，这里来记录一些常见的绕过方法。</p>
+<h2 id="0x01-绕过前端验证"><a href="#0x01-绕过前端验证" class="headerlink" title="0x01 绕过前端验证"></a>0x01 绕过前端验证</h2><p>我们都知道，任何基于前端的验证都是不安全的，因为用户能直接修改它进行绕过。</p>
+<p>如果在前端对上传文件的格式进行了限制，我们可以通过以下的办法进行绕过:</p>
+<ul>
+<li><p>禁用js<br>我们通过firefox中的一个插件NoScript，将脚本禁用，这个时候上传文件的时候就不会触发js校验。</p>
+</li>
+<li><p>修改可上传的文件类型<br>因为是基于前端的验证，所有代码我们都可以通过firebug来修改，只需要在允许的类型中加入我们的文件类型，或者在禁止的类型中删除我们的文件类型，提交即可饶过。</p>
+</li>
+<li><p>通过BurpSuite绕过<br>我们通过BurpSuite进行绕过时，首先将文件名后缀改成它允许的类型，然后通过了前端的检查之后截取这个包，将文件后缀再改回来，就成功的绕过了js检查。</p>
+</li>
+</ul>
+<h2 id="0x02-后端检测-MIME"><a href="#0x02-后端检测-MIME" class="headerlink" title="0x02 后端检测-MIME"></a>0x02 后端检测-MIME</h2><p>此类后端检查时，检查的是Content-Type，也叫Mime-Type，这个时候，我们上传一个PHP文件，通过BurpSuite抓包，将.php后缀的Content-Type: application/octet-stream更改为.jpg的Content-Type: image/jpeg。<br>然后发包，就可以绕过后端基于Content-Type的检测。</p>
+<h2 id="0x03-后端检测-文件头"><a href="#0x03-后端检测-文件头" class="headerlink" title="0x03 后端检测-文件头"></a>0x03 后端检测-文件头</h2><p>这个时候他会检测文件的16进制数据头是否是合法文件的数据头，这个时候我们找一个普通的图片文件，再写一个一句话木马文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;?php eval($_POST[123456])?&gt;</div></pre></td></tr></table></figure></p>
+<p>然后通过前面隐写术的方法，进入两个文件的路径，在cmd中输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">copy/b 1.jpg+1.php 2.jpg</div></pre></td></tr></table></figure></p>
+<p>制作成图片马，即可通过菜刀连接一句话木马。</p>
+<h2 id="0x04-后端检测-黑名单"><a href="#0x04-后端检测-黑名单" class="headerlink" title="0x04 后端检测-黑名单"></a>0x04 后端检测-黑名单</h2><p>对于黑名单的检测方式，我们有如下几种办法绕过：</p>
+<ul>
+<li>后缀名大小写混用<br>假如.php后缀，我们可以写成.PHp之类的形式，用于一些过滤不严谨的系统。</li>
+<li>双写后缀<br>在一些系统中，仅仅匹配非法后缀删除，这个时候我们构造.pphphp，当它将第一个php匹配删除之后，剩下的字符又重新组合成了.php。</li>
+<li>同义后缀名<br>很多文件的后缀名不止一个，一些不常用的后缀名如果没有加入黑名单，就可以通过其他的同义后缀绕过。</li>
+</ul>
+<h2 id="0x05-目录禁止执行"><a href="#0x05-目录禁止执行" class="headerlink" title="0x05 目录禁止执行"></a>0x05 目录禁止执行</h2><p>在一些存放上传文件的目录，禁止执行脚本，这个时候我们可以通过在这个目录创建新的子目录，然后将脚本写入子目录中，即可执行。</p>
+<h2 id="0x06-总结"><a href="#0x06-总结" class="headerlink" title="0x06 总结"></a>0x06 总结</h2><p>文件上传漏洞带来的危害十分巨大，在有文件上传的位置，一定要做严格的检查，不能因为开发一时的方便而忽视危害，建议在开发时遵循如下几点：</p>
+<ul>
+<li>1.应用白名单的方式过滤文件扩展名</li>
+<li>2.使用三等于（===）来对比扩展名（防止类型转换带来的逻辑漏洞，之后写逻辑漏洞的时候会写到）</li>
+<li>3.如果不是图片等必要呈现出来的文件，对上传路径设置权限。</li>
+</ul>
 
   </section>
   <div class="copyright">
-    <span>文本标题:</span><a href="/2017/05/06/arp入侵/" target="_blank">arp入侵</a><br />
+    <span>文本标题:</span><a href="/2018/04/12/文件上传漏洞绕过方式总结/" target="_blank">文件上传漏洞绕过方式总结</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
-    <span>发布时间:</span>2017-05-06 22:05:03<br />
-    <span>最后更新:</span>2017-05-11 11:41:36<br />
+    <span>发布时间:</span>2018-04-12 13:37:31<br />
+    <span>最后更新:</span>2018-04-12 13:37:52<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
