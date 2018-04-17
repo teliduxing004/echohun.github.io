@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    逻辑处理漏洞 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",漏洞利用,逻辑处理漏洞">
+<meta name="description" content="0x00 逻辑处理漏洞很多漏洞出现的原因是在代码编写的环节没有考虑到一些安全问题，由程序逻辑失误导致的，这里记录一下一些常见的逻辑处理漏洞。
+0x01 in_array函数in_array()函数是用来判断一个值是否在一个列表里面，一般用法如下：  
+1in_array(&amp;apos;b&amp;apos;,array(&amp;apos;a&amp;apos;,&amp;apos;b&amp;apos;,&amp;apos;c&amp;apos;))">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逻辑处理漏洞 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/逻辑处理漏洞/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 逻辑处理漏洞很多漏洞出现的原因是在代码编写的环节没有考虑到一些安全问题，由程序逻辑失误导致的，这里记录一下一些常见的逻辑处理漏洞。
+0x01 in_array函数in_array()函数是用来判断一个值是否在一个列表里面，一般用法如下：  
+1in_array(&amp;apos;b&amp;apos;,array(&amp;apos;a&amp;apos;,&amp;apos;b&amp;apos;,&amp;apos;c&amp;apos;))">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/logic/logic01.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/logic/logic02.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/logic/logic03.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/logic/logic04.jpg">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/logic/logic05.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/logic/logic06.jpg">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/logic/logic07.png">
+<meta property="og:updated_time" content="2018-04-17T10:35:26.848Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="逻辑处理漏洞 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 逻辑处理漏洞很多漏洞出现的原因是在代码编写的环节没有考虑到一些安全问题，由程序逻辑失误导致的，这里记录一下一些常见的逻辑处理漏洞。
+0x01 in_array函数in_array()函数是用来判断一个值是否在一个列表里面，一般用法如下：  
+1in_array(&amp;apos;b&amp;apos;,array(&amp;apos;a&amp;apos;,&amp;apos;b&amp;apos;,&amp;apos;c&amp;apos;))">
+<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/logic/logic01.png">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/漏洞利用/" class="tagc1">漏洞利用 : 10</a><a href="/tags/python/" class="tagc2">python : 6</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/mysql/" class="tagc4">mysql : 3</a><a href="/tags/php/" class="tagc5">php : 3</a><a href="/tags/暴力破解/" class="tagc1">暴力破解 : 3</a><a href="/tags/ctf/" class="tagc2">ctf : 3</a><a href="/tags/密码学/" class="tagc3">密码学 : 2</a><a href="/tags/文件上传/" class="tagc4">文件上传 : 2</a><a href="/tags/sql注入/" class="tagc5">sql注入 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/arp入侵/" class="tagc2">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc3">nmap : 1</a><a href="/tags/arpspoof/" class="tagc4">arpspoof : 1</a><a href="/tags/heartbleed/" class="tagc5">heartbleed : 1</a><a href="/tags/逻辑处理漏洞/" class="tagc1">逻辑处理漏洞 : 1</a><a href="/tags/网络协议/" class="tagc2">网络协议 : 1</a><a href="/tags/struts2-052/" class="tagc3">struts2-052 : 1</a><a href="/tags/snort/" class="tagc4">snort : 1</a><a href="/tags/https/" class="tagc5">https : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">逻辑处理漏洞</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-04-17 18:32:46" class="post-meta__date date">2018-04-17 18:32:46</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/漏洞利用/">漏洞利用</a>, <a class="tags-link" href="/tags/逻辑处理漏洞/">逻辑处理漏洞</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-逻辑处理漏洞"><a href="#0x00-逻辑处理漏洞" class="headerlink" title="0x00 逻辑处理漏洞"></a>0x00 逻辑处理漏洞</h2><p>很多漏洞出现的原因是在代码编写的环节没有考虑到一些安全问题，由程序逻辑失误导致的，这里记录一下一些常见的逻辑处理漏洞。</p>
+<h2 id="0x01-in-array函数"><a href="#0x01-in-array函数" class="headerlink" title="0x01 in_array函数"></a>0x01 in_array函数</h2><p>in_array()函数是用来判断一个值是否在一个列表里面，一般用法如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">in_array(&apos;b&apos;,array(&apos;a&apos;,&apos;b&apos;,&apos;c&apos;))</div></pre></td></tr></table></figure>
+<p>当我们php代码中这样写时：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if(in_array($_GET[&apos;id&apos;],array(1,2,3,4)))</div><div class="line">&#123;</div><div class="line">    $sql=&quot;select where id=&apos;&quot;.$_GET[&apos;id&apos;].&quot;&apos;&quot;;</div><div class="line">echo $sql;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这段代码判断得到的参数id的值是否在array这个数组中，但是这里如果输入id=1’ union select <em> from user，in_array()函数会自动进行类型转换，就会认为这个输入参数类型转换之后是1，属于array数组中，就会执行select where id =’1’ union select </em> from user。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/logic/logic01.png" alt=""></p>
+<h2 id="0x02-双等于和三等于"><a href="#0x02-双等于和三等于" class="headerlink" title="0x02 双等于和三等于"></a>0x02 双等于和三等于</h2><p>php中，双等于与三等于之间有一些区别，其中双等于在判断等于之前会先进行数据类型转换，而三等于则不会，所以在一些情况下，双等于会造成一些安全问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">var_dump($_GET[&apos;var&apos;]==2);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>var_dump()函数用于输出变量结构、内容和类型，一般用于精确调试。  </p>
+<p>这里我们如果给出var=2abcd,就会返回bool(true),发现类型强制转换之后判断为true。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/logic/logic02.png" alt=""></p>
+<h2 id="0x03-is-numeric函数"><a href="#0x03-is-numeric函数" class="headerlink" title="0x03 is_numeric函数"></a>0x03 is_numeric函数</h2><p>in_numeric()用来判断一个变量是否为数字，如果检查通过返回true，否则返回false</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">if(is_numeric($_GET[&apos;var&apos;]))</div><div class="line">&#123;</div><div class="line">    $sql=&quot;insert into user values(&apos;user&apos;,&#123;$_GET[&apos;var&apos;]&#125;)&quot;;</div><div class="line">    echo $sql;</div><div class="line">&#125;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>这个函数存在一个问题，那就是当传入hex时直接通过并返回true，但是mysql中是可以通过hex编码代替明文的，如我们提交一个xss测试代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;alert(1)&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>对应的hex编码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0x3c7363726970743e616c6572742831293c2f7363726970743e</div></pre></td></tr></table></figure></p>
+<p>就会成功的将代码传入数据库。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/logic/logic03.png" alt=""></p>
+<h2 id="0x04-订单支付漏洞"><a href="#0x04-订单支付漏洞" class="headerlink" title="0x04 订单支付漏洞"></a>0x04 订单支付漏洞</h2><p>在一些电商网站会出现的一些逻辑漏洞，主要是客户可以更改单价、总价、数量等，然后提交之后后台未作严格的校验导致的。</p>
+<p>比如价格可以在客户端提交，那么原本几千元的商品，我们抓包修改提交订单的商品单价为1，如果后台未作校验直接跳转支付界面，那么就可以用一元钱购买物品。总价也是同理。</p>
+<p>再比如将要购买的商品数量或单价改为负数，如果后台未作检验，那么计算总价时就会计算出负数，反而会让我们越买钱越多。</p>
+<h2 id="0x05-利用时间差"><a href="#0x05-利用时间差" class="headerlink" title="0x05 利用时间差"></a>0x05 利用时间差</h2><p>这种类型在早期刷钻的时候出现过，先发给腾讯一条开通某钻的订单，然后再发送一个取消业务的短信给运营商，这样腾讯那边成功开通但是无法扣费，就实现了刷钻。</p>
+<p>还有就是在购买商品时，判断余额这条语句和扣费语句之间有某几条语句浪费了一些时间。比如我们有10元钱，然后商品也是10元，我们就可以以极快的速度发很多个请求，这个时候还没用扣费所以判断余额10元足够开通，然后请求都发送之后，获得了很多个10元钱请求的商品，然后才开始扣费，使余额成为负数，但是商品已经全部成功买到。</p>
+<h2 id="0x06-水平权限漏洞"><a href="#0x06-水平权限漏洞" class="headerlink" title="0x06 水平权限漏洞"></a>0x06 水平权限漏洞</h2><p>水平越权，即是相同级别的用户或者同一角色的不同用户之间，可以越权访问修改或者删除等重要功能。  </p>
+<p>如果我们自己的页面最后的id是12300，如果设计者没有考虑到水平权限的问题再次验证用户访问的空间是否属于这个用户自身的话，那么就可以通过遍历来得到所有用户的信息，甚至进行修改等。</p>
+<h2 id="0x07-垂直权限漏洞"><a href="#0x07-垂直权限漏洞" class="headerlink" title="0x07 垂直权限漏洞"></a>0x07 垂直权限漏洞</h2><p>垂直越权就是低权限用户(普通用户)可以访问更高权限(如管理员)才能访问到的资源。  </p>
+<p>如之前淘宝举报号任意访问的问题，我们通过普通用户的身份，可以访问只有管理员才能访问的举报信息，就是这里的权限检查出现问题。</p>
+<h2 id="0x08-未授权访问"><a href="#0x08-未授权访问" class="headerlink" title="0x08 未授权访问"></a>0x08 未授权访问</h2><p>这个漏洞广泛存在于目前的网络中，很多公司都没有对自己公司的某些敏感目录做访问限制，使得外网可以直接通过浏览器访问。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/logic/logic04.jpg" alt=""></p>
+<p>如正方教务系统的后台敏感日志查看漏洞</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/logic/logic05.png" alt=""></p>
+<p>我们在正方教务系统的登陆页面后面加上/log/2018-04-17-log.txt，就可以直接访问后台敏感日志。</p>
+<p>有的公司的files信息和phpinfo信息，也直接暴露给用户，会被获得很多敏感信息。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/logic/logic06.jpg" alt=""></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/logic/logic07.png" alt=""></p>
+<h2 id="0x08-总结"><a href="#0x08-总结" class="headerlink" title="0x08 总结"></a>0x08 总结</h2><p>逻辑处理漏洞还有很多类型，比如验证码爆破、密码找回等等，这些漏洞虽然原理不难理解，但是由于程序员编写代码时的考虑不周，导致逻辑处理漏洞广泛存在，并且危害极高，解决逻辑处理漏洞，更需要的是安全工作人员和开发人员的沟通配合。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/04/17/逻辑处理漏洞/" target="_blank">逻辑处理漏洞</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-04-17 18:32:46<br />
+    <span>最后更新:</span>2018-04-17 18:35:26<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
