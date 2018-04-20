@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    CSRF跨站请求伪造 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",CSRF,漏洞利用">
+<meta name="description" content="0x00 CSRF跨站请求伪造CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSRF跨站请求伪造 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/04/21/CSRF跨站请求伪造/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 CSRF跨站请求伪造CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf01.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf02.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf03.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf04.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf05.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf06.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf07.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf08.png">
+<meta property="og:updated_time" content="2018-04-20T16:50:35.289Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSRF跨站请求伪造 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 CSRF跨站请求伪造CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比">
+<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf01.png">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/漏洞利用/" class="tagc1">漏洞利用 : 11</a><a href="/tags/python/" class="tagc2">python : 6</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/php/" class="tagc4">php : 3</a><a href="/tags/mysql/" class="tagc5">mysql : 3</a><a href="/tags/暴力破解/" class="tagc1">暴力破解 : 3</a><a href="/tags/ctf/" class="tagc2">ctf : 3</a><a href="/tags/密码学/" class="tagc3">密码学 : 2</a><a href="/tags/文件上传/" class="tagc4">文件上传 : 2</a><a href="/tags/sql注入/" class="tagc5">sql注入 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/https/" class="tagc2">https : 1</a><a href="/tags/ssl/" class="tagc3">ssl : 1</a><a href="/tags/redis/" class="tagc4">redis : 1</a><a href="/tags/笔记/" class="tagc5">笔记 : 1</a><a href="/tags/CSRF/" class="tagc1">CSRF : 1</a><a href="/tags/arp入侵/" class="tagc2">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc3">nmap : 1</a><a href="/tags/arpspoof/" class="tagc4">arpspoof : 1</a><a href="/tags/struts2-052/" class="tagc5">struts2-052 : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">CSRF跨站请求伪造</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-04-21 00:47:53" class="post-meta__date date">2018-04-21 00:47:53</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/CSRF/">CSRF</a>, <a class="tags-link" href="/tags/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-CSRF跨站请求伪造"><a href="#0x00-CSRF跨站请求伪造" class="headerlink" title="0x00 CSRF跨站请求伪造"></a>0x00 CSRF跨站请求伪造</h2><p>CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。尽管听起来像跨站脚本（XSS），但它与XSS非常不同，XSS利用站点内的信任用户，而CSRF则通过伪装来自受信任用户的请求来利用受信任的网站。与XSS攻击相比，CSRF攻击往往不大流行和难以防范，所以被认为比XSS更具危险性。</p>
+<h2 id="0x01-原理"><a href="#0x01-原理" class="headerlink" title="0x01 原理"></a>0x01 原理</h2><p>用户登陆网站A，并且生成本地cookie，在没有退出的情况下点击了攻击者构造的危险链接进入了网站B，而网站B是个危险请求，用户以自己的身份发送了危险请求。</p>
+<h2 id="0x02-CSRF攻击实例"><a href="#0x02-CSRF攻击实例" class="headerlink" title="0x02 CSRF攻击实例"></a>0x02 CSRF攻击实例</h2><p>CSRF 攻击可以在受害者毫不知情的情况下以受害者名义伪造请求发送给受攻击站点，从而在并未授权的情况下执行在权限保护之下的操作。比如说，受害者 Bob 在银行有一笔存款，通过对银行的网站发送请求 <a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2" target="_blank" rel="external">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=bob2</a>  可以使 Bob 把 1000000 的存款转到 bob2 的账号下。通常情况下，该请求发送到网站后，服务器会先验证该请求是否来自一个合法的 session，并且该 session 的用户 Bob 已经成功登陆。黑客 Mallory 自己在该银行也有账户，他知道上文中的 URL 可以把钱进行转帐操作。Mallory 可以自己发送一个请求给银行：<a href="http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory" target="_blank" rel="external">http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory</a> 。但是这个请求来自 Mallory 而非 Bob，他不能通过安全认证，因此该请求不会起作用。这时，Mallory 想到使用 CSRF 的攻击方式，他先自己做一个网站，在网站中放入如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">src=&quot;http://bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=Mallory&quot;</div></pre></td></tr></table></figure></p>
+<p>并且通过广告等诱使 Bob 来访问他的网站。当 Bob 访问该网站时，上述 url 就会从 Bob 的浏览器发向银行，而这个请求会附带 Bob 浏览器中的 cookie 一起发向银行服务器。大多数情况下，该请求会失败，因为他要求 Bob 的认证信息。但是，如果 Bob 当时恰巧刚访问他的银行后不久，他的浏览器与银行网站之间的 session 尚未过期，浏览器的 cookie 之中含有 Bob 的认证信息。这时，悲剧发生了，这个 url 请求就会得到响应，钱将从 Bob 的账号转移到 Mallory 的账号，而 Bob 当时毫不知情。等以后 Bob 发现账户钱少了，即使他去银行查询日志，他也只能发现确实有一个来自于他本人的合法请求转移了资金，没有任何被攻击的痕迹。而 Mallory 则可以拿到钱后逍遥法外。</p>
+<h2 id="0x03-CSRF环境搭建"><a href="#0x03-CSRF环境搭建" class="headerlink" title="0x03 CSRF环境搭建"></a>0x03 CSRF环境搭建</h2><p>首先我们写一个登陆之后能修改密码的系统，账号密码等信息存放在数据库中，数据库中假设有如下几个用户的信息：</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf01.png" alt=""></p>
+<p>然后在wamp环境中www/csrf路径中创建：</p>
+<ul>
+<li>login.html</li>
+<li>login.php</li>
+<li>welcome.php</li>
+<li>exit.php</li>
+</ul>
+<p>各部分代码如下</p>
+<p>登陆界面login.html:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</div><div class="line">&lt;title&gt;login&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"> </div><div class="line">&lt;body&gt;</div><div class="line">&lt;form action=&quot;login.php&quot; method=&quot;post&quot;&gt;</div><div class="line">username:&lt;input type=&quot;text&quot; name=&quot;username&quot; /&gt;&lt;br /&gt;</div><div class="line">password:&lt;input type=&quot;password&quot; name=&quot;password&quot; /&gt;&lt;br /&gt;</div><div class="line">&lt;input type=&quot;submit&quot; value=&quot;登录&quot; /&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>登陆界面代码只有简单的一个表单提交账号密码给后台。</p>
+<p>登陆后台login.php:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</div><div class="line">&lt;title&gt;login.....&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"> </div><div class="line">&lt;body&gt;</div><div class="line">&lt;?php</div><div class="line">session_start();</div><div class="line">$username=$_REQUEST[&quot;username&quot;];</div><div class="line">$password=$_REQUEST[&quot;password&quot;];</div><div class="line">$con=mysql_connect(&quot;localhost&quot;,&quot;root&quot;,&quot;123456&quot;);</div><div class="line">if(!$con)&#123;</div><div class="line"> die(&quot;database connect error!&quot;);</div><div class="line"> &#125;</div><div class="line">mysql_select_db(&quot;test&quot;,$con);</div><div class="line">$dbusername=null;</div><div class="line">$dbpassword=null;</div><div class="line">$result=mysql_query(&quot;select * from user where username=&apos;&quot;.$username.&quot;&apos;;&quot;);</div><div class="line">while($row=mysql_fetch_array($result))&#123;</div><div class="line"> $dbusername=$row[&quot;username&quot;];</div><div class="line"> $dbpassword=$row[&quot;password&quot;];</div><div class="line">&#125;</div><div class="line">if(is_null($dbusername))&#123;</div><div class="line">?&gt;</div><div class="line">&lt;script&gt;</div><div class="line">alert(&quot;username is not exist!&quot;);</div><div class="line">window.location.href=&quot;login.html&quot;;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;?php</div><div class="line"> &#125;</div><div class="line">else&#123;</div><div class="line"> if($dbpassword!=$password)&#123;</div><div class="line">?&gt;</div><div class="line">&lt;script&gt;</div><div class="line">alert(&quot;password error!&quot;);</div><div class="line">window.location.href=&quot;login.html&quot;;</div><div class="line">&lt;/script&gt;    </div><div class="line">&lt;?php</div><div class="line"> &#125;</div><div class="line"> else&#123;</div><div class="line"> $_SESSION[&quot;username&quot;]=$username;</div><div class="line"> $_SESSION[&quot;code&quot;]=mt_rand(0,100000);</div><div class="line">?&gt;</div><div class="line">&lt;script&gt;</div><div class="line">window.location.href=&quot;welcome.php&quot;;</div><div class="line">&lt;/script&gt; </div><div class="line">&lt;?php</div><div class="line"> &#125;</div><div class="line"> &#125;</div><div class="line">mysql_close($con);</div><div class="line">?&gt;</div><div class="line"> </div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>后台拿到收到的账号密码，然后连接数据库登陆，与数据库中账号密码匹配成功则生成session并跳转到welcome.php，匹配失败就返回login.html。</p>
+<p>登陆成功界面welcome.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;  </div><div class="line">&lt;head&gt;  </div><div class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;  </div><div class="line">&lt;title&gt;welcome&lt;/title&gt;  </div><div class="line">&lt;/head&gt;  </div><div class="line">&lt;body&gt;  </div><div class="line">  </div><div class="line">&lt;?php  </div><div class="line">session_start ();  </div><div class="line">if (isset ( $_SESSION [&quot;code&quot;] )) &#123;//判断code存不存在，如果不存在，说明异常登录  </div><div class="line">    ?&gt;  </div><div class="line">welcome &lt;?php  </div><div class="line">    echo &quot;$&#123;_SESSION[&quot;username&quot;]&#125;&quot;;//显示登录用户名  </div><div class="line">    ?&gt;&lt;br&gt;  </div><div class="line">your ip：&lt;?php  </div><div class="line">    echo &quot;$&#123;_SERVER[&apos;REMOTE_ADDR&apos;]&#125;&quot;;//显示ip  </div><div class="line">    ?&gt;  </div><div class="line">&lt;br&gt;  </div><div class="line">&lt;a href=&quot;exit.php&quot;&gt;exit&lt;/a&gt;  </div><div class="line">&lt;?php  </div><div class="line">&#125; else &#123;//code不存在，调用exit.php 退出登录  </div><div class="line">    ?&gt;  </div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;  </div><div class="line">    alert(&quot;exit&quot;);  </div><div class="line">    window.location.href=&quot;exit.php&quot;;  </div><div class="line">&lt;/script&gt;  </div><div class="line">&lt;?php  </div><div class="line">&#125;  </div><div class="line">?&gt;  </div><div class="line">&lt;br&gt;</div><div class="line">&lt;!--  &lt;input type=&quot;button&quot; onclick=&quot;window.location.href=&apos;password.html&apos;&quot; value=&quot;change password&quot;&gt;   --&gt;</div><div class="line">&lt;form action=&quot;&quot; method=&quot;get&quot;&gt;</div><div class="line">newpassword: &lt;input type=&quot;text&quot; name=&quot;password&quot;&gt;</div><div class="line">&lt;input type=&quot;submit&quot;&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;hr&gt;</div><div class="line">&lt;?php</div><div class="line"></div><div class="line">$con=mysqli_connect(&quot;localhost&quot;,&quot;root&quot;,&quot;123456&quot;,&quot;test&quot;);</div><div class="line">if(!$con)&#123;</div><div class="line"> die(&quot;database connect error!&quot;);</div><div class="line"> &#125;</div><div class="line">if($_GET[&apos;password&apos;])&#123;</div><div class="line">$n_password = $_GET[&apos;password&apos;];</div><div class="line">$username=&quot;$&#123;_SESSION[&quot;username&quot;]&#125;&quot;;</div><div class="line">#print &quot;update user set password= &apos;&quot;.$n_password.&quot;&apos; where username= &apos;&quot;.$username.&quot;&apos;;&quot;;</div><div class="line">mysqli_query($con,&quot;update user set password= &apos;&quot;.$n_password.&quot;&apos; where username= &apos;&quot;.$username.&quot;&apos;;&quot;);</div><div class="line">&#125;</div><div class="line">?&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;  </div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>登陆成功界面显示用户名和ip地址，然后有一个修改密码的输入框，如果我们在这里提交新密码，就会连接mysql数据库修改密码，点击exit可以退出登陆。</p>
+<p>退出处理exit.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</div><div class="line">&lt;title&gt;log out&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;?php</div><div class="line">session_start();</div><div class="line">session_destroy();</div><div class="line">?&gt;</div><div class="line">&lt;script&gt;</div><div class="line">window.location.href=&quot;login.html&quot;;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>exit.php将session销毁，然后返回login.html。</p>
+<p>上述四个文件编写完毕，基本的环境就完成了，下来我们看如何进行csrf攻击。</p>
+<h2 id="0x04-csrf实现"><a href="#0x04-csrf实现" class="headerlink" title="0x04 csrf实现"></a>0x04 csrf实现</h2><p>首先登陆界面如下：</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf02.png" alt=""></p>
+<p>lily用自己账号登陆了这个界面：</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf03.png" alt=""></p>
+<p>然后修改了密码，发现密码修改时的url请求为：</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf04.png" alt=""></p>
+<p>然后lily想，如果构造一个url请求发给别人，别人正好处于没有退出登陆的情况下点击了这个url，会不会被修改密码。</p>
+<p>ps：此时lily密码为233333，jack密码为qwe123。</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf05.png" alt=""></p>
+<p>所以lily就构造url：<a href="http://127.0.0.1/csrf/welcome.php?password=123456" target="_blank" rel="external">http://127.0.0.1/csrf/welcome.php?password=123456</a> 给已经登陆的jack<br>，然后jack点击了lily发来的网址，jack的密码变成了123456：</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf06.png" alt=""></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf07.png" alt=""></p>
+<p>这个时候lily想，直接发网址太容易暴露了，我构造一个钓鱼网页，来欺骗jack点，所以写了一个hack.html(这个可以写在任何网络中，诱导jack点击)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</div><div class="line">&lt;title&gt;hack&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line"> </div><div class="line">&lt;body&gt;</div><div class="line">&lt;a href=&quot;http://127.0.0.1/csrf/welcome.php?password=123456&quot;&gt;233333&lt;/a&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/csrf/csrf08.png" alt=""></p>
+<p>这个时候，只要处于未退出状态的人点击了这个链接，密码就会被改成123456</p>
+<p>至此，一次完美的csrf攻击就完成了。</p>
+<h2 id="0x05-应对"><a href="#0x05-应对" class="headerlink" title="0x05 应对"></a>0x05 应对</h2><ul>
+<li><p>添加验证码<br>如果提交请求的界面需要有验证码，即使存在csrf漏洞，攻击者也无法预测下一个验证码是什么，就成功的避免了csrf攻击。</p>
+</li>
+<li><p>验证referer<br>HTTP Referer是header的一部分，当浏览器向web服务器发送请求的时候，一般会带上Referer，告诉服务器是从哪个页面链接过来的，而且它无法被javascript所更改，所以服务器可以通过Referer来判断是用户的正常操作还是被csrf攻击后的操作。</p>
+</li>
+<li><p>token<br>CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。</p>
+</li>
+<li><p>设置跨域权限<br>设置跨域权限使用户的某些操作不接受其他域的提交，就可以避免csrf。</p>
+</li>
+</ul>
+<h2 id="0x06-总结"><a href="#0x06-总结" class="headerlink" title="0x06 总结"></a>0x06 总结</h2><p>CSRF漏洞虽然原理不难理解，攻击也不难实现，但是搭漏洞环境时一句一句的写代码出了很多错误花了很多时间，不过总的来说受益良多，提升了自己的编程能力。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/04/21/CSRF跨站请求伪造/" target="_blank">CSRF跨站请求伪造</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-04-21 00:47:53<br />
+    <span>最后更新:</span>2018-04-21 00:50:35<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
