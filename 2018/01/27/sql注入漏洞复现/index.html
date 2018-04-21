@@ -46,7 +46,7 @@
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/sql_injection/%E5%9B%BE%E7%89%8716.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/sql_injection/%E5%9B%BE%E7%89%8717.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/sql_injection/%E5%9B%BE%E7%89%8718.png">
-<meta property="og:updated_time" content="2018-01-27T11:17:29.388Z">
+<meta property="og:updated_time" content="2018-04-21T07:08:12.212Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql注入漏洞复现 | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 sql注入SQL注入是用户从正常的www访问通过全局变量POST和GET提交一些sql语句对数据库的数据进行操作。  
@@ -98,7 +98,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/漏洞利用/" class="tagc1">漏洞利用 : 11</a><a href="/tags/python/" class="tagc2">python : 6</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/php/" class="tagc4">php : 3</a><a href="/tags/mysql/" class="tagc5">mysql : 3</a><a href="/tags/暴力破解/" class="tagc1">暴力破解 : 3</a><a href="/tags/ctf/" class="tagc2">ctf : 3</a><a href="/tags/密码学/" class="tagc3">密码学 : 2</a><a href="/tags/文件上传/" class="tagc4">文件上传 : 2</a><a href="/tags/sql注入/" class="tagc5">sql注入 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/https/" class="tagc2">https : 1</a><a href="/tags/ssl/" class="tagc3">ssl : 1</a><a href="/tags/redis/" class="tagc4">redis : 1</a><a href="/tags/笔记/" class="tagc5">笔记 : 1</a><a href="/tags/CSRF/" class="tagc1">CSRF : 1</a><a href="/tags/arp入侵/" class="tagc2">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc3">nmap : 1</a><a href="/tags/arpspoof/" class="tagc4">arpspoof : 1</a><a href="/tags/struts2-052/" class="tagc5">struts2-052 : 1</a>
+<a href="/tags/漏洞利用/" class="tagc1">漏洞利用 : 11</a><a href="/tags/python/" class="tagc2">python : 6</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/mysql/" class="tagc4">mysql : 3</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/暴力破解/" class="tagc1">暴力破解 : 3</a><a href="/tags/php/" class="tagc2">php : 3</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 2</a><a href="/tags/密码学/" class="tagc4">密码学 : 2</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/redis/" class="tagc2">redis : 1</a><a href="/tags/笔记/" class="tagc3">笔记 : 1</a><a href="/tags/CSRF/" class="tagc4">CSRF : 1</a><a href="/tags/arp入侵/" class="tagc5">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc1">nmap : 1</a><a href="/tags/heartbleed/" class="tagc2">heartbleed : 1</a><a href="/tags/arpspoof/" class="tagc3">arpspoof : 1</a><a href="/tags/struts2-052/" class="tagc4">struts2-052 : 1</a><a href="/tags/snort/" class="tagc5">snort : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -185,7 +185,7 @@
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/sql_injection/%E5%9B%BE%E7%89%873.png" alt=""></p>
 <p>与一个错误的式子，结果改变，说明存在注入点。</p>
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/sql_injection/%E5%9B%BE%E7%89%874.png" alt=""></p>
-<p>(2)当前数据库权限判断<br>提交and ord(min(user(),1,1))=114如果页面正常则为root权限，下图可以看出是root权限</p>
+<p>(2)当前数据库权限判断<br>提交and ord(mid(user(),1,1))=114如果页面正常则为root权限，下图可以看出是root权限</p>
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/sql_injection/%E5%9B%BE%E7%89%875.png" alt=""></p>
 <p>(3)判断字段数<br>提交union select * from users order by 数字填猜测的字段数，下图可见，填4可以正常显示，填5不能，所以字段数是4个。</p>
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/sql_injection/%E5%9B%BE%E7%89%876.png" alt=""></p>
@@ -267,7 +267,7 @@
     <span>文本标题:</span><a href="/2018/01/27/sql注入漏洞复现/" target="_blank">sql注入漏洞复现</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
     <span>发布时间:</span>2018-01-27 19:16:37<br />
-    <span>最后更新:</span>2018-01-27 19:17:29<br />
+    <span>最后更新:</span>2018-04-21 15:08:12<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
