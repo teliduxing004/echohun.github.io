@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    mysql数据库内置函数总结 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",笔记,mysql">
+<meta name="description" content="0x00 前言熟练的掌握mysql语法和函数是开发人员和安全工作中必备的技能，所以决定将mysql的内置函数全部整理一遍，用作笔记。
+0x01 数学函数
+greatest()——返回一组数中的最大值
+least()——返回一组数中的最小值
+floor()——返回一个数的向下取整
+ceiling()——返回一个数的向上取整
+round()——返回一个数四舍五入后的整数值
+truncate()——把一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql数据库内置函数总结 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/04/28/mysql数据库内置函数总结/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 前言熟练的掌握mysql语法和函数是开发人员和安全工作中必备的技能，所以决定将mysql的内置函数全部整理一遍，用作笔记。
+0x01 数学函数
+greatest()——返回一组数中的最大值
+least()——返回一组数中的最小值
+floor()——返回一个数的向下取整
+ceiling()——返回一个数的向上取整
+round()——返回一个数四舍五入后的整数值
+truncate()——把一">
+<meta property="og:updated_time" content="2018-04-28T14:31:14.776Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql数据库内置函数总结 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 前言熟练的掌握mysql语法和函数是开发人员和安全工作中必备的技能，所以决定将mysql的内置函数全部整理一遍，用作笔记。
+0x01 数学函数
+greatest()——返回一组数中的最大值
+least()——返回一组数中的最小值
+floor()——返回一个数的向下取整
+ceiling()——返回一个数的向上取整
+round()——返回一个数四舍五入后的整数值
+truncate()——把一">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 16</a><a href="/tags/python/" class="tagc2">python : 7</a><a href="/tags/mysql/" class="tagc3">mysql : 5</a><a href="/tags/网络安全/" class="tagc4">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc5">sql注入 : 4</a><a href="/tags/php/" class="tagc1">php : 4</a><a href="/tags/暴力破解/" class="tagc2">暴力破解 : 3</a><a href="/tags/ctf/" class="tagc3">ctf : 3</a><a href="/tags/笔记/" class="tagc4">笔记 : 3</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/文件上传/" class="tagc2">文件上传 : 2</a><a href="/tags/redis/" class="tagc3">redis : 1</a><a href="/tags/XSS/" class="tagc4">XSS : 1</a><a href="/tags/CSRF/" class="tagc5">CSRF : 1</a><a href="/tags/SSRF/" class="tagc1">SSRF : 1</a><a href="/tags/arp入侵/" class="tagc2">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc3">nmap : 1</a><a href="/tags/arpspoof/" class="tagc4">arpspoof : 1</a><a href="/tags/BurpSuite/" class="tagc5">BurpSuite : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">mysql数据库内置函数总结</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-04-28 22:30:35" class="post-meta__date date">2018-04-28 22:30:35</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/笔记/">笔记</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/mysql/">mysql</a>, <a class="tags-link" href="/tags/笔记/">笔记</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>熟练的掌握mysql语法和函数是开发人员和安全工作中必备的技能，所以决定将mysql的内置函数全部整理一遍，用作笔记。</p>
+<h2 id="0x01-数学函数"><a href="#0x01-数学函数" class="headerlink" title="0x01 数学函数"></a>0x01 数学函数</h2><ul>
+<li>greatest()——返回一组数中的最大值</li>
+<li>least()——返回一组数中的最小值</li>
+<li>floor()——返回一个数的向下取整</li>
+<li>ceiling()——返回一个数的向上取整</li>
+<li>round()——返回一个数四舍五入后的整数值</li>
+<li>truncate()——把一个数字截取为指定小数位数的数字</li>
+<li>abs()——返回一个数的绝对值</li>
+<li>sign()——返回一个数的符号，正数返回1，负数返回-1，零返回0</li>
+<li>sqrt()——返回一个数的平方根</li>
+<li>pow()——以一个数作为另一个数的指数，并返回结果</li>
+<li>sin()——返回一个角度(弧度)的正弦</li>
+<li>cos()——返回一个角度(弧度)的余弦</li>
+<li>tan()——返回一个角度(弧度)的正切</li>
+<li>asin()——返回一个角度(弧度)的反正弦</li>
+<li>acon()——返回一个角度(弧度)的反余弦</li>
+<li>atan()——返回一个角度(弧度)的反正切</li>
+<li>bin()——返回一个数的二进制，作为字符串</li>
+<li>otc()——返回一个数的八进制，作为字符串</li>
+<li>hex()——返回一个数的十六进制，作为字符串</li>
+</ul>
+<h2 id="0x02-聚合函数"><a href="#0x02-聚合函数" class="headerlink" title="0x02 聚合函数"></a>0x02 聚合函数</h2><ul>
+<li>count()——求组中项数，返回int型整数</li>
+<li>max()——求最大值</li>
+<li>min()——求最小值</li>
+<li>sum()——返回表达式所有值的和</li>
+<li>avg()——求组中值的平均值</li>
+<li>std()——返回给定表达式中所有值的标准差</li>
+<li>variance()——返回给定表达式中所有值</li>
+<li>group_concat()——返回由属于一组的列值连接组合而成的结果</li>
+<li>bit_and()——逻辑与</li>
+<li>bit_or()——逻辑或</li>
+<li>bit_xor()——逻辑异或</li>
+</ul>
+<h2 id="0x03-字符串函数"><a href="#0x03-字符串函数" class="headerlink" title="0x03 字符串函数"></a>0x03 字符串函数</h2><ul>
+<li>ascii(char)——返回表达式最左端字符的ascii码值</li>
+<li>char(x1,x2,x3)——将括号中的多个数字转换成字符，结果组合成一个字符串</li>
+<li>left(str,x)——返回从字符串左边开始指定的x个字符</li>
+<li>right(str,x)——返回从字符串右边开始指定的x个字符</li>
+<li>trim(str)——删除字符串首部和尾部所有空格</li>
+<li>ltrim(str)——删除字符串首部所有空格</li>
+<li>rtrim(str)——删除字符串尾部所有空格</li>
+<li>rpad(str,n,pad)——用字符串pad对str的右边进行填补直到字符串str中字符大于等于n个，然后返回前n个字符</li>
+<li>lpad(str,n,pad)——用字符串pad对str的左边进行填补直到字符串str中字符大于等于n个，然后返回前n个字符</li>
+<li>replace(str1,str2,str3)——用字符串str3替换str1中出现的所有str2</li>
+<li>concat(str1,str2…strn)——连接字符串</li>
+<li>substring(expr,start,length)——返回expr中从start开始，长度为length的子串</li>
+<li>strcmp(str1,str2)——比较两个字符串，相等返回0，str1大返回1，str2大返回-1</li>
+</ul>
+<h2 id="0x04-日期和时间函数"><a href="#0x04-日期和时间函数" class="headerlink" title="0x04 日期和时间函数"></a>0x04 日期和时间函数</h2><ul>
+<li>now()——获取当前的日期和时间</li>
+<li>curtime()——获取当前的时间</li>
+<li>curdate()——获取当前的日期</li>
+<li>year()——分析一个日期值返回其中年的部分</li>
+<li>motnth()——以数值类型返回月的部分</li>
+<li>monthname()——以字符串的类型返回月的部分</li>
+<li>dayofyear()——返回这一天在这一年中的序数</li>
+<li>dayofmonth()——返回这一天在这一月中的序数</li>
+<li>dayofweek()——返回这一天在这一周中的序数</li>
+<li>hour()——返回时间值的小时部分</li>
+<li>minute()——返回时间值的分钟部分</li>
+<li>second()——返回时间值的秒部分</li>
+<li>data_add()——对日期进行增加操作</li>
+<li>data_sub()——对日期进行减少操作</li>
+</ul>
+<h2 id="0x05-加密函数"><a href="#0x05-加密函数" class="headerlink" title="0x05 加密函数"></a>0x05 加密函数</h2><ul>
+<li>aes_encrypt(str,key)和aes_decrypt(str,key)——对str用密钥key进行aes加密，解密</li>
+<li>encode()和decode()——对一个字符串进行加密，解密</li>
+<li>encrypt(str,key)——使用unix crypt()系统加密字符串（在windows上不可用）</li>
+<li>password(str)——返回str加密后的字符串</li>
+</ul>
+<h2 id="0x06-控制流函数"><a href="#0x06-控制流函数" class="headerlink" title="0x06 控制流函数"></a>0x06 控制流函数</h2><ul>
+<li>ifnull(expr1,expr2)——判断参数expr1是否为null，为null时返回expr2，否则返回expr1</li>
+<li>nullif(expr1,expr2)——判断两个参数是否相等，如相等，返回null，如不相等，返回第一个参数</li>
+<li>if(expr1,expr2,expr3)——如果expr1表达式为真，则返回expr2，否则返回expr3</li>
+</ul>
+<h2 id="0x07-格式化函数"><a href="#0x07-格式化函数" class="headerlink" title="0x07 格式化函数"></a>0x07 格式化函数</h2><ul>
+<li>format()——把数值格式化为以逗号为间隔的数字序列</li>
+<li>data_format()——把数值格式化成日期格式</li>
+<li>time_format()——把数值格式化为时间格式</li>
+</ul>
+<h2 id="0x08-类型转换函数"><a href="#0x08-类型转换函数" class="headerlink" title="0x08 类型转换函数"></a>0x08 类型转换函数</h2><ul>
+<li>cast(expr,AS type)——将一个值转换为指定的数据类型</li>
+</ul>
+<h2 id="0x09-系统信息函数"><a href="#0x09-系统信息函数" class="headerlink" title="0x09 系统信息函数"></a>0x09 系统信息函数</h2><ul>
+<li>database()——返回当前数据库名</li>
+<li>benchmark(n,expr)——将表达式expr重复运行n次</li>
+<li>charset()——返回字符串的字符集</li>
+<li>connection_id()——返回当前客户的连接id</li>
+<li>found_rows()——将最后一次select查询的行数返回</li>
+<li>user()——返回当前登陆的用户名</li>
+<li>version()——返回当前mysql服务器版本</li>
+</ul>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/04/28/mysql数据库内置函数总结/" target="_blank">mysql数据库内置函数总结</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-04-28 22:30:35<br />
+    <span>最后更新:</span>2018-04-28 22:31:14<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
