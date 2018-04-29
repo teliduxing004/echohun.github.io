@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
   <title>
-    categories 
+    爆破工具hydra笔记 | Leticia‘s Blog 
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -13,14 +13,20 @@
 
 
 
-  <meta name="keywords" content="">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+  <meta name="keywords" content=",笔记,暴力破解,hydra">
+<meta name="description" content="0x00 hydrahydra 是一个网络帐号破解工具，支持多种协议。其作者是van Hauser,David Maciejak与其共同维护。hydra在所有支持GCC的平台能很好的编译，包括Linux,所有版本的BSD,Mac OS, Solaris等。
+0x01 参数说明hydra [[[-l LOGIN|-L FILE] [-p PASS|-P FILE]] | [-C FILE]] [-e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爆破工具hydra笔记 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/04/29/爆破工具hydra笔记/index.html">
 <meta property="og:site_name" content="Leticia‘s Blog">
-<meta property="og:updated_time" content="2017-05-05T08:32:41.429Z">
+<meta property="og:description" content="0x00 hydrahydra 是一个网络帐号破解工具，支持多种协议。其作者是van Hauser,David Maciejak与其共同维护。hydra在所有支持GCC的平台能很好的编译，包括Linux,所有版本的BSD,Mac OS, Solaris等。
+0x01 参数说明hydra [[[-l LOGIN|-L FILE] [-p PASS|-P FILE]] | [-C FILE]] [-e">
+<meta property="og:updated_time" content="2018-04-29T13:19:43.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
+<meta name="twitter:title" content="爆破工具hydra笔记 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 hydrahydra 是一个网络帐号破解工具，支持多种协议。其作者是van Hauser,David Maciejak与其共同维护。hydra在所有支持GCC的平台能很好的编译，包括Linux,所有版本的BSD,Mac OS, Solaris等。
+0x01 参数说明hydra [[[-l LOGIN|-L FILE] [-p PASS|-P FILE]] | [-C FILE]] [-e">
 
   <!-- favicon icon files -->
 
@@ -112,17 +118,72 @@
       
 <article class="post-container post-container--single">
   <header class="post-header">
-    <h1 class="post-title">categories</h1>
+    <h1 class="post-title">爆破工具hydra笔记</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-04-29 21:17:42" class="post-meta__date date">2018-04-29 21:17:42</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/笔记/">笔记</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/hydra/">hydra</a>, <a class="tags-link" href="/tags/暴力破解/">暴力破解</a>, <a class="tags-link" href="/tags/笔记/">笔记</a>
+        </font>
+      
+      </span>
+    </div>
     
   </header>
   <section id="post-content" class="article-content post">
-  
+  <h2 id="0x00-hydra"><a href="#0x00-hydra" class="headerlink" title="0x00 hydra"></a>0x00 hydra</h2><p>hydra 是一个网络帐号破解工具，支持多种协议。其作者是van Hauser,David Maciejak与其共同维护。hydra在所有支持GCC的平台能很好的编译，包括Linux,所有版本的BSD,Mac OS, Solaris等。</p>
+<h2 id="0x01-参数说明"><a href="#0x01-参数说明" class="headerlink" title="0x01 参数说明"></a>0x01 参数说明</h2><p>hydra [[[-l LOGIN|-L FILE] [-p PASS|-P FILE]] | [-C FILE]] [-e ns]<br>[-o FILE] [-t TASKS] [-M FILE [-T TASKS]] [-w TIME] [-f] [-s PORT] [-S] [-vV] server service [OPT]</p>
+<ul>
+<li>-R 继续从上一次进度接着破解。</li>
+<li>-S 采用SSL链接。</li>
+<li>-s PORT 可通过这个参数指定非默认端口。</li>
+<li>-l LOGIN 指定破解的用户，对特定用户破解。</li>
+<li>-L FILE 指定用户名字典。</li>
+<li>-p PASS 小写，指定密码破解，少用，一般是采用密码字典。</li>
+<li>-P FILE 大写，指定密码字典。</li>
+<li>-e ns 可选选项，n：空密码试探，s：使用指定用户和密码试探。</li>
+<li>-C FILE 使用冒号分割格式，例如“登录名:密码”来代替-L/-P参数。</li>
+<li>-M FILE 指定目标列表文件一行一条。</li>
+<li>-o FILE 指定结果输出文件。</li>
+<li>-f 在使用-f参数以后，找到第一对登录名或者密码的时候中止破解。</li>
+<li>-t TASKS 同时运行的线程数，默认为16。</li>
+<li>-w TIME 设置最大超时的时间，单位秒，默认是30s。</li>
+<li>-v / -V 显示详细过程。</li>
+<li>server 目标ip</li>
+<li>service 指定服务名，支持的服务和协议：telnet ftp pop3[-ntlm] imap[-ntlm] smb smbnt http-{head|get} http-{get|post}-form http-proxy cisco cisco-enable vnc ldap2 ldap3 mssql mysql oracle-listener postgres nntp socks5 rexec rlogin pcnfs snmp rsh cvs svn icq sapr3 ssh smtp-auth[-ntlm] pcanywhere teamspeak sip vmauthd firebird ncp afp等等。</li>
+<li>OPT 可选项</li>
+</ul>
+<h2 id="0x02-使用范例"><a href="#0x02-使用范例" class="headerlink" title="0x02 使用范例"></a>0x02 使用范例</h2><ul>
+<li>1.破解ssh：<br>hydra -l 用户名 -p 密码字典 -t 线程 ip ssh</li>
+<li>2.破解ftp：<br>hydra ip ftp -l 用户名 -P 密码字典 -t 线程</li>
+<li>3.破解web登录（get方式）：<br>hydra -l 用户名 -p 密码字典 -t 线程 -f ip http-get 127.0.0.1/admin/index.php</li>
+<li>4.破解web登录（post方式）：<br>hydra -l 用户名 -P 密码字典 -s 80 ip http-post-form “/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login”</li>
+<li>5.破解https：<br>hydra -m /index.php -l 用户名 -P 密码字典 ip https</li>
+<li>6.破解teamspeak：<br>hydra -l 用户名 -P 密码字典 -s 端口号 ip teamspeak</li>
+<li>7.破解cisco：<br>hydra -P 密码字典 ip cisco</li>
+<li>8.破解smb：<br>hydra -l 用户名 -P 密码字典 ip smb</li>
+<li>9.破解pop3：<br>hydra -l 用户名 -P 密码字典 my.pop3.mail pop3</li>
+<li>10.破解rdp：<br>hydra ip rdp -l 用户名 -P 密码字典 -V</li>
+<li>11.破解http-proxy：<br>hydra -l 用户名 -p 密码字典 -t 线程 http-proxy://xxx.xxx.xxx.xxx</li>
+<li>12.破解imap：<br>hydra -l 用户名 -P 密码字典 ip imap PLAIN</li>
+</ul>
+<h2 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a>0x03 总结</h2><p>hydra支持多种协议的爆破，并且使用方式简单灵活，是暴力测试必备良器，只需要自行提供字典，或根据实际情况生成社工字典，就可以运用到绝大多数场景。</p>
+<p>这里提供一下博主经常使用的一些字典 <a href="https://github.com/echohun/tools/tree/master/%E5%AD%97%E5%85%B8" target="_blank" rel="external">https://github.com/echohun/tools/tree/master/%E5%AD%97%E5%85%B8</a></p>
+
   </section>
   <div class="copyright">
-    <span>文本标题:</span><a href="/categories/index.html" target="_blank">categories</a><br />
+    <span>文本标题:</span><a href="/2018/04/29/爆破工具hydra笔记/" target="_blank">爆破工具hydra笔记</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
-    <span>发布时间:</span>2017-05-05 16:31:52<br />
-    <span>最后更新:</span>2017-05-05 16:32:41<br />
+    <span>发布时间:</span>2018-04-29 21:17:42<br />
+    <span>最后更新:</span>2018-04-29 21:19:43<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
@@ -142,6 +203,39 @@
   <script src="/js/main.js"></script>
   <script src="/js/scale.fix.js"></script>
   <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
   
   
 <div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
