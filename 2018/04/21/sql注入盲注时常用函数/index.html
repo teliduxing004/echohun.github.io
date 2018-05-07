@@ -24,7 +24,7 @@
 <meta property="og:description" content="0x00 盲注盲注是不能通过直接显示的途径来获取数据库数据的方法，在盲注中，攻击者根据其返回页面的不同来判断信息。盲注一般可分为三类：Booleanbase、Timebase、Errorbase。
 接下来介绍一些sql盲注中常用的函数。
 0x01 limit()limit()函数的作用是限制由SELECT语句返回的数据数量，用法是123SELECT column1, column2, column">
-<meta property="og:updated_time" content="2018-04-26T15:16:26.690Z">
+<meta property="og:updated_time" content="2018-05-07T11:29:54.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql注入盲注时常用函数 | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 盲注盲注是不能通过直接显示的途径来获取数据库数据的方法，在盲注中，攻击者根据其返回页面的不同来判断信息。盲注一般可分为三类：Booleanbase、Timebase、Errorbase。
@@ -73,7 +73,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 22</a><a href="/tags/python/" class="tagc2">python : 7</a><a href="/tags/笔记/" class="tagc3">笔记 : 6</a><a href="/tags/mysql/" class="tagc4">mysql : 5</a><a href="/tags/网络安全/" class="tagc5">网络安全 : 5</a><a href="/tags/php/" class="tagc1">php : 5</a><a href="/tags/暴力破解/" class="tagc2">暴力破解 : 4</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/硬件安全/" class="tagc5">硬件安全 : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/文件上传/" class="tagc2">文件上传 : 2</a><a href="/tags/struts2-052/" class="tagc3">struts2-052 : 1</a><a href="/tags/https/" class="tagc4">https : 1</a><a href="/tags/ssl/" class="tagc5">ssl : 1</a><a href="/tags/BurpSuite/" class="tagc1">BurpSuite : 1</a><a href="/tags/heartbleed/" class="tagc2">heartbleed : 1</a><a href="/tags/CSRF/" class="tagc3">CSRF : 1</a><a href="/tags/XSS/" class="tagc4">XSS : 1</a><a href="/tags/mssql/" class="tagc5">mssql : 1</a>
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 22</a><a href="/tags/python/" class="tagc2">python : 7</a><a href="/tags/笔记/" class="tagc3">笔记 : 6</a><a href="/tags/网络安全/" class="tagc4">网络安全 : 5</a><a href="/tags/mysql/" class="tagc5">mysql : 5</a><a href="/tags/php/" class="tagc1">php : 5</a><a href="/tags/暴力破解/" class="tagc2">暴力破解 : 4</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 2</a><a href="/tags/硬件安全/" class="tagc2">硬件安全 : 2</a><a href="/tags/snort/" class="tagc3">snort : 1</a><a href="/tags/CSRF/" class="tagc4">CSRF : 1</a><a href="/tags/BurpSuite/" class="tagc5">BurpSuite : 1</a><a href="/tags/网络协议/" class="tagc1">网络协议 : 1</a><a href="/tags/https/" class="tagc2">https : 1</a><a href="/tags/ssl/" class="tagc3">ssl : 1</a><a href="/tags/mssql/" class="tagc4">mssql : 1</a><a href="/tags/redis/" class="tagc5">redis : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -211,14 +211,20 @@
 <li>count ： 必要参数，重复的次数。</li>
 <li>expr : 必要参数，执行的语句。</li>
 </ul>
-<h2 id="0x08-总结"><a href="#0x08-总结" class="headerlink" title="0x08 总结"></a>0x08 总结</h2><p>盲注是sql注入中十分常用的手段，而且盲注很多时候需要写脚本来实现，熟悉这些函数，结合前面的绕过方法，会让自己的脚本更加灵活。</p>
+<h2 id="0x08-grunp-concat"><a href="#0x08-grunp-concat" class="headerlink" title="0x08 grunp_concat()"></a>0x08 grunp_concat()</h2><p>grunp_concat()函数的作用是连接字段字符串。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">group_concat([DISTINCT] name [Order BY ASC/DESC 排序字段] [Separator &apos;分隔符&apos;])</div></pre></td></tr></table></figure></p>
+<p>其中各参数意义如下：</p>
+<ul>
+<li>name : 要连接的字段</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">substr((select group_concat(schema_name) from information_schema.schemata limit 0,1),1,1)=105</div></pre></td></tr></table></figure>
+<h2 id="0x09-总结"><a href="#0x09-总结" class="headerlink" title="0x09 总结"></a>0x09 总结</h2><p>盲注是sql注入中十分常用的手段，而且盲注很多时候需要写脚本来实现，熟悉这些函数，结合前面的绕过方法，会让自己的脚本更加灵活。</p>
 
   </section>
   <div class="copyright">
     <span>文本标题:</span><a href="/2018/04/21/sql注入盲注时常用函数/" target="_blank">sql注入盲注时常用函数</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
     <span>发布时间:</span>2018-04-21 17:40:07<br />
-    <span>最后更新:</span>2018-04-26 23:16:26<br />
+    <span>最后更新:</span>2018-05-07 19:29:54<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
