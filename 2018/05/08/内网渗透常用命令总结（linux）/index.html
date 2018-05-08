@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    内网渗透常用命令总结（linux） | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",渗透测试,笔记">
+<meta name="description" content="0x00 前言上次总结了windows系统在内网渗透和提权中的常用命令，这篇总结下linux在内网渗透中常用的命令。
+0x01 查看操作系统信息操作系统版本1234cat /etc/issuecat /etc/*-releasecat /etc/lsb-release      # Debian cat /etc/redhat-release   # Redhat
+内核版本123456cat /p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网渗透常用命令总结（linux） | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/08/内网渗透常用命令总结（linux）/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 前言上次总结了windows系统在内网渗透和提权中的常用命令，这篇总结下linux在内网渗透中常用的命令。
+0x01 查看操作系统信息操作系统版本1234cat /etc/issuecat /etc/*-releasecat /etc/lsb-release      # Debian cat /etc/redhat-release   # Redhat
+内核版本123456cat /p">
+<meta property="og:updated_time" content="2018-05-08T13:36:06.142Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内网渗透常用命令总结（linux） | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 前言上次总结了windows系统在内网渗透和提权中的常用命令，这篇总结下linux在内网渗透中常用的命令。
+0x01 查看操作系统信息操作系统版本1234cat /etc/issuecat /etc/*-releasecat /etc/lsb-release      # Debian cat /etc/redhat-release   # Redhat
+内核版本123456cat /p">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 23</a><a href="/tags/笔记/" class="tagc2">笔记 : 7</a><a href="/tags/python/" class="tagc3">python : 7</a><a href="/tags/网络安全/" class="tagc4">网络安全 : 5</a><a href="/tags/mysql/" class="tagc5">mysql : 5</a><a href="/tags/php/" class="tagc1">php : 5</a><a href="/tags/暴力破解/" class="tagc2">暴力破解 : 4</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/硬件安全/" class="tagc5">硬件安全 : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/文件上传/" class="tagc2">文件上传 : 2</a><a href="/tags/struts2-052/" class="tagc3">struts2-052 : 1</a><a href="/tags/网络协议/" class="tagc4">网络协议 : 1</a><a href="/tags/https/" class="tagc5">https : 1</a><a href="/tags/ssl/" class="tagc1">ssl : 1</a><a href="/tags/heartbleed/" class="tagc2">heartbleed : 1</a><a href="/tags/arp入侵/" class="tagc3">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc4">nmap : 1</a><a href="/tags/arpspoof/" class="tagc5">arpspoof : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">内网渗透常用命令总结（linux）</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-05-08 21:34:32" class="post-meta__date date">2018-05-08 21:34:32</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/笔记/">笔记</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/渗透测试/">渗透测试</a>, <a class="tags-link" href="/tags/笔记/">笔记</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>上次总结了windows系统在内网渗透和提权中的常用命令，这篇总结下linux在内网渗透中常用的命令。</p>
+<h2 id="0x01-查看操作系统信息"><a href="#0x01-查看操作系统信息" class="headerlink" title="0x01 查看操作系统信息"></a>0x01 查看操作系统信息</h2><h4 id="操作系统版本"><a href="#操作系统版本" class="headerlink" title="操作系统版本"></a>操作系统版本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cat /etc/issue</div><div class="line">cat /etc/*-release</div><div class="line">cat /etc/lsb-release      # Debian </div><div class="line">cat /etc/redhat-release   # Redhat</div></pre></td></tr></table></figure>
+<h4 id="内核版本"><a href="#内核版本" class="headerlink" title="内核版本"></a>内核版本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cat /proc/version</div><div class="line">uname -a</div><div class="line">uname -mrs</div><div class="line">rpm -q kernel</div><div class="line">dmesg | grep Linux</div><div class="line">ls /boot | grep vmlinuz-</div></pre></td></tr></table></figure>
+<h4 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cat /etc/profile</div><div class="line">cat /etc/bashrc</div><div class="line">cat ~/.bash_profile</div><div class="line">cat ~/.bashrc</div><div class="line">cat ~/.bash_logout</div><div class="line">env</div><div class="line">set</div></pre></td></tr></table></figure>
+<h2 id="0x02-应用和服务"><a href="#0x02-应用和服务" class="headerlink" title="0x02 应用和服务"></a>0x02 应用和服务</h2><h4 id="正在运行的程序和权限"><a href="#正在运行的程序和权限" class="headerlink" title="正在运行的程序和权限"></a>正在运行的程序和权限</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ps aux</div><div class="line">ps -ef</div><div class="line">top</div><div class="line">cat /etc/services</div></pre></td></tr></table></figure>
+<p>如果要查询root权限运行的进程，可以补充为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ps aux | grep root</div><div class="line">ps -ef | grep root</div></pre></td></tr></table></figure></p>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ls -alh /usr/bin/</div><div class="line">ls -alh /sbin/</div><div class="line">dpkg -l</div><div class="line">rpm -qa</div><div class="line">ls -alh /var/cache/apt/archives</div><div class="line">ls -alh /var/cache/yum/</div></pre></td></tr></table></figure>
+<h4 id="服务的配置文件"><a href="#服务的配置文件" class="headerlink" title="服务的配置文件"></a>服务的配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">cat /etc/syslog.conf</div><div class="line">cat /etc/chttp.conf</div><div class="line">cat /etc/lighttpd.conf</div><div class="line">cat /etc/cups/cupsd.conf</div><div class="line">cat /etc/inetd.conf</div><div class="line">cat /etc/apache2/apache2.conf</div><div class="line">cat /etc/my.conf</div><div class="line">cat /etc/httpd/conf/httpd.conf</div><div class="line">cat /opt/lampp/etc/httpd.conf</div><div class="line">ls -aRl /etc/ | awk &apos;$1 ~ /^.*r.*/&apos;</div></pre></td></tr></table></figure>
+<h4 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">crontab -l</div><div class="line">ls -alh /var/spool/cron</div><div class="line">ls -al /etc/ | grep cron</div><div class="line">ls -al /etc/cron*</div><div class="line">cat /etc/cron*</div><div class="line">cat /etc/at.allow</div><div class="line">cat /etc/at.deny</div><div class="line">cat /etc/cron.allow</div><div class="line">cat /etc/cron.deny</div><div class="line">cat /etc/crontab</div><div class="line">cat /etc/anacrontab</div><div class="line">cat /var/spool/cron/crontabs/root</div></pre></td></tr></table></figure>
+<h4 id="存储的明文用户名，密码"><a href="#存储的明文用户名，密码" class="headerlink" title="存储的明文用户名，密码"></a>存储的明文用户名，密码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">grep -i user [filename]</div><div class="line">grep -i pass [filename]</div><div class="line">grep -C 5 &quot;password&quot; [filename]</div><div class="line">find . -name &quot;*.php&quot; -print0 | xargs -0 grep -i -n &quot;var $password&quot;   # Joomla</div></pre></td></tr></table></figure>
+<h2 id="0x03-网络相关"><a href="#0x03-网络相关" class="headerlink" title="0x03 网络相关"></a>0x03 网络相关</h2><h4 id="网络地址"><a href="#网络地址" class="headerlink" title="网络地址"></a>网络地址</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ifconfig -a</div><div class="line">cat /etc/network/interfaces</div><div class="line">cat /etc/sysconfig/network</div></pre></td></tr></table></figure>
+<h4 id="网络配置-DNS-DHCP-网关"><a href="#网络配置-DNS-DHCP-网关" class="headerlink" title="网络配置,DNS,DHCP,网关"></a>网络配置,DNS,DHCP,网关</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cat /etc/resolv.conf</div><div class="line">cat /etc/sysconfig/network</div><div class="line">cat /etc/networks</div><div class="line">iptables -L</div><div class="line">hostname</div><div class="line">dnsdomainname</div></pre></td></tr></table></figure>
+<h4 id="网络通信"><a href="#网络通信" class="headerlink" title="网络通信"></a>网络通信</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">lsof -i</div><div class="line">lsof -i :80</div><div class="line">grep 80 /etc/services</div><div class="line">netstat -antup</div><div class="line">netstat -antpx</div><div class="line">netstat -tulpn</div><div class="line">chkconfig --list</div><div class="line">chkconfig --list | grep 3:on</div><div class="line">last</div><div class="line">w</div></pre></td></tr></table></figure>
+<h4 id="路由缓存"><a href="#路由缓存" class="headerlink" title="路由缓存"></a>路由缓存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">arp -e</div><div class="line">route</div><div class="line">route -nee</div></pre></td></tr></table></figure>
+<h2 id="0x04-用户相关"><a href="#0x04-用户相关" class="headerlink" title="0x04 用户相关"></a>0x04 用户相关</h2><h4 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">id</div><div class="line">who</div><div class="line">w</div><div class="line">last</div><div class="line">cat /etc/passwd</div><div class="line">cat /etc/group</div><div class="line">cat /etc/shadow</div><div class="line">ls -alh /var/mail/</div><div class="line">grep -v -E &quot;^#&quot; /etc/passwd | awk -F: &apos;$3 == 0 &#123; print $1&#125;&apos;   # 列出超级用户</div><div class="line">awk -F: &apos;($3 == &quot;0&quot;) &#123;print&#125;&apos; /etc/passwd   #列出超级用户</div><div class="line">cat /etc/sudoers</div><div class="line">sudo -l</div></pre></td></tr></table></figure>
+<h4 id="列主目录"><a href="#列主目录" class="headerlink" title="列主目录"></a>列主目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ls -ahlR /root/</div><div class="line">ls -ahlR /home/</div></pre></td></tr></table></figure>
+<h4 id="其他用户的操作记录"><a href="#其他用户的操作记录" class="headerlink" title="其他用户的操作记录"></a>其他用户的操作记录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cat ~/.bash_history</div><div class="line">cat ~/.nano_history</div><div class="line">cat ~/.atftp_history</div><div class="line">cat ~/.mysql_history</div><div class="line">cat ~/.php_history</div></pre></td></tr></table></figure>
+<h4 id="ssh私钥"><a href="#ssh私钥" class="headerlink" title="ssh私钥"></a>ssh私钥</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">cat ~/.ssh/authorized_keys</div><div class="line">cat ~/.ssh/identity.pub</div><div class="line">cat ~/.ssh/identity</div><div class="line">cat ~/.ssh/id_rsa.pub</div><div class="line">cat ~/.ssh/id_rsa</div><div class="line">cat ~/.ssh/id_dsa.pub</div><div class="line">cat ~/.ssh/id_dsa</div><div class="line">cat /etc/ssh/ssh_config</div><div class="line">cat /etc/ssh/sshd_config</div><div class="line">cat /etc/ssh/ssh_host_dsa_key.pub</div><div class="line">cat /etc/ssh/ssh_host_dsa_key</div><div class="line">cat /etc/ssh/ssh_host_rsa_key.pub</div><div class="line">cat /etc/ssh/ssh_host_rsa_key</div><div class="line">cat /etc/ssh/ssh_host_key.pub</div><div class="line">cat /etc/ssh/ssh_host_key</div></pre></td></tr></table></figure>
+<h2 id="0x05-文件系统相关"><a href="#0x05-文件系统相关" class="headerlink" title="0x05 文件系统相关"></a>0x05 文件系统相关</h2><h4 id="日志文件"><a href="#日志文件" class="headerlink" title="日志文件"></a>日志文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">ls -alh /var/log</div><div class="line">ls -alh /var/mail</div><div class="line">ls -alh /var/spool</div><div class="line">ls -alh /var/spool/lpd</div><div class="line">ls -alh /var/lib/pgsql</div><div class="line">ls -alh /var/lib/mysql</div><div class="line">cat /var/lib/dhcp3/dhclient.lea</div><div class="line">cat /etc/httpd/logs/access_log</div><div class="line">cat /etc/httpd/logs/access.log</div><div class="line">cat /etc/httpd/logs/error_log</div><div class="line">cat /etc/httpd/logs/error.log</div><div class="line">cat /var/log/apache2/access_log</div><div class="line">cat /var/log/apache2/access.log</div><div class="line">cat /var/log/apache2/error_log</div><div class="line">cat /var/log/apache2/error.log</div><div class="line">cat /var/log/apache/access_log</div><div class="line">cat /var/log/apache/access.log</div><div class="line">cat /var/log/auth.log</div><div class="line">cat /var/log/chttp.log</div><div class="line">cat /var/log/cups/error_log</div><div class="line">cat /var/log/dpkg.log</div><div class="line">cat /var/log/faillog</div><div class="line">cat /var/log/httpd/access_log</div><div class="line">cat /var/log/httpd/access.log</div><div class="line">cat /var/log/httpd/error_log</div><div class="line">cat /var/log/httpd/error.log</div><div class="line">cat /var/log/lastlog</div><div class="line">cat /var/log/lighttpd/access.log</div><div class="line">cat /var/log/lighttpd/error.log</div><div class="line">cat /var/log/lighttpd/lighttpd.access.log</div><div class="line">cat /var/log/lighttpd/lighttpd.error.log</div><div class="line">cat /var/log/messages</div><div class="line">cat /var/log/secure</div><div class="line">cat /var/log/syslog</div><div class="line">cat /var/log/wtmp</div><div class="line">cat /var/log/xferlog</div><div class="line">cat /var/log/yum.log</div><div class="line">cat /var/run/utmp</div><div class="line">cat /var/webmin/miniserv.log</div><div class="line">cat /var/www/logs/access_log</div><div class="line">cat /var/www/logs/access.log</div><div class="line">ls -alh /var/lib/dhcp3/</div><div class="line">ls -alh /var/log/postgresql/</div><div class="line">ls -alh /var/log/proftpd/</div><div class="line">ls -alh /var/log/samba/</div></pre></td></tr></table></figure>
+<h4 id="网站文件"><a href="#网站文件" class="headerlink" title="网站文件"></a>网站文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ls -alhR /var/www/</div><div class="line">ls -alhR /srv/www/htdocs/</div><div class="line">ls -alhR /usr/local/www/apache22/data/</div><div class="line">ls -alhR /opt/lampp/htdocs/</div><div class="line">ls -alhR /var/www/html/</div></pre></td></tr></table></figure>
+<h4 id="文件挂载"><a href="#文件挂载" class="headerlink" title="文件挂载"></a>文件挂载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mount</div><div class="line">df -h</div><div class="line">cat /etc/fstab</div></pre></td></tr></table></figure>
+<h4 id="可写目录"><a href="#可写目录" class="headerlink" title="可写目录"></a>可写目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">find / -writable -type d 2&gt;/dev/null      # 可写目录</div><div class="line">find / -perm -222 -type d 2&gt;/dev/null     # 可写目录 </div><div class="line">find / -perm -o w -type d 2&gt;/dev/null     # 可写目录</div><div class="line">find / -perm -o x -type d 2&gt;/dev/null     # 可执行目录</div><div class="line">find / \( -perm -o w -perm -o x \) -type d 2&gt;/dev/null   # 可写可执行目录</div></pre></td></tr></table></figure>
+<h2 id="0x06-准备与攻击"><a href="#0x06-准备与攻击" class="headerlink" title="0x06 准备与攻击"></a>0x06 准备与攻击</h2><h4 id="语言支持"><a href="#语言支持" class="headerlink" title="语言支持"></a>语言支持</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">find / -name perl*</div><div class="line">find / -name python*</div><div class="line">find / -name gcc*</div><div class="line">find / -name cc</div></pre></td></tr></table></figure>
+<h4 id="上传方式"><a href="#上传方式" class="headerlink" title="上传方式"></a>上传方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">find / -name wget</div><div class="line">find / -name nc*</div><div class="line">find / -name netcat*</div><div class="line">find / -name tftp*</div><div class="line">find / -name ftp</div></pre></td></tr></table></figure>
+<h4 id="寻找exp"><a href="#寻找exp" class="headerlink" title="寻找exp"></a>寻找exp</h4><ul>
+<li><a href="http://www.exploit-db.com" target="_blank" rel="external">http://www.exploit-db.com</a></li>
+<li><a href="http://1337day.com" target="_blank" rel="external">http://1337day.com</a></li>
+<li><a href="http://www.securiteam.com" target="_blank" rel="external">http://www.securiteam.com</a></li>
+<li><a href="http://www.securityfocus.com" target="_blank" rel="external">http://www.securityfocus.com</a></li>
+<li><a href="http://www.exploitsearch.net" target="_blank" rel="external">http://www.exploitsearch.net</a></li>
+<li><a href="http://metasploit.com/modules/" target="_blank" rel="external">http://metasploit.com/modules/</a></li>
+<li><a href="http://securityreason.com" target="_blank" rel="external">http://securityreason.com</a></li>
+<li><a href="http://seclists.org/fulldisclosure/" target="_blank" rel="external">http://seclists.org/fulldisclosure/</a></li>
+<li><a href="http://www.google.com" target="_blank" rel="external">http://www.google.com</a></li>
+</ul>
+<h4 id="编译exp"><a href="#编译exp" class="headerlink" title="编译exp"></a>编译exp</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">which gcc</div><div class="line">gcc exp.c -o exp</div></pre></td></tr></table></figure>
+<h4 id="运行exp"><a href="#运行exp" class="headerlink" title="运行exp"></a>运行exp</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod +x exp</div><div class="line">./exp</div></pre></td></tr></table></figure>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/05/08/内网渗透常用命令总结（linux）/" target="_blank">内网渗透常用命令总结（linux）</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-05-08 21:34:32<br />
+    <span>最后更新:</span>2018-05-08 21:36:06<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
