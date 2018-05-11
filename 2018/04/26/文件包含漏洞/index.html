@@ -29,7 +29,12 @@
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/file_include/include05.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/file_include/include06.png">
 <meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/file_include/include07.png">
-<meta property="og:updated_time" content="2018-04-26T15:18:06.713Z">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/file_include/include08.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/file_include/include09.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/file_include/include10.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/file_include/include11.png">
+<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/file_include/include12.png">
+<meta property="og:updated_time" content="2018-05-11T09:21:58.929Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件包含漏洞 | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 文件包含漏洞PHP文件包含漏洞，就是在通过函数包含文件时，由于没有对包含的文件名进行有效的过滤处理，被攻击者利用从而导致了包含了Web根目录以外的文件进来，就会导致文件信息的泄露甚至注入了恶意代码。
@@ -78,7 +83,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 23</a><a href="/tags/笔记/" class="tagc2">笔记 : 8</a><a href="/tags/python/" class="tagc3">python : 7</a><a href="/tags/php/" class="tagc4">php : 6</a><a href="/tags/网络安全/" class="tagc5">网络安全 : 5</a><a href="/tags/mysql/" class="tagc1">mysql : 5</a><a href="/tags/暴力破解/" class="tagc2">暴力破解 : 4</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 2</a><a href="/tags/内网渗透/" class="tagc2">内网渗透 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/ssl/" class="tagc4">ssl : 1</a><a href="/tags/代码审计/" class="tagc5">代码审计 : 1</a><a href="/tags/arp入侵/" class="tagc1">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc2">nmap : 1</a><a href="/tags/arpspoof/" class="tagc3">arpspoof : 1</a><a href="/tags/heartbleed/" class="tagc4">heartbleed : 1</a><a href="/tags/BurpSuite/" class="tagc5">BurpSuite : 1</a>
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 23</a><a href="/tags/笔记/" class="tagc2">笔记 : 8</a><a href="/tags/python/" class="tagc3">python : 7</a><a href="/tags/php/" class="tagc4">php : 6</a><a href="/tags/网络安全/" class="tagc5">网络安全 : 5</a><a href="/tags/mysql/" class="tagc1">mysql : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 4</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 2</a><a href="/tags/内网渗透/" class="tagc2">内网渗透 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/arpspoof/" class="tagc4">arpspoof : 1</a><a href="/tags/网络协议/" class="tagc5">网络协议 : 1</a><a href="/tags/https/" class="tagc1">https : 1</a><a href="/tags/ssl/" class="tagc2">ssl : 1</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 1</a><a href="/tags/BurpSuite/" class="tagc4">BurpSuite : 1</a><a href="/tags/CSRF/" class="tagc5">CSRF : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -161,7 +166,7 @@
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include01.png" alt=""></p>
 <p>访问index.php?p=123.txt,出现123，则环境搭建完成。</p>
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include02.png" alt=""></p>
-<h2 id="0x03-本地文件包含"><a href="#0x03-本地文件包含" class="headerlink" title="0x03 本地文件包含"></a>0x03 本地文件包含</h2><p>我们先尝试本地文件包含漏洞，即获取的文件在搭载漏洞网站的服务器上，我们可以先尝试在桌面创建一个test.txt，，写入如下内容。</p>
+<h2 id="0x03-本地文件包含"><a href="#0x03-本地文件包含" class="headerlink" title="0x03 本地文件包含"></a>0x03 本地文件包含</h2><p>我们先尝试本地文件包含漏洞，即获取的文件在搭载漏洞网站的服务器上，我们可以先尝试在桌面创建一个test.txt，写入如下内容。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">echo &quot;test&quot;</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
 <p>然后通过file协议访问index.php?p=file:///C:/Users/Leticia/Desktop/test.txt，发现显示test，说明可以apache服务器的权限很高，可以访问其他盘符位置，这样就可以遍历整个机器读取其中的敏感信息。</p>
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include03.png" alt=""></p>
@@ -176,7 +181,27 @@
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include06.png" alt=""></p>
 <p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include07.png" alt=""></p>
 <p>如果把2.txt文件改成一句话木马，即可用菜刀连接。</p>
-<h2 id="0x05-应对"><a href="#0x05-应对" class="headerlink" title="0x05 应对"></a>0x05 应对</h2><ul>
+<h2 id="0x05-利用方法"><a href="#0x05-利用方法" class="headerlink" title="0x05 利用方法"></a>0x05 利用方法</h2><p>文件包含漏洞有很多利用方式：</p>
+<h4 id="1、读取敏感文件"><a href="#1、读取敏感文件" class="headerlink" title="1、读取敏感文件"></a>1、读取敏感文件</h4><p>如../../../../../etc/passwd来读取敏感文件。</p>
+<h4 id="2、包含shell"><a href="#2、包含shell" class="headerlink" title="2、包含shell"></a>2、包含shell</h4><p>如有其他漏洞将shell写入目标服务器中，或者可以远程包含自己服务器的shell，就可以通过包含shell文件来通过目标服务器apache来执行shell，用来提权之类的操作。</p>
+<h4 id="3、配合文件上传漏洞"><a href="#3、配合文件上传漏洞" class="headerlink" title="3、配合文件上传漏洞"></a>3、配合文件上传漏洞</h4><p>如果上传的木马文件所在的路径不可以通过外网访问，但是可以通过文件包含漏洞读取，那么就可以构造参数将该文件运行，就可以得到webshell。</p>
+<h4 id="4、使用PHP封装协议读取文件和写入PHP文件"><a href="#4、使用PHP封装协议读取文件和写入PHP文件" class="headerlink" title="4、使用PHP封装协议读取文件和写入PHP文件"></a>4、使用PHP封装协议读取文件和写入PHP文件</h4><p>读取文件，可以通过输入page参数值如下：php://filter/read=convert.base64-encode/resource=../../../../../var/www/html/upload/xxx.txt来读取并执行。</p>
+<p>写入文件，可以通过传入page=php://input，然后post提交我们要输入的内容。</p>
+<h2 id="0x06-一个ctf例子"><a href="#0x06-一个ctf例子" class="headerlink" title="0x06 一个ctf例子"></a>0x06 一个ctf例子</h2><p>我们可以用一个ctf的例子来看看实际中怎么利用。</p>
+<p>是iscc的一道web题</p>
+<p>目标网址是一张图片 <a href="http://118.190.152.202:8006/" target="_blank" rel="external">http://118.190.152.202:8006/</a></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include08.png" alt=""></p>
+<p>源码中只有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;show.php?img=1.jpg&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p>然后我们点开 <a href="http://118.190.152.202:8006/show.php?img=1.jpg" target="_blank" rel="external">http://118.190.152.202:8006/show.php?img=1.jpg</a></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include09.png" alt=""></p>
+<p>看到这个img参数，很容易想到文件包含漏洞</p>
+<p>然后访问 <a href="http://118.190.152.202:8006/show.php?img=file:///show.php" target="_blank" rel="external">http://118.190.152.202:8006/show.php?img=file:///show.php</a> 尝试访问本页面源码<br>发现file not find</p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include10.png" alt=""></p>
+<p>但是我们知道php://filter可以指定两个resource，这个时候构造<br><a href="http://118.190.152.202:8006/show.php?img=php://filter/read=convert.base64-encode/resource=1.jpg/resource=show.php" target="_blank" rel="external">http://118.190.152.202:8006/show.php?img=php://filter/read=convert.base64-encode/resource=1.jpg/resource=show.php</a></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include11.png" alt=""></p>
+<p>然后查看源代码就可以看本页面代码了，接下来根据源码读取flag.php，查看源码，就完成了 <a href="http://118.190.152.202:8006/show.php?img=php://filter/read=convert.base64-encode/resource=1.jpg/resource=../flag.php" target="_blank" rel="external">http://118.190.152.202:8006/show.php?img=php://filter/read=convert.base64-encode/resource=1.jpg/resource=../flag.php</a></p>
+<p><img src="http://oo3iot5oz.bkt.clouddn.com/file_include/include12.png" alt=""></p>
+<h2 id="0x07-应对"><a href="#0x07-应对" class="headerlink" title="0x07 应对"></a>0x07 应对</h2><ul>
 <li><p>1.判断包含中的参数是否外部可控。</p>
 </li>
 <li><p>2.限制被包含的文件只能在某一个文件夹内，特别是一定要禁止目录跳转字符，如：“../”。</p>
@@ -196,7 +221,7 @@
     <span>文本标题:</span><a href="/2018/04/26/文件包含漏洞/" target="_blank">文件包含漏洞</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
     <span>发布时间:</span>2018-04-26 20:33:04<br />
-    <span>最后更新:</span>2018-04-26 23:18:06<br />
+    <span>最后更新:</span>2018-05-11 17:21:58<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
