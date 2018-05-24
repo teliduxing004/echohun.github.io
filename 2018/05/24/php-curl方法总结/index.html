@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    php curl方法总结 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",笔记,php">
+<meta name="description" content="0x00 前言做web安全的同时也需要优秀的开发能力，所以最近想提升一下自己python和php的开发能力，对一些经常用的方法做一个总结，当作笔记。
+curl方法在总结ssrf漏洞时用过，但是我当时没有做详细的说明，就放在这里总结一下。
+0x00 curlPHP的libcurl库用来与各种的服务器使用各种类型的协议进行连接和通讯。
+libcurl目前支持http、https、ftp、gopher、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php curl方法总结 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/24/php-curl方法总结/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 前言做web安全的同时也需要优秀的开发能力，所以最近想提升一下自己python和php的开发能力，对一些经常用的方法做一个总结，当作笔记。
+curl方法在总结ssrf漏洞时用过，但是我当时没有做详细的说明，就放在这里总结一下。
+0x00 curlPHP的libcurl库用来与各种的服务器使用各种类型的协议进行连接和通讯。
+libcurl目前支持http、https、ftp、gopher、">
+<meta property="og:updated_time" content="2018-05-24T13:58:08.274Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php curl方法总结 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 前言做web安全的同时也需要优秀的开发能力，所以最近想提升一下自己python和php的开发能力，对一些经常用的方法做一个总结，当作笔记。
+curl方法在总结ssrf漏洞时用过，但是我当时没有做详细的说明，就放在这里总结一下。
+0x00 curlPHP的libcurl库用来与各种的服务器使用各种类型的协议进行连接和通讯。
+libcurl目前支持http、https、ftp、gopher、">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 25</a><a href="/tags/笔记/" class="tagc2">笔记 : 11</a><a href="/tags/php/" class="tagc3">php : 9</a><a href="/tags/python/" class="tagc4">python : 7</a><a href="/tags/mysql/" class="tagc5">mysql : 6</a><a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/XSS/" class="tagc5">XSS : 2</a><a href="/tags/代码审计/" class="tagc1">代码审计 : 2</a><a href="/tags/内网渗透/" class="tagc2">内网渗透 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/密码学/" class="tagc4">密码学 : 2</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 2</a><a href="/tags/snort/" class="tagc1">snort : 1</a><a href="/tags/arpspoof/" class="tagc2">arpspoof : 1</a><a href="/tags/BurpSuite/" class="tagc3">BurpSuite : 1</a><a href="/tags/heartbleed/" class="tagc4">heartbleed : 1</a><a href="/tags/SSRF/" class="tagc5">SSRF : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">php curl方法总结</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-05-24 21:57:04" class="post-meta__date date">2018-05-24 21:57:04</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/笔记/">笔记</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/php/">php</a>, <a class="tags-link" href="/tags/笔记/">笔记</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>做web安全的同时也需要优秀的开发能力，所以最近想提升一下自己python和php的开发能力，对一些经常用的方法做一个总结，当作笔记。</p>
+<p>curl方法在总结ssrf漏洞时用过，但是我当时没有做详细的说明，就放在这里总结一下。</p>
+<h2 id="0x00-curl"><a href="#0x00-curl" class="headerlink" title="0x00 curl"></a>0x00 curl</h2><p>PHP的libcurl库用来与各种的服务器使用各种类型的协议进行连接和通讯。</p>
+<p>libcurl目前支持http、https、ftp、gopher、telnet、dict、file和ldap协议。libcurl同时也支持HTTPS认证、HTTP POST、HTTP PUT、 FTP 上传(这个也能通过PHP的FTP扩展完成)、HTTP 基于表单的上传、代理、cookies和用户名+密码的认证。</p>
+<p>PHP中使用cURL实现Get和Post请求的方法。</p>
+<p>百度百科用一句话总结了curl的能力： </p>
+<ul>
+<li>php curl就是php中的数据传输神器。</li>
+</ul>
+<h2 id="0x01-基本方法"><a href="#0x01-基本方法" class="headerlink" title="0x01 基本方法"></a>0x01 基本方法</h2><p>可以看到php curl库中封装的方法特别多，但我们平时用curl请求，大多数情况要做的的基本步骤有如下四步：</p>
+<h4 id="①：初始化"><a href="#①：初始化" class="headerlink" title="①：初始化"></a>①：初始化</h4><p>curl_init()</p>
+<p>初始化一个新的会话，返回一个cURL句柄，供curl_setopt(), curl_exec()和curl_close() 函数使用。</p>
+<p>用法：</p>
+<ul>
+<li>curl_init(url)</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>url：如果提供了该参数，CURLOPT_URL 选项将会被设置成这个值。</li>
+</ul>
+<p>返回值：</p>
+<ul>
+<li>如果成功，返回一个cURL句柄，出错返回 FALSE。</li>
+</ul>
+<h4 id="②：设置属性"><a href="#②：设置属性" class="headerlink" title="②：设置属性"></a>②：设置属性</h4><p>curl_setopt()</p>
+<p>为给定的cURL会话句柄设置一个选项。</p>
+<p>用法：</p>
+<ul>
+<li>curl_setopt ( resource $ch , int $option , mixed $value )</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>ch： 由 curl_init() 返回的 cURL 句柄。</li>
+<li>option： 需要设置的CURLOPT_XXX选项。</li>
+<li>value：将设置在option选项上的值。</li>
+</ul>
+<p>返回值：</p>
+<ul>
+<li>成功时返回 TRUE， 或者在失败时返回 FALSE。</li>
+</ul>
+<h4 id="③：执行并获取结果"><a href="#③：执行并获取结果" class="headerlink" title="③：执行并获取结果"></a>③：执行并获取结果</h4><p>curl_exec()</p>
+<p>执行给定的cURL会话。</p>
+<p>用法：</p>
+<ul>
+<li>curl_exec ( resource $ch )</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>ch： 由 curl_init() 返回的 cURL 句柄。</li>
+</ul>
+<p>返回值：</p>
+<ul>
+<li>成功时返回 TRUE， 或者在失败时返回 FALSE。 然而，如果 CURLOPT_RETURNTRANSFER选项被设置，函数执行成功时会返回执行的结果，失败时返回 FALSE 。</li>
+</ul>
+<h4 id="④：释放句柄"><a href="#④：释放句柄" class="headerlink" title="④：释放句柄"></a>④：释放句柄</h4><p>curl_close()</p>
+<p>关闭一个cURL会话并且释放所有资源。cURL句柄ch 也会被释放。</p>
+<p>用法：</p>
+<ul>
+<li>curl_close ( resource $ch )</li>
+</ul>
+<p>参数：</p>
+<ul>
+<li>ch： 由 curl_init() 返回的 cURL 句柄。</li>
+</ul>
+<p>返回值：</p>
+<ul>
+<li>无</li>
+</ul>
+<h2 id="0x02-get请求"><a href="#0x02-get请求" class="headerlink" title="0x02 get请求"></a>0x02 get请求</h2><p>get请求是http请求中最基本的请求，一个普通的get请求只需初始化后，配置好url和一定量的参数，然后执行即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$curl = curl_init();</div><div class="line">curl_setopt($curl, CURLOPT_URL, &apos;http://www.baidu.com&apos;);</div><div class="line">//设置头文件的信息作为数据流输出</div><div class="line">//curl_setopt($curl, CURLOPT_HEADER, 1);</div><div class="line">//设置获取的信息以文件流的形式返回，而不是直接输出。</div><div class="line">curl_setopt($curl, CURLOPT_RETURNTRANSFER, 0);</div><div class="line">//执行命令</div><div class="line">$data = curl_exec($curl);</div><div class="line">//关闭URL请求</div><div class="line">curl_close($curl);</div><div class="line">//显示获得的数据</div><div class="line">//print_r($data);</div><div class="line">var_dump($data);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>可以看到，设置CURLOPT_RETURNTRANSFER为0，使用php请求百度页面，结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$curl = curl_init();</div><div class="line">curl_setopt($curl, CURLOPT_URL, &apos;http://www.baidu.com&apos;);</div><div class="line">//设置头文件的信息作为数据流输出</div><div class="line">//curl_setopt($curl, CURLOPT_HEADER, 1);</div><div class="line">//设置获取的信息以文件流的形式返回，而不是直接输出。</div><div class="line">curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);</div><div class="line">//执行命令</div><div class="line">$data = curl_exec($curl);</div><div class="line">//关闭URL请求</div><div class="line">curl_close($curl);</div><div class="line">//显示获得的数据</div><div class="line">//print_r($data);</div><div class="line">var_dump($data);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>如果设置CURLOPT_RETURNTRANSFER为1,则不会将获取的页面直接输出在页面内，结果如下：</p>
+<h2 id="0x03-post请求"><a href="#0x03-post请求" class="headerlink" title="0x03 post请求"></a>0x03 post请求</h2><p>post请求也是http请求中很重要的一种，既然是post请求，肯定要额外设置要post的数据才行，curl中需要配置CURLOPT_POST为1代表本次请求是post类型，然后再将要请求的数据通过CURLOPT_POSTFIELDS配置进本次请求，然后执行就可以提交post请求。</p>
+<p>这里我们用上一篇有关iframe框架钓鱼的留言界面进行测试，我们将留言的昵称和内容设置好，通过php curl方法请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$curl = curl_init();</div><div class="line">curl_setopt($curl,CURLOPT_URL,&quot;http://127.0.0.1/curl/xss.php&quot;);</div><div class="line">//设置获取的信息以文件流的形式返回，而不是直接输出。</div><div class="line">curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);</div><div class="line">//设置请求模式为post型</div><div class="line">curl_setopt($curl, CURLOPT_POST, 1);</div><div class="line">//配置post的数据</div><div class="line">$post_data = array(</div><div class="line">	&quot;name&quot; =&gt; &quot;curl_test&quot;,</div><div class="line">	&quot;message&quot; =&gt; &quot;heyheyhey&quot;</div><div class="line">);</div><div class="line">//全部数据使用HTTP协议中的&quot;POST&quot;操作来发送。</div><div class="line">curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);</div><div class="line">//执行请求</div><div class="line">$data = curl_exec($curl);</div><div class="line">//关闭请求</div><div class="line">curl_close($curl);</div><div class="line">//显示数据</div><div class="line">print_r($data);</div><div class="line">?&gt;</div></pre></td></tr></table></figure>
+<p>根据返回的页面，发现这条留言已经被写入。</p>
+<h2 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h2><p>在需要使用php获取页面内容时，其实可以通过更加简单的file_get_contents()函数，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$data=file_get_contents(&quot;http://www.baidu.com&quot;);</div><div class="line">print_r($data);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>但是学习curl是非常有必要的，curl虽然配置的参数更繁杂，但是相对应的支持的操作也就更多，比如cookies、验证、表单提交、文件上传等等，需要更加细致的操作时，就应该选用curl。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/05/24/php-curl方法总结/" target="_blank">php curl方法总结</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-05-24 21:57:04<br />
+    <span>最后更新:</span>2018-05-24 21:58:08<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
