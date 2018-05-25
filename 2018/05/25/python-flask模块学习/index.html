@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    python-flask模块学习 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",笔记,python">
+<meta name="description" content="0x00 前言最近想接触一下python作为后端的环境，所以准备从flask模块开始学习，记录一下用法，当作笔记。
+0x01 flaskFlask是一个使用 Python 编写的轻量级 Web 应用框架。其 WSGI 工具箱采用 Werkzeug ，模板引擎则使用 Jinja2 。Flask使用 BSD 授权。因为它使用简单的核心，用 extension 增加其他功能。Flask没有默认使用的数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-flask模块学习 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/25/python-flask模块学习/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 前言最近想接触一下python作为后端的环境，所以准备从flask模块开始学习，记录一下用法，当作笔记。
+0x01 flaskFlask是一个使用 Python 编写的轻量级 Web 应用框架。其 WSGI 工具箱采用 Werkzeug ，模板引擎则使用 Jinja2 。Flask使用 BSD 授权。因为它使用简单的核心，用 extension 增加其他功能。Flask没有默认使用的数据">
+<meta property="og:updated_time" content="2018-05-25T15:06:14.303Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python-flask模块学习 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 前言最近想接触一下python作为后端的环境，所以准备从flask模块开始学习，记录一下用法，当作笔记。
+0x01 flaskFlask是一个使用 Python 编写的轻量级 Web 应用框架。其 WSGI 工具箱采用 Werkzeug ，模板引擎则使用 Jinja2 。Flask使用 BSD 授权。因为它使用简单的核心，用 extension 增加其他功能。Flask没有默认使用的数据">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 25</a><a href="/tags/笔记/" class="tagc2">笔记 : 12</a><a href="/tags/php/" class="tagc3">php : 9</a><a href="/tags/python/" class="tagc4">python : 8</a><a href="/tags/mysql/" class="tagc5">mysql : 6</a><a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/代码审计/" class="tagc5">代码审计 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/内网渗透/" class="tagc3">内网渗透 : 2</a><a href="/tags/密码学/" class="tagc4">密码学 : 2</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 2</a><a href="/tags/snort/" class="tagc1">snort : 1</a><a href="/tags/heartbleed/" class="tagc2">heartbleed : 1</a><a href="/tags/arp入侵/" class="tagc3">arp入侵 : 1</a><a href="/tags/nmap/" class="tagc4">nmap : 1</a><a href="/tags/arpspoof/" class="tagc5">arpspoof : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">python-flask模块学习</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-05-25 23:04:12" class="post-meta__date date">2018-05-25 23:04:12</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/python/">python</a>, <a class="categories-link" href="/categories/python/笔记/">笔记</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/python/">python</a>, <a class="tags-link" href="/tags/笔记/">笔记</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>最近想接触一下python作为后端的环境，所以准备从flask模块开始学习，记录一下用法，当作笔记。</p>
+<h2 id="0x01-flask"><a href="#0x01-flask" class="headerlink" title="0x01 flask"></a>0x01 flask</h2><p>Flask是一个使用 Python 编写的轻量级 Web 应用框架。其 WSGI 工具箱采用 Werkzeug ，模板引擎则使用 Jinja2 。Flask使用 BSD 授权。因为它使用简单的核心，用 extension 增加其他功能。Flask没有默认使用的数据库、窗体验证工具。</p>
+<h2 id="0x02-安装"><a href="#0x02-安装" class="headerlink" title="0x02 安装"></a>0x02 安装</h2><p>安装只需在具有python环境的计算机命令行中，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install flask</div></pre></td></tr></table></figure></p>
+<h2 id="0x03-基础步骤"><a href="#0x03-基础步骤" class="headerlink" title="0x03 基础步骤"></a>0x03 基础步骤</h2><ul>
+<li><p>我们在使用flask时，必须先要导入库，即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">from flask import Flask</div></pre></td></tr></table></figure>
+</li>
+<li><p>接下来，我们创建一个该类的实例，第一个参数是应用模块或者包的名称。如果使用单一的模块,就使用<strong>name</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app = Flask(__name__)</div></pre></td></tr></table></figure>
+</li>
+<li><p>然后，我们使用 route() 装饰器告诉 Flask 什么样的URL 能触发我们的函数。根目录为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@app.route(&quot;/&quot;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>这个函数的名字也在生成 URL 时被特定的函数采用，这个函数返回我们想要显示在用户浏览器中的信息。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">def hello():</div><div class="line">    return &quot;Hello World!&quot;</div></pre></td></tr></table></figure>
+</li>
+<li><p>最后用 run() 函数来让应用运行在本地服务器上。 其中 if <strong>name</strong> == ‘<strong>main</strong>‘: 确保服务器只会在该脚本被 Python 解释器直接执行的时候才会运行，而不是作为模块导入的时候。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    app.run()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这是最基础的操作所需要的五步，组合起来就是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from flask import Flask</div><div class="line">app = Flask(__name__)</div><div class="line"> </div><div class="line">@app.route(&quot;/&quot;)</div><div class="line">def hello():</div><div class="line">    return &quot;Hello World!&quot;</div><div class="line"> </div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    app.run()</div></pre></td></tr></table></figure></p>
+<p>然后在这个.py文件的目录下，打开命令行，使用python xxx.py的方式运行，就会部署到本地服务器的5000端口，我们通过浏览器访问127.0.0.1:5000，就会看到web页面的输出。</p>
+<h2 id="0x04-基础函数"><a href="#0x04-基础函数" class="headerlink" title="0x04 基础函数"></a>0x04 基础函数</h2><h4 id="设置公网访问"><a href="#设置公网访问" class="headerlink" title="设置公网访问"></a>设置公网访问</h4><p>web服务打开时默认是只能通过本机访问的，如果想要通过外网访问，就得先禁用了 debug 然后修改调用 run() 的方法使服务器公开。</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.run(host=&apos;0.0.0.0&apos;)</div></pre></td></tr></table></figure></p>
+<h4 id="设置路由"><a href="#设置路由" class="headerlink" title="设置路由"></a>设置路由</h4><p>上面的基础步骤已经提到，由route()函数来设置访问的url，如果我们有多个函数，就可以分别用route()装饰器将不同的函数绑定到不同的url上。</p>
+<p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">@app.route(&apos;/&apos;)</div><div class="line">def index():</div><div class="line">    return &apos;Index Page&apos;</div><div class="line"></div><div class="line">@app.route(&apos;/hello&apos;)</div><div class="line">def hello():</div><div class="line">    return &apos;Hello World&apos;</div><div class="line">    </div><div class="line">@app.route(&apos;/test&apos;)</div><div class="line">def test():</div><div class="line">    return &apos;Test&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="路径变量"><a href="#路径变量" class="headerlink" title="路径变量"></a>路径变量</h4><p>路径变量的意思就如同它的名字一样，路径中的一部分是可以改变的，主要用于受变量影响的可变路径，用法是/path/<converter:varname>，并且在变量之前还可以使用转换器来改变数据类型</converter:varname></p>
+<table>
+<thead>
+<tr>
+<th>转换器</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string</td>
+<td>默认选项，接受除了斜杠之外的字符串</td>
+</tr>
+<tr>
+<td>int</td>
+<td>接受整数</td>
+</tr>
+<tr>
+<td>float</td>
+<td>接受浮点数</td>
+</tr>
+<tr>
+<td>path</td>
+<td>和string类似，不过可以接受带斜杠的字符串</td>
+</tr>
+<tr>
+<td>any</td>
+<td>匹配任何一种转换器</td>
+</tr>
+<tr>
+<td>uuid</td>
+<td>接受UUID字符串</td>
+</tr>
+</tbody>
+</table>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@app.route(&apos;/user/&lt;username&gt;&apos;)</div><div class="line">def show_user_profile(username):</div><div class="line">    # show the user profile for that user</div><div class="line">    return &apos;User %s&apos; % username</div><div class="line"></div><div class="line">@app.route(&apos;/post/&lt;int:post_id&gt;&apos;)</div><div class="line">def show_post(post_id):</div><div class="line">    # show the post with the given id, the id is an integer</div><div class="line">    return &apos;Post %d&apos; % post_id</div></pre></td></tr></table></figure></p>
+<h4 id="构造URL"><a href="#构造URL" class="headerlink" title="构造URL"></a>构造URL</h4><p>flask中可以用 url_for(‘方法名’) 来给指定的函数构造 URL。主参数是方法名，可以额外传入对应 URL 规则的变量部分的命名参数。</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">url_for(&apos;index&apos;)</div><div class="line">url_for(&apos;user&apos;, username=&apos;jack&apos;)</div></pre></td></tr></table></figure></p>
+<h4 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h4><p>HTTP （与 Web 应用会话的协议）有许多不同的访问 URL 方法。默认情况下，路由只回应 GET 请求，但是通过 route() 装饰器传递 methods 参数可以改变这个行为。用法是app.route(‘/login’, methods=[‘GET’, ‘POST’])</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">@app.route(&apos;/login&apos;, methods=[&apos;GET&apos;, &apos;POST&apos;])</div><div class="line">def login():</div><div class="line">    if request.method == &apos;POST&apos;:</div><div class="line">        do_the_login()</div><div class="line">    else:</div><div class="line">        show_the_login_form()</div></pre></td></tr></table></figure></p>
+<h4 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a>静态文件</h4><p>动态 web 应用也会需要静态文件，通常是 CSS 和 JavaScript 文件。只要在你的包中或是模块的所在目录中创建一个名为 static 的文件夹，在应用中使用 /static 即可访问。</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url_for(&apos;static&apos;, filename=&apos;style.css&apos;)</div></pre></td></tr></table></figure></p>
+<h4 id="调试模式"><a href="#调试模式" class="headerlink" title="调试模式"></a>调试模式</h4><p>如果你启用了调试支持，服务器会在代码修改后自动重新载入，并在发生错误时提供一个相当有用的调试器。</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">app.debug = True</div><div class="line">app.run()</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">app.run(debug=True)</div></pre></td></tr></table></figure>
+<h4 id="URL-“-”重定向"><a href="#URL-“-”重定向" class="headerlink" title="URL “/”重定向"></a>URL “/”重定向</h4><p>如果设置route(‘/xxx/‘)访问url时如果结尾带了一个反斜杠，就会自动重定向到不带反斜杠的url中，如果不设置反斜杠，就不会重定向，而是返回一个404错误。</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@app.route(&apos;/about/&apos;)</div><div class="line">def about():</div><div class="line">    return &apos;The about page&apos;</div></pre></td></tr></table></figure></p>
+<h4 id="模板渲染"><a href="#模板渲染" class="headerlink" title="模板渲染"></a>模板渲染</h4><p>Flask 配备了 Jinja2 模板引擎,python可以通过 render_template() 方法来渲染模板。只需将模板名和关键字的参数传入模板的变量。</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">from flask import render_template</div><div class="line"></div><div class="line">@app.route(&apos;/hello/&apos;)</div><div class="line">@app.route(&apos;/hello/&lt;name&gt;&apos;)</div><div class="line">def hello(name=None):</div><div class="line">    return render_template(&apos;hello.html&apos;, name=name)</div></pre></td></tr></table></figure></p>
+<h4 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h4><p>用 Flask 处理文件上传，首先要确保在 HTML 表单中设置 enctype=”multipart/form-data”，已上传的文件存储在内存或是文件系统中一个临时的位置。可以通过请求对象的 files 属性访问它们。每个上传的文件都会存储在这个字典里。它表现近乎为一个标准的 Python file 对象，但它还有一个 save() 方法，这个方法允许你把文件保存到服务器的文件系统上。</p>
+<p>实例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">from flask import request</div><div class="line"></div><div class="line">@app.route(&apos;/upload&apos;, methods=[&apos;GET&apos;, &apos;POST&apos;])</div><div class="line">def upload_file():</div><div class="line">    if request.method == &apos;POST&apos;:</div><div class="line">        f = request.files[&apos;the_file&apos;]</div><div class="line">        f.save(&apos;/var/www/uploads/uploaded_file.txt&apos;)</div><div class="line">    ...</div></pre></td></tr></table></figure></p>
+<h4 id="Cookies"><a href="#Cookies" class="headerlink" title="Cookies"></a>Cookies</h4><p>python flask可以通过 cookies 属性来访问 Cookies，用响应对象的 set_cookie 方法来设置 Cookies。请求对象的 cookies 属性是一个内容为客户端提交的所有 Cookies 的字典。</p>
+<p>实例：</p>
+<p>读取cookies<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from flask import request</div><div class="line"></div><div class="line">@app.route(&apos;/&apos;)</div><div class="line">def index():</div><div class="line">    username = request.cookies.get(&apos;username&apos;)</div></pre></td></tr></table></figure></p>
+<p>写入cookies<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from flask import make_response</div><div class="line"></div><div class="line">@app.route(&apos;/&apos;)</div><div class="line">def index():</div><div class="line">    resp = make_response(render_template(...))</div><div class="line">    resp.set_cookie(&apos;username&apos;, &apos;the username&apos;)</div><div class="line">    return resp</div></pre></td></tr></table></figure></p>
+<h4 id="重定向和错误"><a href="#重定向和错误" class="headerlink" title="重定向和错误"></a>重定向和错误</h4><p>flask可以用 redirect() 函数把用户重定向到其它地方。放弃请求并返回错误代码，用 abort() 函数。</p>
+<p>实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from flask import abort, redirect, url_for</div><div class="line"></div><div class="line">@app.route(&apos;/&apos;)</div><div class="line">def index():</div><div class="line">    return redirect(url_for(&apos;login&apos;))</div><div class="line"></div><div class="line">@app.route(&apos;/login&apos;)</div><div class="line">def login():</div><div class="line">    abort(401)</div><div class="line">    this_is_never_executed()</div></pre></td></tr></table></figure>
+<h4 id="日志记录"><a href="#日志记录" class="headerlink" title="日志记录"></a>日志记录</h4><p>Flask预置了日志系统。在我们需要日志记录功能时，只需使用logger函数即可。</p>
+<p>实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">app.logger.debug(&apos;A value for debugging&apos;)</div><div class="line">app.logger.warning(&apos;A warning occurred (%d apples)&apos;, 42)</div><div class="line">app.logger.error(&apos;An error occurred&apos;)</div></pre></td></tr></table></figure></p>
+<h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><p>flask除请求对象之外，还有一个 session 对象。它允许你在不同请求间存储特定用户的信息。它是在 Cookies 的基础上实现的，并且对 Cookies 进行密钥签名。要使用会话，需要设置一个密钥。</p>
+<p>实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">from flask import Flask, session, redirect, url_for, escape, request</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line">@app.route(&apos;/&apos;)</div><div class="line">def index():</div><div class="line">    if &apos;username&apos; in session:</div><div class="line">        return &apos;Logged in as %s&apos; % escape(session[&apos;username&apos;])</div><div class="line">    return &apos;You are not logged in&apos;</div><div class="line"></div><div class="line">@app.route(&apos;/login&apos;, methods=[&apos;GET&apos;, &apos;POST&apos;])</div><div class="line">def login():</div><div class="line">    if request.method == &apos;POST&apos;:</div><div class="line">        session[&apos;username&apos;] = request.form[&apos;username&apos;]</div><div class="line">        return redirect(url_for(&apos;index&apos;))</div><div class="line">    return &apos;&apos;&apos;</div><div class="line">        &lt;form action=&quot;&quot; method=&quot;post&quot;&gt;</div><div class="line">            &lt;p&gt;&lt;input type=text name=username&gt;</div><div class="line">            &lt;p&gt;&lt;input type=submit value=Login&gt;</div><div class="line">        &lt;/form&gt;</div><div class="line">    &apos;&apos;&apos;</div><div class="line"></div><div class="line">@app.route(&apos;/logout&apos;)</div><div class="line">def logout():</div><div class="line">    # remove the username from the session if it&apos;s there</div><div class="line">    session.pop(&apos;username&apos;, None)</div><div class="line">    return redirect(url_for(&apos;index&apos;))</div><div class="line"></div><div class="line"># set the secret key.  keep this really secret:</div><div class="line">app.secret_key = &apos;A0Zr98j/3yX R~XHH!jmN]LWX/,?RT&apos;</div></pre></td></tr></table></figure>
+<h2 id="0x05-总结"><a href="#0x05-总结" class="headerlink" title="0x05 总结"></a>0x05 总结</h2><p>对浅显基础的知识进行学习，虽然对开发能力提升不大，但是有的时候遇到一些python后端或者需要搭建python后端漏洞环境进行测试时，如果没有接触过相关函数就会力不从心，对这些模块略微了解并总结一下，在之后遇到的时候就可以更熟练的进行审计或搭建。</p>
+<p>之后在遇到很重要的模块或者语言时，也要通过同样的方式总结一遍，等用到的时候就可以很快的入门。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/05/25/python-flask模块学习/" target="_blank">python-flask模块学习</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-05-25 23:04:12<br />
+    <span>最后更新:</span>2018-05-25 23:06:14<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
