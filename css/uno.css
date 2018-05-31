@@ -1698,6 +1698,15 @@ th, td {
 .highlight table {
   border: none;
 }
-pre {
-  font-family: 
+.gutter pre {
+	width:1em;
+}
+.line{
+	font-family:'Microsoft YaHei';
+	width:183px;
+	height:1em;
+	}
+.code pre{
+	overflow-x:scroll;
+	overflow-y:hidden;
 }
