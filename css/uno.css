@@ -1707,6 +1707,6 @@ th, td {
 	height:1em;
 	}
 .code pre{
-	overflow-x:scroll;
+	overflow-x:auto;
 	overflow-y:hidden;
 }
