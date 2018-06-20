@@ -63,7 +63,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 28</a><a href="/tags/笔记/" class="tagc2">笔记 : 13</a><a href="/tags/python/" class="tagc3">python : 11</a><a href="/tags/php/" class="tagc4">php : 9</a><a href="/tags/mysql/" class="tagc5">mysql : 6</a><a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 3</a><a href="/tags/XSS/" class="tagc1">XSS : 2</a><a href="/tags/代码审计/" class="tagc2">代码审计 : 2</a><a href="/tags/shell/" class="tagc3">shell : 2</a><a href="/tags/内网渗透/" class="tagc4">内网渗透 : 2</a><a href="/tags/密码学/" class="tagc5">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc1">硬件安全 : 2</a><a href="/tags/struts2-052/" class="tagc2">struts2-052 : 1</a><a href="/tags/ssl/" class="tagc3">ssl : 1</a><a href="/tags/CSRF/" class="tagc4">CSRF : 1</a><a href="/tags/heartbleed/" class="tagc5">heartbleed : 1</a>
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 28</a><a href="/tags/笔记/" class="tagc2">笔记 : 13</a><a href="/tags/python/" class="tagc3">python : 11</a><a href="/tags/php/" class="tagc4">php : 9</a><a href="/tags/mysql/" class="tagc5">mysql : 6</a><a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 3</a><a href="/tags/内网渗透/" class="tagc1">内网渗透 : 2</a><a href="/tags/shell/" class="tagc2">shell : 2</a><a href="/tags/XSS/" class="tagc3">XSS : 2</a><a href="/tags/密码学/" class="tagc4">密码学 : 2</a><a href="/tags/代码审计/" class="tagc5">代码审计 : 2</a><a href="/tags/机器学习/" class="tagc1">机器学习 : 2</a><a href="/tags/硬件安全/" class="tagc2">硬件安全 : 2</a><a href="/tags/arpspoof/" class="tagc3">arpspoof : 1</a><a href="/tags/mssql/" class="tagc4">mssql : 1</a><a href="/tags/heartbleed/" class="tagc5">heartbleed : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -193,6 +193,37 @@
                 $(scrollElem).stop().fadeTo(300, 1); // fade back in
             } else {
                 $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
+, 0); // fade out
             }
         });
         $(scrollElem).click(function() {
