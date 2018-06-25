@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    机器学习(3)——逻辑回归 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",机器学习">
+<meta name="description" content="0x00 逻辑回归(Logistic Regression)逻辑回归就是这样的一个过程：面对一个回归或者分类问题，建立代价函数，然后通过优化方法迭代求解出最优的模型参数，然后测试验证我们这个求解的模型的好坏。
+Logistic回归虽然名字里带“回归”，但是它实际上是一种分类方法，主要用于两分类问题（即输出只有两种，分别代表两个类别）
+回归模型中，y是一个定性变量，比如y=0或1，logistic方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习(3)——逻辑回归 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/06/25/机器学习-3-——逻辑回归/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 逻辑回归(Logistic Regression)逻辑回归就是这样的一个过程：面对一个回归或者分类问题，建立代价函数，然后通过优化方法迭代求解出最优的模型参数，然后测试验证我们这个求解的模型的好坏。
+Logistic回归虽然名字里带“回归”，但是它实际上是一种分类方法，主要用于两分类问题（即输出只有两种，分别代表两个类别）
+回归模型中，y是一个定性变量，比如y=0或1，logistic方">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_01.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_02.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_03.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_04.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_05.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_06.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_07.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_08.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_09.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_10.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_11.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_12.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_13.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_14.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_15.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_16.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_17.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_18.png?raw=true">
+<meta property="og:updated_time" content="2018-06-25T15:39:40.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习(3)——逻辑回归 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 逻辑回归(Logistic Regression)逻辑回归就是这样的一个过程：面对一个回归或者分类问题，建立代价函数，然后通过优化方法迭代求解出最优的模型参数，然后测试验证我们这个求解的模型的好坏。
+Logistic回归虽然名字里带“回归”，但是它实际上是一种分类方法，主要用于两分类问题（即输出只有两种，分别代表两个类别）
+回归模型中，y是一个定性变量，比如y=0或1，logistic方">
+<meta name="twitter:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_01.png?raw=true">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 30</a><a href="/tags/笔记/" class="tagc2">笔记 : 13</a><a href="/tags/python/" class="tagc3">python : 11</a><a href="/tags/php/" class="tagc4">php : 9</a><a href="/tags/mysql/" class="tagc5">mysql : 7</a><a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc3">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc4">ctf : 3</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 3</a><a href="/tags/机器学习/" class="tagc1">机器学习 : 3</a><a href="/tags/逻辑处理漏洞/" class="tagc2">逻辑处理漏洞 : 2</a><a href="/tags/XSS/" class="tagc3">XSS : 2</a><a href="/tags/内网渗透/" class="tagc4">内网渗透 : 2</a><a href="/tags/shell/" class="tagc5">shell : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc2">硬件安全 : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/snort/" class="tagc4">snort : 1</a><a href="/tags/网络协议/" class="tagc5">网络协议 : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">机器学习(3)——逻辑回归</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-06-25 23:39:05" class="post-meta__date date">2018-06-25 23:39:05</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/机器学习/">机器学习</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/机器学习/">机器学习</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-逻辑回归-Logistic-Regression"><a href="#0x00-逻辑回归-Logistic-Regression" class="headerlink" title="0x00 逻辑回归(Logistic Regression)"></a>0x00 逻辑回归(Logistic Regression)</h2><p>逻辑回归就是这样的一个过程：面对一个回归或者分类问题，建立代价函数，然后通过优化方法迭代求解出最优的模型参数，然后测试验证我们这个求解的模型的好坏。</p>
+<p>Logistic回归虽然名字里带“回归”，但是它实际上是一种分类方法，主要用于两分类问题（即输出只有两种，分别代表两个类别）</p>
+<p>回归模型中，y是一个定性变量，比如y=0或1，logistic方法主要应用于研究某些事件发生的概率。</p>
+<h2 id="0x01-逻辑回归模型"><a href="#0x01-逻辑回归模型" class="headerlink" title="0x01 逻辑回归模型"></a>0x01 逻辑回归模型</h2><p>它的核心思想是，如果线性回归的结果输出是一个连续值，而值的范围是无法限定的，那我们有没有办法把这个结果值映射为可以帮助我们判断的结果呢。而如果输出结果是 (0,1) 的一个概率值，这个问题就很清楚了。</p>
+<p>在数学上有sigmoid函数可以帮助我们实现这一思想。</p>
+<p>sigmoid函数表达式：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_01.png?raw=true" alt=""></p>
+<p>二元逻辑回归时，将t换成ax+b，可以得到二元逻辑回归模型的参数形式：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_02.png?raw=true" alt=""></p>
+<p>sigmoid函数图形：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_03.png?raw=true" alt=""></p>
+<p>其中，如果是二元回归时，我们P(x)的值可以理解为某一分类概率的大小，如果P(x)值为0.6，代表输出为1的概率是60%，补集部分是输出为0的概率40%。</p>
+<p>此时P(x)的值越小，而分类为0的的概率越高，反之，值越大的话分类为1的的概率越高。如果靠近临界点即靠近0.6时，分类准确率会下降。</p>
+<h2 id="0x02-决策边界-decision-boundary"><a href="#0x02-决策边界-decision-boundary" class="headerlink" title="0x02 决策边界(decision boundary)"></a>0x02 决策边界(decision boundary)</h2><p>决策边界就是能够把样本正确分类的一条边界，从图像上可以直观的看到</p>
+<p>如线性决策边界：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_04.png?raw=true" alt=""></p>
+<p>非线性决策边界：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_05.png?raw=true" alt=""></p>
+<p>在上面二元逻辑回归的例子中，我们用y表示输出的离散值0或1，写为函数形式为：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_06.png?raw=true" alt=""></p>
+<p>然后我们逻辑函数g要做到，在输入大于等于零时，输出大于等于0.6；在输入小于零时，输出小于等于0.6。即：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_07.png?raw=true" alt=""></p>
+<p>决策边界是假设函数的属性，由参数决定，而不是由数据集的特征决定。</p>
+<h2 id="0x03-成本函数-Cost-Function"><a href="#0x03-成本函数-Cost-Function" class="headerlink" title="0x03 成本函数(Cost Function)"></a>0x03 成本函数(Cost Function)</h2><p>线性回归中也说过成本函数，也叫代价函数,在逻辑回归中，我们也需要定义成本函数对其取值的好坏进行评估。</p>
+<p>而逻辑回归如果取用和线性回归一样的方式计算成本函数，那么图形是“非凸”的。</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_08.png?raw=true" alt=""></p>
+<p>这样就会产生很多个局部最小值，无法使用梯度下降算法。所以我们需要一个新的成本函数。</p>
+<p>在逻辑回归中，损失函数是用来估计预测值（y^(i)）与期望输出值（y(i)）之间的差异。</p>
+<p>统计学习中常用的损失函数有以下几种：</p>
+<p>(1) 0-1损失函数(0-1 loss function):</p>
+<p>(2) 平方损失函数(quadratic loss function)</p>
+<p>(3) 绝对损失函数(absolute loss function)</p>
+<p>(4) 对数损失函数(logarithmic loss function) 或对数似然损失函数(log-likelihood loss function)</p>
+<p>损失函数越小，模型就越好。</p>
+<p>所以在逻辑回归中，为了保证全局收敛，我们采用对数似然损失函数。</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_09.png?raw=true" alt=""></p>
+<p>也就是说，如下两个情况：</p>
+<p>如果是正确答案为y=1的情况：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_10.png?raw=true" alt=""></p>
+<p>当y=1, 则Cost=0，也就是预测的值和真实的值完全相等的时候成本为0;但是如果y=0，Cost接近无穷大，也就是说此时成本会非常大。</p>
+<p>如果是正确答案为y=0的情况：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_11.png?raw=true" alt=""></p>
+<p>当y=0, 则Cost=0，也就是预测的值和真实的值完全相等的时候成本为0;但是如果y=1，Cost接近无穷大，也就是说此时成本会非常大。</p>
+<h2 id="0x04-简化成本函数"><a href="#0x04-简化成本函数" class="headerlink" title="0x04 简化成本函数"></a>0x04 简化成本函数</h2><p>在上面式子中，由于y 只能等于0或1，所以可以将逻辑回归中的Cost function的两个公式合并可以将我们的成本函数的两个条件案例压缩成一个案例：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_12.png?raw=true" alt=""></p>
+<p>当y等于1时，第二项（1-y）log（1- hθ（x））将为零，并且不会影响结果。如果y等于0，则所述第一术语-ylog（1-hθ（X））将为零，且不会影响结果。</p>
+<p>所以最终整个逻辑回归的成本函数如下：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_13.png?raw=true" alt=""></p>
+<h2 id="0x05-梯度下降"><a href="#0x05-梯度下降" class="headerlink" title="0x05 梯度下降"></a>0x05 梯度下降</h2><p>与线性回归相似，这里我们同样采用梯度下降算法来学习参数</p>
+<p>迭代函数</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_14.png?raw=true" alt=""></p>
+<p>算法就是迭代这个公式每次更新参数值，上篇已经详细说过</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_15.png?raw=true" alt=""></p>
+<h2 id="0x06-优化-Advanced-Optimization"><a href="#0x06-优化-Advanced-Optimization" class="headerlink" title="0x06 优化(Advanced Optimization)"></a>0x06 优化(Advanced Optimization)</h2><p>优化算法除了梯度下降算法外，还包括：</p>
+<ul>
+<li>Conjugate gradient method(共轭梯度法)</li>
+<li>Quasi-Newton method(拟牛顿法)</li>
+<li>BFGS method</li>
+<li>L-BFGS(Limited-memory BFGS)</li>
+</ul>
+<p>后二者由拟牛顿法引申出来，与梯度下降算法相比，这些算法的优点是：</p>
+<ul>
+<li>1.不需要手动的选择步长</li>
+<li>2.通常比梯度下降算法快</li>
+</ul>
+<p>因为算法太过复杂，我们不需要手动编写代码，只需要在库中调用相关的函数即可。</p>
+<h2 id="0x07-多分类问题-Multiclass-Classification-One-vs-all"><a href="#0x07-多分类问题-Multiclass-Classification-One-vs-all" class="headerlink" title="0x07 多分类问题(Multiclass Classification: One-vs-all)"></a>0x07 多分类问题(Multiclass Classification: One-vs-all)</h2><p>我们大多时候遇到的分类并不止两类，这个时候就产生了多分类问题。</p>
+<p>首先，二分类问题时候图形如下：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_16.png?raw=true" alt=""></p>
+<p>那么多分类问题的图形就如下：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_17.png?raw=true" alt=""></p>
+<p>对于多分类问题，我们可以将其先看成二分类问题，保留一类之后剩余的划作另一类。</p>
+<p>对上面的三类问题，我们需要三次划分，如图：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml3_18.png?raw=true" alt=""></p>
+<p>最终的One-vs-all方法：</p>
+<ul>
+<li><p>对于每一个类i训练一个逻辑回归模型的分类器，并且预测 y = i时的概率。</p>
+</li>
+<li><p>对于一个新的输入变量x,分别对每一个类进行预测，取概率最大的那个类作为分类结果。</p>
+</li>
+</ul>
+<p>也就是说，如果输入一个x，此时分类器A概率为0.3，分类器B概率为0.4，分类器C概率为0.5，那么他就属于C这个分类。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/06/25/机器学习-3-——逻辑回归/" target="_blank">机器学习(3)——逻辑回归</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-06-25 23:39:05<br />
+    <span>最后更新:</span>2018-06-25 23:39:40<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+    MathJax.Hub.Config({ 
+        tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+    });
+});
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
