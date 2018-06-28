@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    IIS短文件名漏洞 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",渗透测试">
+<meta name="description" content="0x00 IIS短文件名为了兼容16位MS-DOS程序，Windows为文件名较长的文件（和文件夹）生成了对应的DOS 8.3 短文件名。
+Windows下查看对应的短文件名，可以使用命令 dir /x
+
+对应短文件名的规律是：
+
+前六位保留
+所有小写字母均转换成大写字母
+后续字符用~1表示
+后缀最多显示三位，其余的被截断
+长文件名前缀/文件夹名字符长度符合0-9和Aa-Zz范围且需要大于等于9位">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IIS短文件名漏洞 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/06/28/IIS短文件名漏洞/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 IIS短文件名为了兼容16位MS-DOS程序，Windows为文件名较长的文件（和文件夹）生成了对应的DOS 8.3 短文件名。
+Windows下查看对应的短文件名，可以使用命令 dir /x
+
+对应短文件名的规律是：
+
+前六位保留
+所有小写字母均转换成大写字母
+后续字符用~1表示
+后缀最多显示三位，其余的被截断
+长文件名前缀/文件夹名字符长度符合0-9和Aa-Zz范围且需要大于等于9位">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename01.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename02.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename03.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename04.png?raw=true">
+<meta property="og:updated_time" content="2018-06-28T03:44:31.945Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IIS短文件名漏洞 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 IIS短文件名为了兼容16位MS-DOS程序，Windows为文件名较长的文件（和文件夹）生成了对应的DOS 8.3 短文件名。
+Windows下查看对应的短文件名，可以使用命令 dir /x
+
+对应短文件名的规律是：
+
+前六位保留
+所有小写字母均转换成大写字母
+后续字符用~1表示
+后缀最多显示三位，其余的被截断
+长文件名前缀/文件夹名字符长度符合0-9和Aa-Zz范围且需要大于等于9位">
+<meta name="twitter:image" content="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename01.png?raw=true">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 31</a><a href="/tags/笔记/" class="tagc2">笔记 : 13</a><a href="/tags/python/" class="tagc3">python : 11</a><a href="/tags/php/" class="tagc4">php : 9</a><a href="/tags/mysql/" class="tagc5">mysql : 7</a><a href="/tags/网络安全/" class="tagc1">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/机器学习/" class="tagc3">机器学习 : 4</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/shell/" class="tagc3">shell : 2</a><a href="/tags/内网渗透/" class="tagc4">内网渗透 : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc5">逻辑处理漏洞 : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/代码审计/" class="tagc2">代码审计 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/SSTI/" class="tagc4">SSTI : 1</a><a href="/tags/SSRF/" class="tagc5">SSRF : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">IIS短文件名漏洞</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-06-28 11:39:37" class="post-meta__date date">2018-06-28 11:39:37</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/渗透测试/">渗透测试</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/渗透测试/">渗透测试</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-IIS短文件名"><a href="#0x00-IIS短文件名" class="headerlink" title="0x00 IIS短文件名"></a>0x00 IIS短文件名</h2><p>为了兼容16位MS-DOS程序，Windows为文件名较长的文件（和文件夹）生成了对应的DOS 8.3 短文件名。</p>
+<p>Windows下查看对应的短文件名，可以使用命令 dir /x</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename01.png?raw=true" alt=""></p>
+<p>对应短文件名的规律是：</p>
+<ul>
+<li>前六位保留</li>
+<li>所有小写字母均转换成大写字母</li>
+<li>后续字符用~1表示</li>
+<li>后缀最多显示三位，其余的被截断</li>
+<li>长文件名前缀/文件夹名字符长度符合0-9和Aa-Zz范围且需要大于等于9位才会生成短文件名，如果包含空格或者其他部分特殊字符，不论长度均会生成短文件</li>
+</ul>
+<h2 id="0x01-IIS短文件名漏洞"><a href="#0x01-IIS短文件名漏洞" class="headerlink" title="0x01 IIS短文件名漏洞"></a>0x01 IIS短文件名漏洞</h2><p>在IIS的web服务中，有时无法直接访问一些文件，但是我们发送一个存在通配符* 和?的请求,当IIS接收到一个文件路径中包含~的请求时，根据文件是否存在返回值是不同的，我们可以利用这个方法猜解本来无法得到的文件名。</p>
+<ul>
+<li><p>访问构造的某个存在的短文件名，会返回404</p>
+</li>
+<li><p>访问构造的某个不存在的短文件名，会返回400</p>
+</li>
+</ul>
+<h2 id="0x02-影响版本"><a href="#0x02-影响版本" class="headerlink" title="0x02 影响版本"></a>0x02 影响版本</h2><p>本来受到IIS短文件名漏洞影响的版本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">IIS 1.0，Windows NT 3.51  </div><div class="line">IIS 3.0，Windows NT 4.0 Service Pack 2  </div><div class="line">IIS 4.0，Windows NT 4.0选项包 </div><div class="line">IIS 5.0，Windows 2000  </div><div class="line">IIS 5.1，Windows XP Professional和Windows XP Media Center Edition  </div><div class="line">IIS 6.0，Windows Server 2003和Windows XP Professional x64 Edition  </div><div class="line">IIS 7.0，Windows Server 2008和Windows Vista  </div><div class="line">IIS 7.5，Windows 7（远程启用&lt;customErrors&gt;或没有web.config）</div><div class="line">IIS 7.5，Windows 2008（经典管道模式）</div><div class="line">注意：IIS使用.Net Framework 4时不受影响</div></pre></td></tr></table></figure></p>
+<p>以上受影响范围主要是针对HTTP GET方法，且需要同时安装ASP.NET应用程序。</p>
+<p>但是漏洞发现者Soroush Dalili之后再次在IIS7.5和IIS8.0的版本中发现，当使用OPTIONS来代替GET 方法时，如果请求中的短文件名是存在的，IIS会返回一个不一样的错误信息。</p>
+<p>而且在之后的版本中此漏洞也都成功验证。<br>所以影响的版本又加上了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">IIS 8.0，Windows 8, Windows Server 2012</div><div class="line">IIS 8.5，Windows 8.1,Windows Server 2012 R2</div><div class="line">IIS 10.0，Windows 10, Windows Server 2016</div></pre></td></tr></table></figure></p>
+<p>所以，短文件名漏洞存在于目前IIS的所有版本中。</p>
+<h2 id="0x03-漏洞复现"><a href="#0x03-漏洞复现" class="headerlink" title="0x03 漏洞复现"></a>0x03 漏洞复现</h2><h3 id="在windows10下打开IIS服务"><a href="#在windows10下打开IIS服务" class="headerlink" title="在windows10下打开IIS服务"></a>在windows10下打开IIS服务</h3><p>开始—–&gt;控制面板—-&gt;程序—-&gt;启用或关闭windows功能，勾选以下选项，安装IIS。</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename02.png?raw=true" alt=""></p>
+<p>在浏览器访问ip地址，如果发现IIS windows信息说明安装成功。</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename03.png?raw=true" alt=""></p>
+<p>IIS 安装成功以后，会默认在C盘目录下生成intpub目录，网站的根目录位于C:\inetpub\wwwroot，此时我们创建几个asp文件之后，再使用dir /x查看下根目录是否存在短文件名</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/iis_shortfilename/short_filename04.png?raw=true" alt=""></p>
+<p>我们可以看到，有的文件有短文件名，有的文件没有，这是因为之前提到的，长文件名前缀/文件夹名字符长度符合0-9和Aa-Zz范围且需要大于等于9位才会生成短文件名，如果包含空格或者其他部分特殊字符，不论长度均会生成短文件。</p>
+<h2 id="0x04-漏洞利用"><a href="#0x04-漏洞利用" class="headerlink" title="0x04 漏洞利用"></a>0x04 漏洞利用</h2><p>常用的利用方式有以下几种</p>
+<h3 id="短文件名泄露"><a href="#短文件名泄露" class="headerlink" title="短文件名泄露"></a>短文件名泄露</h3><p>我们可以写python脚本通过HTTP的OPTIONS方法爆破文件名，也可以下载专用的爆破工具来扫描。</p>
+<h3 id="apache下通过短文件名下载"><a href="#apache下通过短文件名下载" class="headerlink" title="apache下通过短文件名下载"></a>apache下通过短文件名下载</h3><p>当Apache运行在windows下，如果创建了一个长文件，那么无需猜解长文件，直接用短文件就可以下载了。</p>
+<h3 id="Net-Framework的拒绝服务攻击"><a href="#Net-Framework的拒绝服务攻击" class="headerlink" title="Net Framework的拒绝服务攻击"></a>Net Framework的拒绝服务攻击</h3><p>当请求文件夹名称包含~1的请求，会导致不存在该文件的.Net framework去递归所有根目录。特别是第一次请求时，会造成的文件读取特别多。用僵尸网络不断向服务器发送此类请求，很容易耗尽对方服务器资源。</p>
+<h2 id="0x05-局限性"><a href="#0x05-局限性" class="headerlink" title="0x05 局限性"></a>0x05 局限性</h2><ul>
+<li><p>1.此漏洞只能确定前6个字符，如果后面的字符太长、包含特殊字符，很难猜解</p>
+</li>
+<li><p>2.如果文件名本身太短（无短文件名）也是无法猜解的</p>
+</li>
+<li><p>3.如果文件名前6位带空格，8.3格式的短文件名会补进，和真实文件名不匹配</p>
+</li>
+<li><p>4.如果文件夹名前6位字符带点“.”，扫描程序会认为是文件而不是文件夹，最终出现误报</p>
+</li>
+<li><p>5.不支持中文文件名，包括中文文件和中文文件夹。一个中文相当于两个英文字符，故超过4个中文字会产生短文件名，但是IIS不支持中文猜测</p>
+</li>
+</ul>
+<h2 id="0x06-应对"><a href="#0x06-应对" class="headerlink" title="0x06 应对"></a>0x06 应对</h2><h4 id="禁止url中使用“-”或它的Unicode编码"><a href="#禁止url中使用“-”或它的Unicode编码" class="headerlink" title="禁止url中使用“~”或它的Unicode编码"></a>禁止url中使用“~”或它的Unicode编码</h4><h4 id="关闭windows的8-3格式功能"><a href="#关闭windows的8-3格式功能" class="headerlink" title="关闭windows的8.3格式功能"></a>关闭windows的8.3格式功能</h4><ul>
+<li><p>命令行中关闭：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fsutil 8dot3name set 1</div></pre></td></tr></table></figure>
+</li>
+<li><p>注册表中禁用：<br>在注册表中找到HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem，将其中的 NtfsDisable8dot3NameCreation这一项的值设为 1，代表不创建短文件名格式</p>
+</li>
+</ul>
+<h4 id="升级netFramework至4-0以上版本"><a href="#升级netFramework至4-0以上版本" class="headerlink" title="升级netFramework至4.0以上版本"></a>升级netFramework至4.0以上版本</h4><h4 id="修改注册表禁用短文件名功能"><a href="#修改注册表禁用短文件名功能" class="headerlink" title="修改注册表禁用短文件名功能"></a>修改注册表禁用短文件名功能</h4><h2 id="0x07-总结"><a href="#0x07-总结" class="headerlink" title="0x07 总结"></a>0x07 总结</h2><p>相对来说这个漏洞比较鸡肋，微软也表示IIS短文件漏洞未达到安全更新标准，需要确定何时在下一个逻辑版本中解决它。</p>
+<p>虽然漏洞的威胁不大，但是正因不严重导致微软没有更新，现在所有版本都存在这个问题，当有人将其与其他漏洞配合起来使用时，也是有可能造成很严重的后果。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/06/28/IIS短文件名漏洞/" target="_blank">IIS短文件名漏洞</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-06-28 11:39:37<br />
+    <span>最后更新:</span>2018-06-28 11:44:31<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+    MathJax.Hub.Config({ 
+        tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+    });
+});
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
