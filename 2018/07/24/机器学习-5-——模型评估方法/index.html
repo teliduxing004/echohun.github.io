@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    机器学习(5)——模型评估方法 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",机器学习">
+<meta name="description" content="0x00 模型评估与选择在机器学习中，我们需要对使用的模型进行评估，对误差等进行分析，来选择一个预测准确率最高的模型。
+0x01 误差我们把学习器的实际预测输出与样本的真实输出之间的差异称为误差。
+
+经验误差：学习器在训练集上的误差称为训练误差或经验误差。
+
+泛化误差：将训练好的模型用在新样本上的误差称为泛化误差。
+
+
+机器学习的目的是为了预测新样本的情况，所以我们需要在新样本上表现很好的学习器，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习(5)——模型评估方法 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/07/24/机器学习-5-——模型评估方法/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 模型评估与选择在机器学习中，我们需要对使用的模型进行评估，对误差等进行分析，来选择一个预测准确率最高的模型。
+0x01 误差我们把学习器的实际预测输出与样本的真实输出之间的差异称为误差。
+
+经验误差：学习器在训练集上的误差称为训练误差或经验误差。
+
+泛化误差：将训练好的模型用在新样本上的误差称为泛化误差。
+
+
+机器学习的目的是为了预测新样本的情况，所以我们需要在新样本上表现很好的学习器，">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml5_01.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml5_02.png?raw=true">
+<meta property="og:updated_time" content="2018-07-24T12:45:19.201Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习(5)——模型评估方法 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 模型评估与选择在机器学习中，我们需要对使用的模型进行评估，对误差等进行分析，来选择一个预测准确率最高的模型。
+0x01 误差我们把学习器的实际预测输出与样本的真实输出之间的差异称为误差。
+
+经验误差：学习器在训练集上的误差称为训练误差或经验误差。
+
+泛化误差：将训练好的模型用在新样本上的误差称为泛化误差。
+
+
+机器学习的目的是为了预测新样本的情况，所以我们需要在新样本上表现很好的学习器，">
+<meta name="twitter:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml5_01.png?raw=true">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 34</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 11</a><a href="/tags/php/" class="tagc4">php : 10</a><a href="/tags/mysql/" class="tagc5">mysql : 7</a><a href="/tags/机器学习/" class="tagc1">机器学习 : 5</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc4">逻辑处理漏洞 : 2</a><a href="/tags/内网渗透/" class="tagc5">内网渗透 : 2</a><a href="/tags/shell/" class="tagc1">shell : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/struts2-052/" class="tagc4">struts2-052 : 1</a><a href="/tags/https/" class="tagc5">https : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">机器学习(5)——模型评估方法</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-07-24 20:42:30" class="post-meta__date date">2018-07-24 20:42:30</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/机器学习/">机器学习</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/机器学习/">机器学习</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-模型评估与选择"><a href="#0x00-模型评估与选择" class="headerlink" title="0x00 模型评估与选择"></a>0x00 模型评估与选择</h2><p>在机器学习中，我们需要对使用的模型进行评估，对误差等进行分析，来选择一个预测准确率最高的模型。</p>
+<h2 id="0x01-误差"><a href="#0x01-误差" class="headerlink" title="0x01 误差"></a>0x01 误差</h2><p>我们把学习器的实际预测输出与样本的真实输出之间的差异称为误差。</p>
+<ul>
+<li><p>经验误差：学习器在训练集上的误差称为训练误差或经验误差。</p>
+</li>
+<li><p>泛化误差：将训练好的模型用在新样本上的误差称为泛化误差。</p>
+</li>
+</ul>
+<p>机器学习的目的是为了预测新样本的情况，所以我们需要在新样本上表现很好的学习器，即需要得到一个泛化误差小的学习器。</p>
+<h2 id="0x02-过拟合与欠拟合"><a href="#0x02-过拟合与欠拟合" class="headerlink" title="0x02 过拟合与欠拟合"></a>0x02 过拟合与欠拟合</h2><ul>
+<li><p>过拟合：学习器把训练样本自身的一些特点当作了所有潜在样本都会具有的一般性质，导致泛化性能下降。一般是由于学习能力过强，将训练样本所包含的不太一般的性质都学到了。</p>
+</li>
+<li><p>欠拟合：学习器学习能力过弱，对训练样本的一般性质尚未学好</p>
+</li>
+</ul>
+<p>欠拟合比较容易克服，可以在决策树学习中扩展分支、在神经网络中增加训练轮数等。</p>
+<p>过拟合则难克服，过拟合是机器学习面临的关键障碍，各类学习算法都有一些针对过拟合的措施来缓解过拟合。</p>
+<h2 id="0x03-评估方法"><a href="#0x03-评估方法" class="headerlink" title="0x03 评估方法"></a>0x03 评估方法</h2><p>为了对学习器的泛化误差进行评估，需要使用一个测试集来测试学习器对新样本的判别能力，然后以测试集上的测试误差作为泛化误差的近似。</p>
+<p>测试集应该尽量与训练集互斥，即测试样本尽量不在训练集中出现、未在训练集中使用过。</p>
+<p>下来介绍几种常用的评估方法：</p>
+<h3 id="留出法"><a href="#留出法" class="headerlink" title="留出法"></a>留出法</h3><p>留出法是直接将数据集D划分为两个互斥的几何，其中一个集合作为训练集S，另一个作为测试集T。</p>
+<p>在训练集S中训练出模型后，用测试集T来评估其测试误差，作为对泛化误差的估计。</p>
+<p>训练/测试集要尽可能的保证数据分布的一致性，避免因数据划分过程引入额外的偏差而对最终结果产生影响。具体做法是尽可能保留类别比例，最好使用分层采样的方法。</p>
+<h3 id="交叉验证法"><a href="#交叉验证法" class="headerlink" title="交叉验证法"></a>交叉验证法</h3><p>交叉验证法先将数据集D划分为k个大小相似的互斥子集，每个子集尽可能的保证数据分布的一致性。<br>然后每次使用k-1个子集作为训练集，余下的一个子集作为测试集。<br>这样就可以得到k组训练/测试集，可以进行k次训练和测试，最终返回的是k个测试结果的均值。</p>
+<p>交叉验证法评估结果的稳定性和保真性在很大程度上取决于k的取值。<br>通常将交叉验证法称为“k折交叉验证”。如k取10，则称为10折交叉验证。</p>
+<h3 id="留一法"><a href="#留一法" class="headerlink" title="留一法"></a>留一法</h3><p>如果数据集D中包含m个样本，若令k=m，则得到了交叉验证法的一个特例：留一法。</p>
+<p>显然，留一法不受随机样本划分方式的影响，因为留一法只有唯一一种划分方式。</p>
+<p>留一法的评估结果往往被认为比较准确。但是留一法也存在缺陷，当数据集较大时，训练m个模型的计算开销非常大。比如我们是上千万级的数据，那么就得训练上千万个模型，这是不现实的。</p>
+<h3 id="自助法"><a href="#自助法" class="headerlink" title="自助法"></a>自助法</h3><p>上述几种方法都存在一个问题，那就是由于保留了一部分样本用于测试，导致实际评估的模型所使用的训练集比D小，会引起一些误差，而自助法，可以解决这个问题。</p>
+<p>自助法以自助采样法为基础，给定包含m个样本的数据集D，对它进行采样产生数据集D’：<br>每次随机从D中挑选一个样本，再将样本放回初始数据集中，使得该样本在下次采样时仍有可能被采到。这个过程重复执行m次后，我们就得到了包含m个样本的数据集D’，这就是自助采样的结果。</p>
+<p>D中有一部分样本会在D’中多次出现，而另一部分样本不出现。可以做一个简单的估计，样本在m次采样中始终不被采到的概率是<br><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml5_01.png?raw=true" alt=""></p>
+<p>取极限得到<br><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml5_02.png?raw=true" alt=""></p>
+<p>即通过自助采样，初始数据集中约有36.8%的样本未出现在采样数据集D’中，于是我们可以将D’用作训练集，D-D’用作测试集，这样世纪评估的模型与期望评估的模型都使用了m个训练样本，而我们仍然有数据总量36.8%、未在训练集中出现的样本用于测试。这样的测试结果，也被称为“包外估计”。</p>
+<p>自助法在数据集较小、难以有效划分训练/测试集时很有用；此外，自助法能从初始数据集中产生多个不同的训练集，这对集成学习等方法有很大的好处。</p>
+<p>自助法的缺陷是：自助法产生的数据集改变了初始数据集的分布，这会引入估计误差。</p>
+<p>所以在初始数据集够用的情况下，留出法和交叉验证法更常用。</p>
+<h2 id="0x04-调参与最终模型"><a href="#0x04-调参与最终模型" class="headerlink" title="0x04 调参与最终模型"></a>0x04 调参与最终模型</h2><p>大多数学习算法都有参数需要设定，参数配置不同，学得模型的性能往往有显著差别。因此，在进行模型评估与选择时，除了要对适用学习算法进行选择，还需要对算法参数进行设定，这就是通常所说的“参数调节”。</p>
+<p>给定包含m个样本的数据集D，在模型评估与选择过程中由于需要留出一部分数据进行评估测试，事实上我们只使用了一部分数据训练模型。因此，在模型选择完成后，学习算法和参数配置已选定，我们要用数据集D重新训练模型，使用所有的m个样本。这时产生的模型才是最终模型。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/07/24/机器学习-5-——模型评估方法/" target="_blank">机器学习(5)——模型评估方法</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-07-24 20:42:30<br />
+    <span>最后更新:</span>2018-07-24 20:45:19<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+    MathJax.Hub.Config({ 
+        tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+    });
+});
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
