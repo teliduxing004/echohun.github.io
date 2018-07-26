@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   
   <title>
-    域名收集 | Leticia‘s Blog 
+    机器学习(7)——多分类学习 | Leticia‘s Blog 
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -13,49 +13,27 @@
 
 
 
-  <meta name="keywords" content=",网络安全">
-<meta name="description" content="信息收集上的花费要占到一次渗透测试很大的比例，域名收集则是信息收集重要的一环。 
-0x00 常用域名收集方法一览
-搜索引擎
-github
-fierce
-dnsenum
-
-0x01 搜索引擎搜索引擎（Search Engine）是指根据一定的策略、运用特定的计算机程序从互联网上搜集信息，在对信息进行组织和处理后，为用户提供检索服务，将用户检索相关的信息展示给用户的系统。我们在进行域名收集时，借助搜索">
+  <meta name="keywords" content=",机器学习">
+<meta name="description" content="0x00 前言之前在逻辑回归中也提到了多分类问题，但是仅仅介绍了其中一种情况。多分类还存在一些其他的方式与问题，在这里总结一遍，用作笔记。
+除过那些直接可以由二分类算法推广到多分类的情况，我们就是基于一些策略利用二分类学习器来解决多分类问题。
+0x01 一对一(One vs. One)OvO策略是将N个类别，两两配对分类，一共就产生了N(N-1)/2个二分类任务。在测试阶段，我们将新样本提交给所有">
 <meta property="og:type" content="article">
-<meta property="og:title" content="域名收集 | Leticia‘s Blog">
-<meta property="og:url" content="http://yoursite.com/2017/12/17/域名收集/index.html">
+<meta property="og:title" content="机器学习(7)——多分类学习 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/07/26/机器学习-7-——多分类学习/index.html">
 <meta property="og:site_name" content="Leticia‘s Blog">
-<meta property="og:description" content="信息收集上的花费要占到一次渗透测试很大的比例，域名收集则是信息收集重要的一环。 
-0x00 常用域名收集方法一览
-搜索引擎
-github
-fierce
-dnsenum
-
-0x01 搜索引擎搜索引擎（Search Engine）是指根据一定的策略、运用特定的计算机程序从互联网上搜集信息，在对信息进行组织和处理后，为用户提供检索服务，将用户检索相关的信息展示给用户的系统。我们在进行域名收集时，借助搜索">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/01.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/02.jpg">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/03.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/04.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/05.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/06.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/07.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/08.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/09.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/10.png">
-<meta property="og:updated_time" content="2017-12-17T11:39:18.682Z">
+<meta property="og:description" content="0x00 前言之前在逻辑回归中也提到了多分类问题，但是仅仅介绍了其中一种情况。多分类还存在一些其他的方式与问题，在这里总结一遍，用作笔记。
+除过那些直接可以由二分类算法推广到多分类的情况，我们就是基于一些策略利用二分类学习器来解决多分类问题。
+0x01 一对一(One vs. One)OvO策略是将N个类别，两两配对分类，一共就产生了N(N-1)/2个二分类任务。在测试阶段，我们将新样本提交给所有">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml7_01.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml7_02.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml7_03.png?raw=true">
+<meta property="og:updated_time" content="2018-07-26T06:59:32.394Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="域名收集 | Leticia‘s Blog">
-<meta name="twitter:description" content="信息收集上的花费要占到一次渗透测试很大的比例，域名收集则是信息收集重要的一环。 
-0x00 常用域名收集方法一览
-搜索引擎
-github
-fierce
-dnsenum
-
-0x01 搜索引擎搜索引擎（Search Engine）是指根据一定的策略、运用特定的计算机程序从互联网上搜集信息，在对信息进行组织和处理后，为用户提供检索服务，将用户检索相关的信息展示给用户的系统。我们在进行域名收集时，借助搜索">
-<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/yuming/01.png">
+<meta name="twitter:title" content="机器学习(7)——多分类学习 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 前言之前在逻辑回归中也提到了多分类问题，但是仅仅介绍了其中一种情况。多分类还存在一些其他的方式与问题，在这里总结一遍，用作笔记。
+除过那些直接可以由二分类算法推广到多分类的情况，我们就是基于一些策略利用二分类学习器来解决多分类问题。
+0x01 一对一(One vs. One)OvO策略是将N个类别，两两配对分类，一共就产生了N(N-1)/2个二分类任务。在测试阶段，我们将新样本提交给所有">
+<meta name="twitter:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml7_01.png?raw=true">
 
   <!-- favicon icon files -->
 
@@ -147,20 +125,20 @@ dnsenum
       
 <article class="post-container post-container--single">
   <header class="post-header">
-    <h1 class="post-title">域名收集</h1>
+    <h1 class="post-title">机器学习(7)——多分类学习</h1>
     
     <div class="post-meta">
-      <time datetime="2017-12-17 19:38:24" class="post-meta__date date">2017-12-17 19:38:24</time> 
+      <time datetime="2018-07-26 14:59:28" class="post-meta__date date">2018-07-26 14:59:28</time> 
       <span class="post-meta__tags tags">
       
         <font class="categories">&#8226; 分类:
-        <a class="categories-link" href="/categories/网络安全/">网络安全</a>
+        <a class="categories-link" href="/categories/机器学习/">机器学习</a>
         </font>
       
       
         &#8226; 标签:
         <font class="tags">
-        <a class="tags-link" href="/tags/网络安全/">网络安全</a>
+        <a class="tags-link" href="/tags/机器学习/">机器学习</a>
         </font>
       
       </span>
@@ -168,37 +146,41 @@ dnsenum
     
   </header>
   <section id="post-content" class="article-content post">
-  <p>信息收集上的花费要占到一次渗透测试很大的比例，域名收集则是信息收集重要的一环。 </p>
-<h2 id="0x00-常用域名收集方法一览"><a href="#0x00-常用域名收集方法一览" class="headerlink" title="0x00 常用域名收集方法一览"></a>0x00 常用域名收集方法一览</h2><ul>
-<li>搜索引擎</li>
-<li>github</li>
-<li>fierce</li>
-<li>dnsenum</li>
-</ul>
-<h2 id="0x01-搜索引擎"><a href="#0x01-搜索引擎" class="headerlink" title="0x01 搜索引擎"></a>0x01 搜索引擎</h2><p>搜索引擎（Search Engine）是指根据一定的策略、运用特定的计算机程序从互联网上搜集信息，在对信息进行组织和处理后，为用户提供检索服务，将用户检索相关的信息展示给用户的系统。<br>我们在进行域名收集时，借助搜索引擎是方便的一种方式，收集方式与一般访问无异，收集之后不会被目的服务器的安全策略记录为异常，但是收集完善性有限。如果目标网站有robot.txt中对搜索引擎的限制，则无法收集，不过我们可以通过访问其robot.txt，然后手动进行扫描或者写脚本进行扫描。<br>如我们收集西电相关的域名site:xidian.edu.cn<br>如图我们使用google搜索引擎和yandex搜索引擎进行收集：<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/01.png" alt="">  </p>
-<p><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/02.jpg" alt=""></p>
-<h2 id="0x02-github"><a href="#0x02-github" class="headerlink" title="0x02 github"></a>0x02 github</h2><p>gitHub是一个面向开源及私有软件项目的托管平台，功能十分强大，绝大多数开发人员都会使用。<br>在github的搜索框中键入目标官方域名，就可以得到很多相关项目，代码，网站等搜索结果。<br>如输入 xidian.edu.cn,在code选项卡可以看到很多结果：<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/03.png" alt=""></p>
-<h2 id="0x03-fierce"><a href="#0x03-fierce" class="headerlink" title="0x03 fierce"></a>0x03 fierce</h2><p>fierce是一个域名扫描综合性工具。它可以快速获取指定域名的DNS服务器，并检查是否存在区域传输（Zone Transfer）漏洞。如果不存在该漏洞，会自动执行暴力破解，以获取子域名信息。对获取的IP地址，它还会遍历周边IP地址，以获取更多的信息。最后，还会将IP地址进行分段统计，以便于后期其他工具扫描，如NMAP。<br>这里用西工大的官网进行测试<br>使用方法：</p>
+  <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>之前在逻辑回归中也提到了多分类问题，但是仅仅介绍了其中一种情况。多分类还存在一些其他的方式与问题，在这里总结一遍，用作笔记。</p>
+<p>除过那些直接可以由二分类算法推广到多分类的情况，我们就是基于一些策略利用二分类学习器来解决多分类问题。</p>
+<h2 id="0x01-一对一-One-vs-One"><a href="#0x01-一对一-One-vs-One" class="headerlink" title="0x01 一对一(One vs. One)"></a>0x01 一对一(One vs. One)</h2><p>OvO策略是将N个类别，两两配对分类，一共就产生了N(N-1)/2个二分类任务。在测试阶段，我们将新样本提交给所有的分类器，一共得到N(N-1)/2个分类结果，而最终这个新样本属于哪一类，可以通过投票产生，即这N(N-1)/2个分类结果中，预测得到最多得那个分类作为最终分类结果。</p>
+<h2 id="0x02-一对其余-One-vs-Rest"><a href="#0x02-一对其余-One-vs-Rest" class="headerlink" title="0x02 一对其余(One vs. Rest)"></a>0x02 一对其余(One vs. Rest)</h2><p>OvR策略是将N个类别，每次分别取一类作一次正例，其余类都作为反例，一共训练N个分类器。在测试阶段，我们将新样本提交给所有分类器，一共产生N个分类结果，这N个结果中置信度最高的一个就是最终结果。</p>
+<h2 id="0x03-多对多-Many-vs-Many"><a href="#0x03-多对多-Many-vs-Many" class="headerlink" title="0x03 多对多(Many vs. Many)"></a>0x03 多对多(Many vs. Many)</h2><p>MvM策略是每次将一部分类作为正类，一部分其他类作为反类。MvM的正反类构造不能随意选取，必须有特殊的设计。</p>
+<p>最常用的MvM技术是“纠错输出码”(Error Correcting Output Codes)</p>
+<p>纠错输出码是将编码的思想引入类别拆分，并尽可能在解码的过程中具有容错性。纠错输出码的工作过程：</p>
 <ul>
-<li>基本扫描<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/04.png" alt=""></li>
-<li>指明需要搜索的子域名<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/05.png" alt=""></li>
-<li>在域名周围的连续快中遍历<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/06.png" alt=""></li>
-<li>还有很多方法，我们可以在帮助文件中自行尝试<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/07.png" alt=""></li>
+<li>（1）编码：对N个类别做M次划分，每次划分将一部分类别划为正类，一部分划为反类，从而形成一个二分类训练集。这样一共产生M个训练集，可以训练出M个分类器。</li>
+<li>（2）解码：M个分类器分别对测试样本进行预测，这些预测标记组成一个编码，将这个预测编码与每个类别各自的编码进行比较，返回其中距离最小的类别作为最终预测结果。</li>
 </ul>
-<h2 id="0x04-dnsenum"><a href="#0x04-dnsenum" class="headerlink" title="0x04 dnsenum"></a>0x04 dnsenum</h2><p>DNSenum是一款非常强大的 域名信息收集工具，目的是尽可能收集一个域的信息，它能够通过谷歌或者字典文件猜测可能存在的域名，以及对一个网段进行反向查询。它可以查询网站的主机地址信息、域名服务器、mx record（函件交换记录），在域名服务器上执行axfr请求，通过谷歌脚本得到扩展域名信息（google hacking），提取自域名并查询，计算C类地址并执行whois查询，执行反向查询，把地址段写入文件。<br>同样用西工大的域名作为测试对象<br>使用方法：  </p>
+<p>类别划分时使用编码矩阵表示，目前主要的编码矩阵是二元码和三元码：</p>
 <ul>
-<li>基本使用<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/08.png" alt=""></li>
-<li>根据字典文件遍历子域名<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/09.png" alt=""></li>
-<li>保存扫描结果<br><img src="http://oo3iot5oz.bkt.clouddn.com/yuming/10.png" alt="">  </li>
+<li>二元码： 每个类别有正类、反类两种情况。</li>
+<li>三元码： 每个类别有正类、反类、停用类三种情况。</li>
 </ul>
-<h2 id="0x05-总结"><a href="#0x05-总结" class="headerlink" title="0x05 总结"></a>0x05 总结</h2><p>域名收集的方式还有很多，比如利用DNS反相解析来收集域名，利用DNS Transfer来收集域名，利用zap来被动感知域名等等。<br>收集途径很多但没有什么优劣之分，在我们进行域名收集时，要根据自己的实际需求来做出恰当的选择。</p>
+<p>如图所示：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml7_01.png?raw=true" alt=""></p>
+<p>以二元码为例，图中使用五个分类器进行MvM分类，然后根据对不同类别的正反分类构成了黑白相间的编码矩阵。</p>
+<p>在解码时，我们将样例输入到五个分类器中，得到一个长度为5的测试样例，然后跟矩阵中c1、c2、c3、c4四个类别的编码方式比较，计算其欧氏距离，距离最小的类别c3就是最终预测结果，也就是说此样例被分类到c3。</p>
+<p>如果MvM用到的分类器越多，横轴也会越长，编码长度也就越长，这样即使有个别分类器预测错误，也不会影响最终结果。也就是说，分类器越多纠错能力越强。不过分类器越多，我们需要训练的次数也就越多，计算量就会增大，所以应当根据实际情况选择合适的分类器数量。</p>
+<h2 id="0x04-类别不平衡问题"><a href="#0x04-类别不平衡问题" class="headerlink" title="0x04 类别不平衡问题"></a>0x04 类别不平衡问题</h2><p>在通常的分类任务中，我们默认几类几类情况的发生几率差距不是特别大，但是如果某一类情况发生几率十分大，比如99.9%，另一类发生几率特别小，比如0.1%。</p>
+<p>这种情况下，我们的样本正例太多，反例太少，学习器往往会出现一些误差。</p>
+<p>此时我们需要用m+表示正例数目，m-表示反例数目，观测几率就是m+/m-，这个时候我们只需要分类器预测几率高于观测几率就应判定为正例，即</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml7_02.png?raw=true" alt=""></p>
+<p>但是我们的分类器是根据y/(1-y)进行决策的，为了适应它，我们只需要“再缩放”一下：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml7_03.png?raw=true" alt=""></p>
+<h2 id="0x05-参考文档"><a href="#0x05-参考文档" class="headerlink" title="0x05 参考文档"></a>0x05 参考文档</h2><p>《机器学习》——周志华</p>
 
   </section>
   <div class="copyright">
-    <span>文本标题:</span><a href="/2017/12/17/域名收集/" target="_blank">域名收集</a><br />
+    <span>文本标题:</span><a href="/2018/07/26/机器学习-7-——多分类学习/" target="_blank">机器学习(7)——多分类学习</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
-    <span>发布时间:</span>2017-12-17 19:38:24<br />
-    <span>最后更新:</span>2017-12-17 19:39:18<br />
+    <span>发布时间:</span>2018-07-26 14:59:28<br />
+    <span>最后更新:</span>2018-07-26 14:59:32<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
