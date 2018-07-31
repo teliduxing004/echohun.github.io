@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml8_16.png?raw=true">
 <meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml8_17.png?raw=true">
 <meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/machine_learning/ml8_18.png?raw=true">
-<meta property="og:updated_time" content="2018-07-31T02:27:35.139Z">
+<meta property="og:updated_time" content="2018-07-31T02:44:01.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习(8)——支持向量机(SVM) | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 支持向量机在机器学习中，支持向量机（support vector machine，常简称为SVM，又名支持向量网络）是在分类与回归分析中分析数据的监督式学习模型与相关的学习算法。给定一组训练实例，每个训练实例被标记为属于两个类别中的一个或另一个，SVM训练算法建立一个将新的实例分配给两个类别之一的模型，使其成为非概率二元（binary classifier）线性分类器。SVM模型是将实例">
@@ -86,7 +86,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 34</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 12</a><a href="/tags/php/" class="tagc4">php : 10</a><a href="/tags/机器学习/" class="tagc5">机器学习 : 9</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc4">逻辑处理漏洞 : 2</a><a href="/tags/内网渗透/" class="tagc5">内网渗透 : 2</a><a href="/tags/shell/" class="tagc1">shell : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/xml/" class="tagc4">xml : 1</a><a href="/tags/arpspoof/" class="tagc5">arpspoof : 1</a>
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 34</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 12</a><a href="/tags/php/" class="tagc4">php : 10</a><a href="/tags/机器学习/" class="tagc5">机器学习 : 9</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/硬件安全/" class="tagc2">硬件安全 : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/shell/" class="tagc4">shell : 2</a><a href="/tags/内网渗透/" class="tagc5">内网渗透 : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc1">逻辑处理漏洞 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/XSS/" class="tagc3">XSS : 2</a><a href="/tags/防御策略/" class="tagc4">防御策略 : 1</a><a href="/tags/mssql/" class="tagc5">mssql : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -207,13 +207,31 @@
 <p>我们也有其他几种替代损失函数可供选择：</p>
 <p><img src="https://github.com/echohun/blog_image/blob/master/machine_learning/ml8_18.png?raw=true" alt=""></p>
 <p>在软间隔情况中，只使满足最终优化目标的值优化到最小即可。</p>
+<h2 id="0x05-支持向量机的优缺点"><a href="#0x05-支持向量机的优缺点" class="headerlink" title="0x05 支持向量机的优缺点"></a>0x05 支持向量机的优缺点</h2><p>支持向量机的优势在于:</p>
+<ul>
+<li><p>在高维空间中非常高效</p>
+</li>
+<li><p>即使在数据维度比样本数量大的情况下仍然有效</p>
+</li>
+<li><p>在决策函数（称为支持向量）中使用训练集的子集,因此它也是高效利用内存的</p>
+</li>
+<li><p>通用性: 不同的核函数 核函数与特定的决策函数一一对应，常见的kernel已<br>经提供,也可以指定定制的内核</p>
+</li>
+</ul>
+<p>支持向量机的缺点包括:</p>
+<ul>
+<li><p>如果特征数量比样本数量大得多,在选择核函数 核函数 时要避免过拟合,<br>而且正则化项是非常重要的</p>
+</li>
+<li><p>支持向量机不直接提供概率估计</p>
+</li>
+</ul>
 
   </section>
   <div class="copyright">
     <span>文本标题:</span><a href="/2018/07/31/机器学习-8-——支持向量机-SVM/" target="_blank">机器学习(8)——支持向量机(SVM)</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
     <span>发布时间:</span>2018-07-31 10:27:12<br />
-    <span>最后更新:</span>2018-07-31 10:27:35<br />
+    <span>最后更新:</span>2018-07-31 10:44:01<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
