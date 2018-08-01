@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    python-scikit learn学习(2) | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",python,机器学习">
+<meta name="description" content="0x00 scikit-learnScikit-learn（以前称为scikits.learn）是一个用于Python编程语言的免费开源机器学习库。它广泛地支持各种分类、聚类以及回归分析方法比如支持向量机、随机森林、DBSCAN等等，由于其强大的功能、优异的拓展性以及易用性，目前受到了很多数据科学从业者的欢迎，也是业界相当著名的一个开源项目之一。
+0x01 模型属性与功能sklearn库中所有机器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python-scikit learn学习(2) | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/08/01/python-scikit-learn学习-2/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 scikit-learnScikit-learn（以前称为scikits.learn）是一个用于Python编程语言的免费开源机器学习库。它广泛地支持各种分类、聚类以及回归分析方法比如支持向量机、随机森林、DBSCAN等等，由于其强大的功能、优异的拓展性以及易用性，目前受到了很多数据科学从业者的欢迎，也是业界相当著名的一个开源项目之一。
+0x01 模型属性与功能sklearn库中所有机器">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn07.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn08.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn09.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn10.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn11.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn12.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn13.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn14.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn15.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn16.png?raw=true">
+<meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn17.png?raw=true">
+<meta property="og:updated_time" content="2018-08-01T09:07:00.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python-scikit learn学习(2) | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 scikit-learnScikit-learn（以前称为scikits.learn）是一个用于Python编程语言的免费开源机器学习库。它广泛地支持各种分类、聚类以及回归分析方法比如支持向量机、随机森林、DBSCAN等等，由于其强大的功能、优异的拓展性以及易用性，目前受到了很多数据科学从业者的欢迎，也是业界相当著名的一个开源项目之一。
+0x01 模型属性与功能sklearn库中所有机器">
+<meta name="twitter:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn07.png?raw=true">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 34</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 10</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/内网渗透/" class="tagc4">内网渗透 : 2</a><a href="/tags/shell/" class="tagc5">shell : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc1">逻辑处理漏洞 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/防御策略/" class="tagc4">防御策略 : 1</a><a href="/tags/nmap/" class="tagc5">nmap : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">python-scikit learn学习(2)</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-08-01 17:06:38" class="post-meta__date date">2018-08-01 17:06:38</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/python/">python</a>, <a class="categories-link" href="/categories/python/机器学习/">机器学习</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/python/">python</a>, <a class="tags-link" href="/tags/机器学习/">机器学习</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-scikit-learn"><a href="#0x00-scikit-learn" class="headerlink" title="0x00 scikit-learn"></a>0x00 scikit-learn</h2><p>Scikit-learn（以前称为scikits.learn）是一个用于Python编程语言的免费开源机器学习库。它广泛地支持各种分类、聚类以及回归分析方法比如支持向量机、随机森林、DBSCAN等等，由于其强大的功能、优异的拓展性以及易用性，目前受到了很多数据科学从业者的欢迎，也是业界相当著名的一个开源项目之一。</p>
+<h2 id="0x01-模型属性与功能"><a href="#0x01-模型属性与功能" class="headerlink" title="0x01 模型属性与功能"></a>0x01 模型属性与功能</h2><p>sklearn库中所有机器学习的模型对象中都有一些属性与功能，假设模型对象名为mod，那么就可以这样表示mod模型的一些属性与功能：</p>
+<ul>
+<li>mod.coef_  x前的系数</li>
+<li>mod.intercept_  截距</li>
+<li>mod.predict() 预测</li>
+<li>mod.get_params() 定义的参数</li>
+<li>mod.score(data_x,data_y) 用data_x做预测，用data_y做比较给模型打分</li>
+</ul>
+<p>我们以上一篇中的线性回归模型为例查看一下这些属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">from sklearn import datasets</div><div class="line">from sklearn.linear_model import LinearRegression</div><div class="line"></div><div class="line"></div><div class="line">example_x,example_y = datasets.make_regression(n_samples=100,n_features=2,n_targets=1,noise=3)</div><div class="line"></div><div class="line">lr = LinearRegression()</div><div class="line">lr.fit(example_x,example_y)</div><div class="line"></div><div class="line">print(lr.coef_)</div><div class="line">print(lr.intercept_)</div><div class="line">print(lr.predict(example_x[:5,:]))</div><div class="line">print(lr.get_params())</div><div class="line">print(lr.score(example_x,example_y))</div></pre></td></tr></table></figure>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn07.png?raw=true" alt=""></p>
+<p>可以从输出中看到：</p>
+<ul>
+<li>lr.coef_输出一个list代表每一种特征前的系数</li>
+<li>lr.intercept_输出截距</li>
+<li>lr.predict()方法可以输入样本进行预测</li>
+<li>lr.get_params()方法可以输出模型的配置信息</li>
+<li>lr.score()方法通过对比预测的数据和原始标签对模型打分</li>
+</ul>
+<h2 id="0x02-标准化"><a href="#0x02-标准化" class="headerlink" title="0x02 标准化"></a>0x02 标准化</h2><p>在训练模型时，某些特征可能会在不同的样本中相差特别大，有一些异常大或者异常小的数据会对模型训练结果造成较大误差，并且数据分布很分散也会影响训练结果，所以一般在训练之前，我们都会对特征数值进行标准化。</p>
+<p>基本的标准化流程是去除每个特征的平均值来转换数据使其居中，然后通过将非常数特征除以它们的标准差来对其进行缩放。</p>
+<p>在scikit-learn库中，有用于预处理数据的模块sklearn.preprocessing，其中scale方法可以快速简便的实现上述标准化操作。用一段代码来尝试一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">from sklearn import preprocessing</div><div class="line">import numpy as np</div><div class="line"></div><div class="line"></div><div class="line">x_train = np.array([[1, -100, 0.03],</div><div class="line">              [-1, 500, -0.02],</div><div class="line">              [0.2, 200, 0.04]], dtype=np.float64)</div><div class="line"></div><div class="line"></div><div class="line">print(preprocessing.scale(x_train))</div></pre></td></tr></table></figure>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn08.png?raw=true" alt=""></p>
+<p>可以看到，数据都被标准化到很接近的位置，这样就更利于学习器训练了。</p>
+<p>具体能产生多大的影响，我们可以通过datasets产生一组数据，对比直接训练和标准化之后训练的精度：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">from sklearn import preprocessing</div><div class="line">from sklearn.model_selection import train_test_split</div><div class="line">from sklearn.datasets.samples_generator import make_classification</div><div class="line">from sklearn.svm import SVC</div><div class="line">import matplotlib.pyplot as plt</div><div class="line"></div><div class="line">X, y = make_classification(</div><div class="line">    n_samples=300, n_features=2,</div><div class="line">    n_redundant=0, n_informative=2,</div><div class="line">    n_clusters_per_class=1,scale=100)</div><div class="line"></div><div class="line">#可视化数据</div><div class="line">plt.scatter(X[:, 0], X[:, 1], c=y)</div><div class="line">plt.show()</div><div class="line"></div><div class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)</div><div class="line">clf = SVC()</div><div class="line">clf.fit(X_train, y_train)</div><div class="line">print(clf.score(X_test, y_test))</div><div class="line"></div><div class="line">X = preprocessing.scale(X)</div><div class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)</div><div class="line">clf = SVC()</div><div class="line">clf.fit(X_train, y_train)</div><div class="line">print(clf.score(X_test, y_test))</div></pre></td></tr></table></figure></p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn09.png?raw=true" alt=""></p>
+<p>在这个程序中使用datasets中的make_classification方法产生拥有两个特征值的分类数据，然后就可以将两个特征值分别放在横轴和纵轴来观察数据分布</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn10.png?raw=true" alt=""></p>
+<p>接着对比直接训练和标准化之后训练的精度，发现前后差距非常大。</p>
+<h2 id="0x03-交叉验证"><a href="#0x03-交叉验证" class="headerlink" title="0x03 交叉验证"></a>0x03 交叉验证</h2><p>之前在机器学习的模型评估方法里面学过几种模型验证的方法，其中也提到了，学习器训练完成后仍然在训练集种测试实际上是一种错误的方法，因为这个学习器在自身的训练集上很容易得到一个很高的分数，但是对新样本无法预测出任何有用的信息，这种情况被称为过拟合。</p>
+<p>所以为了避免这种情况，我们一般在验证的时候会将样本分为训练集和测试集，在之前的博客（ <a href="http://next.uuzdaisuki.com/2018/07/24/机器学习-5-——模型评估方法/" target="_blank" rel="external">http://next.uuzdaisuki.com/2018/07/24/机器学习-5-——模型评估方法/</a> ）介绍了留数法、交叉验证法、自助法这几种方法来分割训练集与测试集。</p>
+<p>前面的程序我们大多使用train_test_split方法将样本分为两部分，也就是留数法，那么这里就使用sklearn实现交叉验证法。</p>
+<p>交叉验证法需要用到sklearn的cross_val_score模块，我们就在刚才svm分类算法的基础上写出交叉验证：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">from sklearn import preprocessing</div><div class="line">from sklearn.model_selection import train_test_split</div><div class="line">from sklearn.datasets.samples_generator import make_classification</div><div class="line">from sklearn.svm import SVC</div><div class="line">import matplotlib.pyplot as plt</div><div class="line">from sklearn.model_selection import cross_val_score</div><div class="line"></div><div class="line"></div><div class="line">#生成具有2种属性的300笔数据</div><div class="line">X, y = make_classification(</div><div class="line">    n_samples=300, n_features=2,</div><div class="line">    n_redundant=0, n_informative=2,</div><div class="line">    n_clusters_per_class=1,scale=100)</div><div class="line"></div><div class="line">#可视化数据</div><div class="line">plt.scatter(X[:, 0], X[:, 1], c=y)</div><div class="line">plt.show()</div><div class="line"></div><div class="line">X = preprocessing.scale(X)</div><div class="line">clf = SVC()</div><div class="line"></div><div class="line">scores=cross_val_score(clf,X,y,cv=10,scoring=&apos;accuracy&apos;)</div><div class="line"></div><div class="line">print(scores)</div><div class="line">print(scores.mean())</div></pre></td></tr></table></figure></p>
+<p>数据分布如图：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn11.png?raw=true" alt=""></p>
+<p>输出十组分别的分数和平均分数：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn12.png?raw=true" alt=""></p>
+<p>交叉验证因为抽取的测试集更随机化且全部抽到，所以平均后的评估得分更令人信服。</p>
+<p>其中cross_val_score种的clf是模型，X样本特征，y是样本标签，cv是交叉验证的分组数量，scoring参数是计分指标，可以根据实际情况在官方文档选取合适的计分指标：</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn13.png?raw=true" alt=""></p>
+<h2 id="0x04-模型保存"><a href="#0x04-模型保存" class="headerlink" title="0x04 模型保存"></a>0x04 模型保存</h2><p>在实际的机器学习运用中，训练用的样本量是十分大的，也就是说训练一个模型需要的时间开销非常大，我们要使用一个训练好的模型，每次都去重新训练一遍是不现实的，所以在训练好之后我们需要保存模型。</p>
+<p>我们常用的存取模型方法有如下两种</p>
+<h3 id="使用pickle保存模型"><a href="#使用pickle保存模型" class="headerlink" title="使用pickle保存模型"></a>使用pickle保存模型</h3><p>第一种方法是使用pickle库保存和读取模型，以上一篇博客中的k近邻算法为例：</p>
+<p>保存模型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">from sklearn import datasets</div><div class="line">from sklearn.neighbors import KNeighborsClassifier</div><div class="line">import pickle</div><div class="line"></div><div class="line">iris = datasets.load_iris()</div><div class="line">iris_x = iris.data</div><div class="line">iris_y = iris.target</div><div class="line"></div><div class="line">knn = KNeighborsClassifier()</div><div class="line">knn.fit(iris_x,iris_y)</div><div class="line"></div><div class="line">file = open(&quot;model/knn.pickle&quot;,&quot;wb&quot;)</div><div class="line">pickle.dump(knn,file)</div></pre></td></tr></table></figure></p>
+<p>然后当前程序目录中model子目录下就会产生一个knn.pickle的文件。</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn14.png?raw=true" alt=""></p>
+<p>读取模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">from sklearn import datasets</div><div class="line">import pickle</div><div class="line"></div><div class="line">iris = datasets.load_iris()</div><div class="line">iris_x = iris.data</div><div class="line"></div><div class="line">file = open(&quot;model/knn.pickle&quot;,&quot;rb&quot;)</div><div class="line">knn=pickle.load(file)</div><div class="line"></div><div class="line">pred = knn.predict(iris_x[0:5])</div><div class="line">print(pred)</div></pre></td></tr></table></figure>
+<p>读取模型时直接读取这个文件，就可以使用现有模型，在以上代码中使用这个模型预测了前五个数据，我们都知道鸢尾花数据集前五个样本分类都是0，将它们放在这个模型中预测输出，发现也都是0。</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn15.png?raw=true" alt=""></p>
+<h3 id="使用joblib保存模型"><a href="#使用joblib保存模型" class="headerlink" title="使用joblib保存模型"></a>使用joblib保存模型</h3><p>第二种方法是用sklearn的joblib模块保存，joblib库会自动多线程运行，所以在面对大数据的时候性能要优于pickle模块，但是joblib模块只能将文件保存在磁盘中，而且会产生多个文件。</p>
+<p>保存模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">from sklearn import datasets</div><div class="line">from sklearn.neighbors import KNeighborsClassifier</div><div class="line">from sklearn.externals import joblib</div><div class="line"></div><div class="line">iris = datasets.load_iris()</div><div class="line">iris_x = iris.data</div><div class="line">iris_y = iris.target</div><div class="line"></div><div class="line">knn = KNeighborsClassifier()</div><div class="line">knn.fit(iris_x,iris_y)</div><div class="line"></div><div class="line">joblib.dump(knn,&apos;model/knn.pkl&apos;)</div></pre></td></tr></table></figure>
+<p>然后当前程序目录中model子目录下就会产生一个knn.pkl的文件，有时会产生多个文件，但是读取时只用读取第一个。</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn16.png?raw=true" alt=""></p>
+<p>读取模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">from sklearn import datasets</div><div class="line">from sklearn.externals import joblib</div><div class="line"></div><div class="line">iris = datasets.load_iris()</div><div class="line">iris_x = iris.data</div><div class="line"></div><div class="line"></div><div class="line">knn=joblib.load(&apos;model/knn.pkl&apos;)</div><div class="line"></div><div class="line">pred = knn.predict(iris_x[0:5])</div><div class="line">print(pred)</div></pre></td></tr></table></figure>
+<p>测试结果仍然成立。</p>
+<p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn17.png?raw=true" alt=""></p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/08/01/python-scikit-learn学习-2/" target="_blank">python-scikit learn学习(2)</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-08-01 17:06:38<br />
+    <span>最后更新:</span>2018-08-01 17:07:00<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+    MathJax.Hub.Config({ 
+        tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+    });
+});
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>
