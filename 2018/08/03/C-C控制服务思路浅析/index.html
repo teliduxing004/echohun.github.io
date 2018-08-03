@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  
+  <title>
+    C&amp;C控制服务思路浅析 | Leticia‘s Blog 
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <meta name="author" content="麻薯">
+
+
+
+  <meta name="keywords" content=",C&amp;C">
+<meta name="description" content="0x00 前言在前面的博客中写过一次用python实现的后门 http://next.uuzdaisuki.com/2018/06/17/%E5%9F%BA%E4%BA%8Epython%E7%9A%84%E7%9B%B4%E8%BF%9Eshell%E5%92%8C%E5%8F%8D%E5%B0%84shell/ 里面的代码用最简单的例子来实现了远程控制。
+但是当我们想要构建大规模僵尸网络的时候">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C&C控制服务思路浅析 | Leticia‘s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/08/03/C-C控制服务思路浅析/index.html">
+<meta property="og:site_name" content="Leticia‘s Blog">
+<meta property="og:description" content="0x00 前言在前面的博客中写过一次用python实现的后门 http://next.uuzdaisuki.com/2018/06/17/%E5%9F%BA%E4%BA%8Epython%E7%9A%84%E7%9B%B4%E8%BF%9Eshell%E5%92%8C%E5%8F%8D%E5%B0%84shell/ 里面的代码用最简单的例子来实现了远程控制。
+但是当我们想要构建大规模僵尸网络的时候">
+<meta property="og:updated_time" content="2018-08-03T02:49:45.717Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C&C控制服务思路浅析 | Leticia‘s Blog">
+<meta name="twitter:description" content="0x00 前言在前面的博客中写过一次用python实现的后门 http://next.uuzdaisuki.com/2018/06/17/%E5%9F%BA%E4%BA%8Epython%E7%9A%84%E7%9B%B4%E8%BF%9Eshell%E5%92%8C%E5%8F%8D%E5%B0%84shell/ 里面的代码用最简单的例子来实现了远程控制。
+但是当我们想要构建大规模僵尸网络的时候">
+
+  <!-- favicon icon files -->
+
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- css files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/uno.css">
+  <link rel="stylesheet" href="/css/tagscloud.css">
+  <link rel="stylesheet" href="/css/links.css">
+  <link rel="stylesheet" href="/css/archive.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.css">
+  <link href="//cdn.bootcss.com/highlight.js/9.8.0/styles/monokai-sublime.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
+</head>
+<body>
+  <!-- mobile menu -->
+  <span class="mobile btn-mobile-menu">
+    <i class="fa btn-mobile-menu__icon fa-bars" aria-hidden="true"></i>
+  </span>
+  <!-- side panel -->
+  
+  <header class="panel-cover panel-cover--collapsed">
+
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+      
+        <a href="/" title="link to homepage for Leticia‘s Blog"><img src="/images/avatar.jpg" width="80" alt="Leticia‘s Blog logo" class="panel-cover__logo logo" /></a>
+      
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">麻薯</a></h1>
+        <hr class="panel-cover__divider" />
+        
+        <p class="panel-cover__description">
+          She will never see the day it blossoms,maybe.
+        </p>
+        <hr class="panel-cover__divider" />
+        
+        <!-- TagsCloud -->
+        
+
+  <div id="tagscloud">
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 34</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 10</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/代码审计/" class="tagc2">代码审计 : 2</a><a href="/tags/XSS/" class="tagc3">XSS : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc4">逻辑处理漏洞 : 2</a><a href="/tags/shell/" class="tagc5">shell : 2</a><a href="/tags/内网渗透/" class="tagc1">内网渗透 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/防御策略/" class="tagc4">防御策略 : 1</a><a href="/tags/网络协议/" class="tagc5">网络协议 : 1</a>
+</div>
+
+        <div class="navigation-wrapper">
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+            
+              
+              <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客</a></li>
+            
+              
+              <li class="navigation__item"><a href="/archive/" title="" class="">归档</a></li>
+            
+              
+              <li class="navigation__item"><a href="/links/" title="" class="">友链</a></li>
+            
+            </ul>
+          </nav>
+          
+<hr class="panel-cover__divider">
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/echohun" title="麻薯's GitHub">
+          <i class='fa fa-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+    
+    
+  </ul>
+</nav>
+
+        </div>
+      </div>
+    </div>
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner entry">
+      <!-- body panel -->
+      
+<article class="post-container post-container--single">
+  <header class="post-header">
+    <h1 class="post-title">C&amp;C控制服务思路浅析</h1>
+    
+    <div class="post-meta">
+      <time datetime="2018-08-03 10:48:49" class="post-meta__date date">2018-08-03 10:48:49</time> 
+      <span class="post-meta__tags tags">
+      
+        <font class="categories">&#8226; 分类:
+        <a class="categories-link" href="/categories/渗透测试/">渗透测试</a>
+        </font>
+      
+      
+        &#8226; 标签:
+        <font class="tags">
+        <a class="tags-link" href="/tags/C-C/">C&C</a>
+        </font>
+      
+      </span>
+    </div>
+    
+  </header>
+  <section id="post-content" class="article-content post">
+  <h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>在前面的博客中写过一次用python实现的后门 <a href="http://next.uuzdaisuki.com/2018/06/17/%E5%9F%BA%E4%BA%8Epython%E7%9A%84%E7%9B%B4%E8%BF%9Eshell%E5%92%8C%E5%8F%8D%E5%B0%84shell/" target="_blank" rel="external">http://next.uuzdaisuki.com/2018/06/17/%E5%9F%BA%E4%BA%8Epython%E7%9A%84%E7%9B%B4%E8%BF%9Eshell%E5%92%8C%E5%8F%8D%E5%B0%84shell/</a> 里面的代码用最简单的例子来实现了远程控制。</p>
+<p>但是当我们想要构建大规模僵尸网络的时候，就会发现这类简单的后门很不方便，我们不可能有时间一个一个手动的进行控制。而且大部分的肉鸡ip都是一直在变动而且无法直接访问的，所以远控中基本都使用反弹式通信，反弹式通信需要肉鸡每隔一段时间对我们的控制机发送心跳包，但是我们自己的电脑，ip很多情况也都是一直在变动的，我们很难保证自己拥有一个不变的公网ip。为了避免这些问题，我们就需要一台能够集中统一控制僵尸网络的主机，也就是C&amp;C服务器。</p>
+<ul>
+<li>C&amp;C服务器：command and control server(命令与控制服务器)。一般是指挥控制僵尸网络的主控服务器，用来和每个肉鸡进行通信并指挥它们的攻击行为。</li>
+</ul>
+<p>当然我这篇并不打算写一个简单的主控脚本和远控脚本，然后把它部署到公网服务器中，毕竟这些步骤只需要稍微改一下最开始那个链接里面脚本的代码就可以了。这篇我想要对通过各种方法部署和隐藏C&amp;C服务器的方法做一个总结。</p>
+<h2 id="0x01-通过IP地址访问C-amp-C服务器"><a href="#0x01-通过IP地址访问C-amp-C服务器" class="headerlink" title="0x01 通过IP地址访问C&amp;C服务器"></a>0x01 通过IP地址访问C&amp;C服务器</h2><p>最简单的方法就是租用一台云服务器，将服务器ip直接写远控脚本中反弹的ip中，然后所有肉鸡都会每隔一段时间与这个ip进行一次通信，我们也就可以在服务器上用脚本控制僵尸网络发动攻击。</p>
+<p>但是由于ip地址是直接写死在远控脚本或远控程序中的，如果对方捕获了远控脚本或者远控程序，进行简单的二进制逆向扫描就可以得到我们服务器ip地址，并且对方机器经常访问同一个ip也会增加被发现的几率。一旦被发现，对方直接将ip加入黑名单，并且将ip提交给我们购买云服务器的提供商，服务器被封禁就会使远控全部失效。</p>
+<p>优点：简单易实现、耗费小(仅服务器开销)。</p>
+<p>缺点：极易被发现、很容易大规模失效。</p>
+<h2 id="0x02-通过域名访问C-amp-C服务器"><a href="#0x02-通过域名访问C-amp-C服务器" class="headerlink" title="0x02 通过域名访问C&amp;C服务器"></a>0x02 通过域名访问C&amp;C服务器</h2><p>通过域名再指向服务器比起直接指向服务器只是将反弹ip改为反弹的域名。如果注册一些较正常的域名并且做一个伪装的主页，被发现的几率就会降低，而且直接二进制扫描不会被发现。但是逆向程序或着搭建蜜罐进行动态测试，很容易就能追踪到这些域名，将域名丢给运营商的黑名单就会造成大规模的远控失效。</p>
+<p>不过比起仅通过ip地址访问这种方式要多花去安全人员的一点时间，如果在这个时间内达成目的，也算是成功了。</p>
+<p>优点：简单易实现、耗费小(服务器和域名开销)。</p>
+<p>缺点：易被发现、很容易大规模失效。</p>
+<h2 id="0x03-Fast-flux"><a href="#0x03-Fast-flux" class="headerlink" title="0x03 Fast flux"></a>0x03 Fast flux</h2><p>如果一个域名很容易被蜜罐捕获的话，我们可以将几十个域名分散的写在代码中，这些域名都指向同一台服务器的ip地址，程序会对域名轮换访问，然后提供一个较短的ttl使域名对ip的解析记录也会不断的更换。</p>
+<p>这样被捕获某一部分域名添加黑名单并没有办法阻止恶意软件。而且因为ip解析记录一直变更也无法直接举报服务器，所以需要安全人员很高的逆向能力将恶意域名全部找出来。</p>
+<p>不过这个方式有两个缺陷，一个是将捕获的一部分恶意域名的ip解析历史记录进行统计、数据分析，也会很快找到服务器的ip地址。另一个缺陷是域名记录的TTL相比正常的过短，容易被抓住特征。</p>
+<p>优点：被发现后较难快速处理、被屏蔽一部分域名不会造成僵尸网络失效。</p>
+<p>缺点：实现需要足够的代码混淆和隐藏能力、耗费较大(多个域名的开销)、一旦服务器ip被发现仍然会大规模失效。</p>
+<h2 id="0x04-Double-flux、Triple-flux"><a href="#0x04-Double-flux、Triple-flux" class="headerlink" title="0x04 Double flux、Triple flux"></a>0x04 Double flux、Triple flux</h2><p>既然Fast flux容易被捕获一部分恶意域名进行数据分析而发现ip，那域名能增加ip也能增加，Double flux就是在一般的fast flux过程中除了轮换域名，也让ip可以轮换，如果我们有M个域名和N个ip这样就产生了M*N组的C&amp;C通道，还有更多的干扰项。</p>
+<p>Triple flux在Double flux的基础上，增加一层Name Server通过CNAME方式解析，这样域名有可能指向ip也有可能指向别的域名，然后再指向ip，这些Name Server也会定期轮换，就增加了更多C&amp;C通道和干扰项。</p>
+<p>这两种方法都增加了安全人员分析的难度，而且不会因为个别的服务器或域名被封禁导致僵尸网络失效，但是仍然存在着和普通Fast flux一样的问题，那就是因为域名到ip的解析一直轮换导致TTL需要设置很短，很容易被抓取特征而捕获。</p>
+<p>优点：被发现后较难快速处理、被屏蔽一部分域名、封禁一部分ip都不会造成僵尸网络失效。</p>
+<p>缺点：实现需要足够的代码混淆和隐藏能力、耗费很大(多个域名和多个服务器的开销)。</p>
+<h2 id="0x05-使用论坛等作为C-amp-C服务器"><a href="#0x05-使用论坛等作为C-amp-C服务器" class="headerlink" title="0x05 使用论坛等作为C&amp;C服务器"></a>0x05 使用论坛等作为C&amp;C服务器</h2><p>自己架设服务器很容易被封禁，然后丢失僵尸网络的控制权，有的攻击者想到一个绝佳的办法：通过在一些论坛的冷门区域发一些C&amp;C控制指令，然后让恶意软件通过爬虫在访问这些论坛的时候获取指令，最开始主要是在twitter上进行C&amp;C控制，这种情况一开始很让安全人员头疼，因为访问这些论坛的请求本就和正常数据包差不多很难被发现，而且就算发现了，总不能把twitter的域名或者服务器添加很名单吧，这会影响网络的正常使用。后来发现了这种情况可以进行举报，从而封禁对应的账号。</p>
+<p>优点：耗费低、不是特别容易被发现。</p>
+<p>缺点：被发现后会被直接封禁账号损失僵尸网络。</p>
+<h2 id="0x06-使用随机域名生成算法"><a href="#0x06-使用随机域名生成算法" class="headerlink" title="0x06 使用随机域名生成算法"></a>0x06 使用随机域名生成算法</h2><p>比起注册一堆域名耗费巨大，更好的办法是使用DGA(Domain Generation Algorithm)算法，这种C&amp;C控制方法的思路就是控制一个确定的随机域名生成算法，用约定好的随机数种子生成大量的随机域名（如当天日期时间），恶意软件对这些域名全部进行访问，我们只需要按照规律注册其中个别有可能的域名就可以进行控制。</p>
+<p>这个方法的重点在于没有任何确定的域名写入到恶意软件里，即使逆向也找不到真正的域名，而且逆向出这个随机算法的难度非常大。并且生成的随机域名数量十分巨大对方无法得知究竟我们注册了哪个域名。由于随机算法(提前设定好)和随机种子(可以根据时间等生成)都是我们不需要通信就可以得知的信息，我们任何时候都可以知道该注册那种类型的域名可以进行控制。</p>
+<p>除非源码泄露，安全人员要逆向出DGA算法是非常困难的，也很难用黑名单的方式屏蔽掉所有的域名。目前应对这种C&amp;C的方法一般是利用机器学习算法去判定域名的随机性，然后筛选出有可能是恶意域名的域名进行分析找出ip，或者利用机器学习算法智能的屏蔽对这些域名的访问。</p>
+<p>天下没有免费的午餐，这种方式比起前面的方法也有一个缺陷，产生的随机域名过多且访问频率有限的时候，想通过C&amp;C服务器进行控制就需要等待较长的时间，所以在攻击时灵活度不足。强行减少等待的时间就得增加访问频率，就会增加被发现的概率。</p>
+<p>优点：非常难被封禁、很难通过逆向的方式解决掉恶意域名、耗费低(只需一台服务器和几个域名)。</p>
+<p>缺点：控制延迟很高、灵活度不足。</p>
+<h2 id="0x07-使用变形DGA算法"><a href="#0x07-使用变形DGA算法" class="headerlink" title="0x07 使用变形DGA算法"></a>0x07 使用变形DGA算法</h2><p>这个方法是为了对抗检测域名随机性的机器学习算法而产生的，大体步骤和上面相似，不同处是比起使用域名随机算法，添加一些英文单词作为字典构成域名，就比较接近正常的网页，不会被普通的机器学习算法检测出来。</p>
+<p>还是那句话，天下没有免费的午餐，添加字典减少了随机性，必然会缩小产生域名的数量，很快就会用完所有的域名。</p>
+<p>优点：非常难被封禁、很难通过逆向的方式解决掉恶意域名、耗费低(只需一台服务器和几个域名)。</p>
+<p>缺点：控制延迟很高、灵活度不足。</p>
+<h2 id="0x08-总结"><a href="#0x08-总结" class="headerlink" title="0x08 总结"></a>0x08 总结</h2><p>C&amp;C的设计与防御是目前攻防中很重要的一部分，围绕着C&amp;C，双方在攻防博弈中各显神通，完美的结合了机器学习、数据科学等知识，是非常有学习和研究价值的。</p>
+
+  </section>
+  <div class="copyright">
+    <span>文本标题:</span><a href="/2018/08/03/C-C控制服务思路浅析/" target="_blank">C&amp;C控制服务思路浅析</a><br />
+    <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
+    <span>发布时间:</span>2018-08-03 10:48:49<br />
+    <span>最后更新:</span>2018-08-03 10:49:45<br />
+    <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
+    <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
+  </div>
+</article>
+      <!-- footer panel -->
+      <footer class="footer">
+	<center>
+    <span class="footer__copyright">&copy; 2016-2017. | ❤ <a href="mailto:virink@outlook.com"> Virink </a> | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/virink/vhuno">vHuno</a></span>
+    <span>本站采用<i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"知识共享 署名-非商业性使用-禁止演绎 4.0 国际 许可协议"</a></span>
+    </center>
+</footer>
+    </div>
+  </div>
+  <!-- js files -->
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="/js/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/main.js"></script>
+  <script src="/js/scale.fix.js"></script>
+  <script src="/js/tagcloud.js"></script>
+  
+  
+	<script src="/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".fancybox").fancybox({
+	            padding: 0,
+	            helpers: {
+	                overlay: {
+	                  locked: false
+	                }
+	            }
+	        });
+		});
+	</script>
+
+  
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+    MathJax.Hub.Config({ 
+        tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+    });
+});
+    </script>
+
+  <script src="//cdn.bootcss.com/highlight.js/9.8.0/highlight.min.js"></script>
+  <script src="/js/gallery.js"></script>
+  <script>
+  $(document).ready(function(){
+    hljs.initHighlightingOnLoad();
+  });
+  </script>
+  
+  
+<div id="totop" style="position: fixed; bottom: 50px; right: 30px; cursor: pointer; opacity: 1;">
+	<a title="back to top"><img style="width:30px;height:30px;" src="/images/totop.png"></a>
+</div>
+<script>
+    (function($) {
+        var upperLimit = 100;
+        var scrollElem = $('#totop');
+        var scrollSpeed = 500;
+        scrollElem.hide();
+        $(window).scroll(function() {
+            var scrollTop = $(document).scrollTop();
+            if (scrollTop > upperLimit) {
+                $(scrollElem).stop().fadeTo(300, 1); // fade back in
+            } else {
+                $(scrollElem).stop().fadeTo(300, 0); // fade out
+            }
+        });
+        $(scrollElem).click(function() {
+            $('html, body').animate({
+                scrollTop: 0
+            }, scrollSpeed);
+            return false;
+        });
+    })(jQuery);
+    </script>
+
+
+  <!-- Analytics Google -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83885261-1', 'auto');
+  ga('send', 'pageview');
+</script>
+  
+    <script src="/js/jquery.githubRepoWidget.min.js"></script>
+
+  <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</body>
+</html>

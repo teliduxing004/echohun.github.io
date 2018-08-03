@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn15.png?raw=true">
 <meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn16.png?raw=true">
 <meta property="og:image" content="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn17.png?raw=true">
-<meta property="og:updated_time" content="2018-08-01T09:07:00.419Z">
+<meta property="og:updated_time" content="2018-08-02T00:57:54.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python-scikit learn学习(2) | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 scikit-learnScikit-learn（以前称为scikits.learn）是一个用于Python编程语言的免费开源机器学习库。它广泛地支持各种分类、聚类以及回归分析方法比如支持向量机、随机森林、DBSCAN等等，由于其强大的功能、优异的拓展性以及易用性，目前受到了很多数据科学从业者的欢迎，也是业界相当著名的一个开源项目之一。
@@ -82,7 +82,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 34</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 10</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/内网渗透/" class="tagc4">内网渗透 : 2</a><a href="/tags/shell/" class="tagc5">shell : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc1">逻辑处理漏洞 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/防御策略/" class="tagc4">防御策略 : 1</a><a href="/tags/nmap/" class="tagc5">nmap : 1</a>
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 34</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 10</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/代码审计/" class="tagc2">代码审计 : 2</a><a href="/tags/XSS/" class="tagc3">XSS : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc4">逻辑处理漏洞 : 2</a><a href="/tags/shell/" class="tagc5">shell : 2</a><a href="/tags/内网渗透/" class="tagc1">内网渗透 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/防御策略/" class="tagc4">防御策略 : 1</a><a href="/tags/网络协议/" class="tagc5">网络协议 : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -182,6 +182,7 @@
 <p>在这个程序中使用datasets中的make_classification方法产生拥有两个特征值的分类数据，然后就可以将两个特征值分别放在横轴和纵轴来观察数据分布</p>
 <p><img src="https://github.com/echohun/blog_image/blob/master/python_sklearn/sklearn10.png?raw=true" alt=""></p>
 <p>接着对比直接训练和标准化之后训练的精度，发现前后差距非常大。</p>
+<p>标准化还有一种常用的方式那就是将特征取值规定到一个范围（默认0-1），只需将最开始代码中标准化函数改为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">min_max_scaler = preprocessing.MinMaxScaler()</div><div class="line">X_MinMax = min_max_scaler.fit_transform(x_train)</div></pre></td></tr></table></figure></p>
 <h2 id="0x03-交叉验证"><a href="#0x03-交叉验证" class="headerlink" title="0x03 交叉验证"></a>0x03 交叉验证</h2><p>之前在机器学习的模型评估方法里面学过几种模型验证的方法，其中也提到了，学习器训练完成后仍然在训练集种测试实际上是一种错误的方法，因为这个学习器在自身的训练集上很容易得到一个很高的分数，但是对新样本无法预测出任何有用的信息，这种情况被称为过拟合。</p>
 <p>所以为了避免这种情况，我们一般在验证的时候会将样本分为训练集和测试集，在之前的博客（ <a href="http://next.uuzdaisuki.com/2018/07/24/机器学习-5-——模型评估方法/" target="_blank" rel="external">http://next.uuzdaisuki.com/2018/07/24/机器学习-5-——模型评估方法/</a> ）介绍了留数法、交叉验证法、自助法这几种方法来分割训练集与测试集。</p>
 <p>前面的程序我们大多使用train_test_split方法将样本分为两部分，也就是留数法，那么这里就使用sklearn实现交叉验证法。</p>
@@ -218,7 +219,7 @@
     <span>文本标题:</span><a href="/2018/08/01/python-scikit-learn学习-2/" target="_blank">python-scikit learn学习(2)</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
     <span>发布时间:</span>2018-08-01 17:06:38<br />
-    <span>最后更新:</span>2018-08-01 17:07:00<br />
+    <span>最后更新:</span>2018-08-02 08:57:54<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
