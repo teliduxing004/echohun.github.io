@@ -20,21 +20,21 @@
 <meta property="og:url" content="http://yoursite.com/2018/01/20/redis未授权访问漏洞/index.html">
 <meta property="og:site_name" content="Leticia‘s Blog">
 <meta property="og:description" content="0x00 redisRedis 是一个高性能的key-value数据库。它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis1.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis2.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis3.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis4.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis5.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis6.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis7.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis8.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis9.png">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis10.png">
-<meta property="og:updated_time" content="2018-04-26T15:16:14.522Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis7.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis10.png">
+<meta property="og:updated_time" content="2018-10-26T03:43:39.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis未授权访问漏洞 | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 redisRedis 是一个高性能的key-value数据库。它支持存储的value类型相对更多，包括string(字符串)、list(链表)、set(集合)、zset(sorted set –有序集合)和hash（哈希类型）。这些数据类型都支持push/pop、add/remove及取交集并集和差集及更丰富的操作，而且这些操作都是原子性的。在此基础上，redis支持各种不同方式的排序。">
-<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/redis/redis1.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis1.png">
 
   <!-- favicon icon files -->
 
@@ -78,7 +78,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 38</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 11</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 3</a><a href="/tags/ctf/" class="tagc1">ctf : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc3">逻辑处理漏洞 : 2</a><a href="/tags/内网渗透/" class="tagc4">内网渗透 : 2</a><a href="/tags/shell/" class="tagc5">shell : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/代码审计/" class="tagc2">代码审计 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/ssl/" class="tagc4">ssl : 1</a><a href="/tags/CSRF/" class="tagc5">CSRF : 1</a>
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 38</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 11</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/shell/" class="tagc4">shell : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc5">逻辑处理漏洞 : 2</a><a href="/tags/内网渗透/" class="tagc1">内网渗透 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/防御策略/" class="tagc4">防御策略 : 1</a><a href="/tags/ssl/" class="tagc5">ssl : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -153,11 +153,11 @@
 <h2 id="0x03-漏洞重现和利用"><a href="#0x03-漏洞重现和利用" class="headerlink" title="0x03 漏洞重现和利用"></a>0x03 漏洞重现和利用</h2><p>首先在靶机安装redis并且不设置密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install redis* -y</div></pre></td></tr></table></figure></p>
 <p>在靶机安装ssh服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install openssh</div></pre></td></tr></table></figure></p>
 <p>在靶机配置redis配置文件，注释掉ip限制，并且设置安全设置为no，使其可以在公网被访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /etc/redis.conf</div></pre></td></tr></table></figure></p>
-<p><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis1.png" alt="">  </p>
-<p><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis2.png" alt="">  </p>
-<p>重启redis服务<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis3.png" alt=""><br>测试是否在公网开启<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis4.png" alt=""><br>在靶机打开ssh服务<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis5.png" alt=""><br>在主机本地生成ssh公钥<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis6.png" alt=""><br>连接靶机redis服务，并利用redis未授权访问漏洞在目标服务器/root/.ssh文件夹的authotrized_keys写入刚才创建的ssh公钥<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis7.png" alt=""><br>利用本机的ssh私钥登陆靶机服务器<br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis8.png" alt="">  </p>
+<p><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis1.png" alt="">  </p>
+<p><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis2.png" alt="">  </p>
+<p>重启redis服务<br><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis3.png" alt=""><br>测试是否在公网开启<br><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis4.png" alt=""><br>在靶机打开ssh服务<br><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis5.png" alt=""><br>在主机本地生成ssh公钥<br><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis6.png" alt=""><br>连接靶机redis服务，并利用redis未授权访问漏洞在目标服务器/root/.ssh文件夹的authotrized_keys写入刚才创建的ssh公钥<br><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis7.png" alt=""><br>利用本机的ssh私钥登陆靶机服务器<br><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis8.png" alt="">  </p>
 <h2 id="0x04-使用openvas对该存在漏洞的系统进行扫描"><a href="#0x04-使用openvas对该存在漏洞的系统进行扫描" class="headerlink" title="0x04 使用openvas对该存在漏洞的系统进行扫描"></a>0x04 使用openvas对该存在漏洞的系统进行扫描</h2><p>通过openvas扫描靶机系统，可以得到以下结果：  </p>
-<p><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis9.png" alt=""><br><img src="http://oo3iot5oz.bkt.clouddn.com/redis/redis10.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis9.png" alt=""><br><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/redis/redis10.png" alt=""></p>
 <h2 id="0x05-危害"><a href="#0x05-危害" class="headerlink" title="0x05 危害"></a>0x05 危害</h2><ul>
 <li>数据库数据泄露<br>Redis 作为数据库，保存着各种各样的数据，如果存在未授权访问的情况，将会导致数据的泄露，其中包含保存的用户信息等。</li>
 <li>代码执行<br>Redis可以嵌套Lua脚本的特性将会导致代码执行, 危害同其他服务器端的代码执行<br>一旦攻击者能够在服务器端执行任意代码, 攻击方式将会变得多且复杂, 这是非常危险的。<br>通过Lua代码攻击者可以调用 redis.sha1hex() 函数，恶意利用 Redis 服务器进行 SHA-1 的破解。</li>
@@ -176,7 +176,7 @@
     <span>文本标题:</span><a href="/2018/01/20/redis未授权访问漏洞/" target="_blank">redis未授权访问漏洞</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
     <span>发布时间:</span>2018-01-20 18:57:01<br />
-    <span>最后更新:</span>2018-04-26 23:16:14<br />
+    <span>最后更新:</span>2018-10-26 11:43:39<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>

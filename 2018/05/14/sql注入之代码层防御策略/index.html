@@ -26,15 +26,15 @@
 0x01 代码层防御在易受sql注入攻击的应用程序开发过程中，如果我们在代码里面进行一些合理的过滤和安全措施，就可以防范绝大多数的sql注入。
 0x02 参数化语句引发sql注入最根本的原因是将sql语句创建成字符串发送给数据库，即动态sql。
 而现在大多数程序在访问数据库">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/sql_defense/SQL%20defense01.png">
-<meta property="og:updated_time" content="2018-05-14T14:47:59.186Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/sql_defense/SQL%20defense01.png">
+<meta property="og:updated_time" content="2018-10-26T03:31:04.457Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql注入之代码层防御策略 | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 前言之前写sql注入的博客都是站在攻击者角度上的，这次站在防御方的角度上，总结一下代码层防御sql注入的一些方法。
 0x01 代码层防御在易受sql注入攻击的应用程序开发过程中，如果我们在代码里面进行一些合理的过滤和安全措施，就可以防范绝大多数的sql注入。
 0x02 参数化语句引发sql注入最根本的原因是将sql语句创建成字符串发送给数据库，即动态sql。
 而现在大多数程序在访问数据库">
-<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/sql_defense/SQL%20defense01.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/sql_defense/SQL%20defense01.png">
 
   <!-- favicon icon files -->
 
@@ -78,7 +78,7 @@
         
 
   <div id="tagscloud">
-<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 38</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 11</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 3</a><a href="/tags/ctf/" class="tagc1">ctf : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc3">逻辑处理漏洞 : 2</a><a href="/tags/内网渗透/" class="tagc4">内网渗透 : 2</a><a href="/tags/shell/" class="tagc5">shell : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/代码审计/" class="tagc2">代码审计 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/ssl/" class="tagc4">ssl : 1</a><a href="/tags/CSRF/" class="tagc5">CSRF : 1</a>
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 38</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 11</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/shell/" class="tagc4">shell : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc5">逻辑处理漏洞 : 2</a><a href="/tags/内网渗透/" class="tagc1">内网渗透 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/防御策略/" class="tagc4">防御策略 : 1</a><a href="/tags/ssl/" class="tagc5">ssl : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -172,7 +172,7 @@
 <p>但是为什么还要提他呢？因为在很多情况，如果我们过滤十分严格，输入一些敏感参数的人并不一定都是攻击者，这个时候每条语句都拿到后端判断然后跳转十分浪费时间，所以在前端给出一定的限制和提示，就能提升正常用户的体验。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;text&quot; required=&quot;required&quot; patter=&quot;^[a-zA-Z\d]*&quot; ...&gt;</div></pre></td></tr></table></figure></p>
 <h2 id="0x07-编码输出"><a href="#0x07-编码输出" class="headerlink" title="0x07 编码输出"></a>0x07 编码输出</h2><p>我们都清楚，白名单过滤要比黑名单过滤安全的多，在能使用白名单的时候尽量使用白名单，但是很多时候业务需求不能让我们使用白名单，这个时候我们就要使用黑名单结合编码的方式，提升安全性。</p>
 <p>我对其他几个语言不是非常熟悉，这里就只介绍一下php的编码函数。</p>
-<p><img src="http://oo3iot5oz.bkt.clouddn.com/sql_defense/SQL%20defense01.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/sql_defense/SQL%20defense01.png" alt=""></p>
 <p>这些编码函数，能够将允许范围内的违法字符编码后再存入数据库，能一定程度的防止我们构造语句逃逸，提升了安全性。</p>
 <p>但是这些函数没有用对，仍然会出现一些问题，接下来我分享一下上图中我所了解的一些编码函数会存在的安全问题：</p>
 <ul>
@@ -192,7 +192,7 @@
     <span>文本标题:</span><a href="/2018/05/14/sql注入之代码层防御策略/" target="_blank">sql注入之代码层防御策略</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
     <span>发布时间:</span>2018-05-14 22:47:07<br />
-    <span>最后更新:</span>2018-05-14 22:47:59<br />
+    <span>最后更新:</span>2018-10-26 11:31:04<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>

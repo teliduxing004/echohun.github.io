@@ -24,14 +24,14 @@ XML声明即是位于XML文档开始部分的第一行，规定了xml版本和�
 <meta property="og:description" content="0x00 XMLXML是可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言，与HTML的不同在于XML被设计用来传输和存储数据而HTML被设计用来显示数据。
 XML文档结构包括XML声明、DTD文档类型定义（可选）、文档元素。
 XML声明即是位于XML文档开始部分的第一行，规定了xml版本和编码格式。1&amp;lt;?xml version=&quot;1.0&quot; encodin">
-<meta property="og:image" content="http://oo3iot5oz.bkt.clouddn.com/xxe01.jpg">
-<meta property="og:updated_time" content="2018-05-03T07:32:37.234Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/xxe01.jpg">
+<meta property="og:updated_time" content="2018-10-26T03:33:13.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈XXE漏洞 | Leticia‘s Blog">
 <meta name="twitter:description" content="0x00 XMLXML是可扩展标记语言，标准通用标记语言的子集，是一种用于标记电子文件使其具有结构性的标记语言，与HTML的不同在于XML被设计用来传输和存储数据而HTML被设计用来显示数据。
 XML文档结构包括XML声明、DTD文档类型定义（可选）、文档元素。
 XML声明即是位于XML文档开始部分的第一行，规定了xml版本和编码格式。1&amp;lt;?xml version=&quot;1.0&quot; encodin">
-<meta name="twitter:image" content="http://oo3iot5oz.bkt.clouddn.com/xxe01.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/echohun/blog_image/master/backup/xxe01.jpg">
 
   <!-- favicon icon files -->
 
@@ -75,7 +75,7 @@ XML声明即是位于XML文档开始部分的第一行，规定了xml版本和�
         
 
   <div id="tagscloud">
-<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 38</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 11</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/网络安全/" class="tagc2">网络安全 : 5</a><a href="/tags/sql注入/" class="tagc3">sql注入 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/文件上传/" class="tagc5">文件上传 : 3</a><a href="/tags/ctf/" class="tagc1">ctf : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc3">逻辑处理漏洞 : 2</a><a href="/tags/内网渗透/" class="tagc4">内网渗透 : 2</a><a href="/tags/shell/" class="tagc5">shell : 2</a><a href="/tags/密码学/" class="tagc1">密码学 : 2</a><a href="/tags/代码审计/" class="tagc2">代码审计 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/ssl/" class="tagc4">ssl : 1</a><a href="/tags/CSRF/" class="tagc5">CSRF : 1</a>
+<a href="/tags/渗透测试/" class="tagc1">渗透测试 : 38</a><a href="/tags/笔记/" class="tagc2">笔记 : 14</a><a href="/tags/python/" class="tagc3">python : 13</a><a href="/tags/机器学习/" class="tagc4">机器学习 : 11</a><a href="/tags/php/" class="tagc5">php : 10</a><a href="/tags/mysql/" class="tagc1">mysql : 7</a><a href="/tags/sql注入/" class="tagc2">sql注入 : 5</a><a href="/tags/网络安全/" class="tagc3">网络安全 : 5</a><a href="/tags/暴力破解/" class="tagc4">暴力破解 : 4</a><a href="/tags/ctf/" class="tagc5">ctf : 3</a><a href="/tags/文件上传/" class="tagc1">文件上传 : 3</a><a href="/tags/XSS/" class="tagc2">XSS : 2</a><a href="/tags/代码审计/" class="tagc3">代码审计 : 2</a><a href="/tags/shell/" class="tagc4">shell : 2</a><a href="/tags/逻辑处理漏洞/" class="tagc5">逻辑处理漏洞 : 2</a><a href="/tags/内网渗透/" class="tagc1">内网渗透 : 2</a><a href="/tags/密码学/" class="tagc2">密码学 : 2</a><a href="/tags/硬件安全/" class="tagc3">硬件安全 : 2</a><a href="/tags/防御策略/" class="tagc4">防御策略 : 1</a><a href="/tags/ssl/" class="tagc5">ssl : 1</a>
 </div>
 
         <div class="navigation-wrapper">
@@ -177,7 +177,7 @@ XML声明即是位于XML文档开始部分的第一行，规定了xml版本和�
 <h2 id="0x03-XXE环境搭建"><a href="#0x03-XXE环境搭建" class="headerlink" title="0x03 XXE环境搭建"></a>0x03 XXE环境搭建</h2><p>我们新建一个存在xxe漏洞的index.php，写入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">$xml=simplexml_load_string($_POST[&apos;xml&apos;]);</div><div class="line">print_r($xml);</div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
 <p>我们尝试一个正常使用的例子，在firefox的hackbar插件中传入数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">xml=&lt;note&gt;</div><div class="line">&lt;to&gt;Tove&lt;/to&gt;</div><div class="line">&lt;from&gt;Jani&lt;/from&gt;</div><div class="line">&lt;heading&gt;Reminder&lt;/heading&gt;</div><div class="line">&lt;body&gt;Don&apos;t forget me this weekend!&lt;/body&gt;</div><div class="line">&lt;/note&gt;</div></pre></td></tr></table></figure></p>
 <p>可以得到回显：</p>
-<p><img src="http://oo3iot5oz.bkt.clouddn.com/xxe01.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/echohun/blog_image/master/backup/xxe01.jpg" alt=""></p>
 <p>此时，我们的环境搭建完成。</p>
 <h2 id="0x04-恶意代码的利用方式"><a href="#0x04-恶意代码的利用方式" class="headerlink" title="0x04 恶意代码的利用方式"></a>0x04 恶意代码的利用方式</h2><p>我们上面已经说过引用实体的方式，我们这里可以采用这几种方式在hackbar的post中写入恶意代码：</p>
 <ul>
@@ -213,7 +213,7 @@ XML声明即是位于XML文档开始部分的第一行，规定了xml版本和�
     <span>文本标题:</span><a href="/2018/05/03/浅谈XXE漏洞/" target="_blank">浅谈XXE漏洞</a><br />
     <span>文章作者:</span><a href="/" title="回到主页" target="_blank">麻薯</a><br />
     <span>发布时间:</span>2018-05-03 15:30:04<br />
-    <span>最后更新:</span>2018-05-03 15:32:37<br />
+    <span>最后更新:</span>2018-10-26 11:33:13<br />
     <span>原始链接:</span><a href="http://www.uuzdaisuki.com">www.uuzdaisuki.com</a><br />
     <span>转载声明:</span><i class="fa fa-creative-commons"></i>转载请保留原文链接及作者。
   </div>
